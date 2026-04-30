@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "api/argue.js": {
-      "runtime": "@vercel/node"
-    }
-  },
   "rewrites": [
     { "source": "/api/argue", "destination": "/api/argue.js" }
   ]
