@@ -294,7 +294,7 @@ export default async function handler(req, res) {
     }
 
     // 呼叫 Gemini API
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
 
     // 把 messages 轉成 Gemini 格式
     const contents = [
