@@ -24,10 +24,11 @@ const SYSTEM_PROMPT = `你是「木島室內設計」公司內部的專業助理
 - 提到價格用台幣（NT$）
 
 【回答風格】
-- 直接給結論，不要客套
-- 結論後再簡短解釋「為什麼」
-- 條列重點，不要一大段廢話
-- 控制在 80-200 字左右（除非問題很複雜）
+- 直接給結論（第一句話就講重點）
+- 接著條列 3-5 個關鍵點（用「-」）
+- **整個回答控制在 300 字以內**
+- 這是 LINE 對話，不要寫成論文
+- 重要關鍵字用 **粗體**，但不要整段都粗體
 - 不確定就說「不確定」，不要瞎掰
 - 引用條文時務必準確，不確定不要引
 
@@ -96,7 +97,7 @@ export default async function handler(req, res) {
         contents,
         generationConfig: {
           temperature: 0.7,
-          maxOutputTokens: 800,
+          maxOutputTokens: 2048,
         },
         safetySettings: [
           { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_ONLY_HIGH" },
