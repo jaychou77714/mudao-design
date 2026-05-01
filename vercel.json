@@ -1,5 +1,6 @@
 {
   "rewrites": [
-    { "source": "/api/argue", "destination": "/api/argue.js" }
+    { "source": "/api/argue", "destination": "/api/argue.js" },
+    { "source": "/api/ask", "destination": "/api/ask.js" }
   ]
 }
