@@ -217,7 +217,7 @@ async function cloudLoadProjects(currentUser, allUsers, devMode = true) {
       }
     }
 
-    const projects = Array.from(seen.values()).map(x =>({ ...x.project, _lastSyncedAt: x.updatedAt });
+    const projects = Array.from(seen.values()).map(x => ({ ...x.project, _lastSyncedAt: x.updatedAt }));
     return projects.filter(p => canSeeProject(currentUser, p, devMode));
   } catch (e) { console.error("雲端載入失敗:", e); return []; }
 }
