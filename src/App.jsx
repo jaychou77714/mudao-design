@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v69.7";
+const APP_VERSION = "v70.0";
 const APP_RELEASE_DATE = "2026-05-04";
 
 const PROPOSAL_IMG = "data:image/jpeg;base64,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";
@@ -1471,6 +1471,50 @@ function getUpcomingWorks(p, daysAhead = 7) {
   // 按 daysLeft 由近到遠排序
   results.sort((a, b) => a.daysLeft - b.daysLeft);
   return results;
+}
+
+// v70：取得「跟我相關 + 留言板有未讀」的案件清單
+function getProjectsWithUnreadComments(projects, currentUser) {
+  const myName = currentUser?.name;
+  const myEmail = currentUser?.email;
+  if (!myName || !myEmail) return [];
+  const related = projects.filter(p =>
+    p.stage !== "完工" && (
+      p.designer === myName ||
+      p.assistant === myName ||
+      p.projectManager === myName ||
+      p.siteManager === myName
+    )
+  );
+  const result = [];
+  for (const p of related) {
+    const comments = p.comments || [];
+    if (comments.length === 0) continue;
+    const lastReadKey = `commentsLastRead_${myEmail}_${p.id}`;
+    let lastRead;
+    try { lastRead = localStorage.getItem(lastReadKey); } catch {}
+    if (!lastRead) lastRead = "1970-01-01T00:00:00.000Z";
+    const unread = comments.filter(c =>
+      c.type === "comment" &&
+      c.authorEmail !== myEmail &&
+      new Date(c.createdAt) > new Date(lastRead)
+    );
+    if (unread.length === 0) continue;
+    const mentionedUnread = unread.filter(c => (c.mentions || []).includes(myName));
+    const latestComment = unread[unread.length - 1];
+    result.push({
+      project: p,
+      unreadCount: unread.length,
+      mentionedCount: mentionedUnread.length,
+      latestComment,
+    });
+  }
+  // 排序：有被 @ 的優先，然後按最新留言時間倒序
+  result.sort((a, b) => {
+    if ((b.mentionedCount > 0) !== (a.mentionedCount > 0)) return (b.mentionedCount > 0) - (a.mentionedCount > 0);
+    return new Date(b.latestComment.createdAt) - new Date(a.latestComment.createdAt);
+  });
+  return result;
 }
 
 // 找某分類最早的開始日期 / 最晚的結束日期
@@ -5339,8 +5383,20 @@ function ProjectCommentsModal({ project, currentUser, onClose, onUpdate }) {
     return false;
   })();
 
+  // v70：該案件可互相 tag 的相關人員（designer / assistant / projectManager / siteManager）
+  const relatedUsers = (() => {
+    const names = new Set();
+    [project.designer, project.assistant, project.projectManager, project.siteManager]
+      .filter(Boolean).forEach(n => names.add(n));
+    names.delete(currentUser?.name); // 不能 tag 自己
+    return Array.from(names);
+  })();
+  const [mentionPickerOpen, setMentionPickerOpen] = useState(false);
+
   const sendComment = () => {
     if (!input.trim() || !canPostComment) return;
+    // v70：從 input 解析 @姓名（從 relatedUsers 找匹配）
+    const mentions = relatedUsers.filter(name => input.includes(`@${name}`));
     const newComment = {
       id: Date.now() + Math.random(),
       type: "comment",
@@ -5349,6 +5405,7 @@ function ProjectCommentsModal({ project, currentUser, onClose, onUpdate }) {
       authorRole: currentUser.role,
       content: input.trim(),
       createdAt: new Date().toISOString(),
+      mentions,
     };
     onUpdate({ ...project, comments: [...comments, newComment] });
     setInput("");
@@ -5448,15 +5505,37 @@ function ProjectCommentsModal({ project, currentUser, onClose, onUpdate }) {
               );
             }
             const isOwn = item.authorEmail === currentUser?.email;
+            // v70：判斷我是否被 @
+            const iAmMentioned = (item.mentions || []).includes(currentUser?.name);
+            // v70：把 @姓名 渲染為藍色高亮
+            const renderContent = (text) => {
+              if (!text) return text;
+              const allNames = [project.designer, project.assistant, project.projectManager, project.siteManager].filter(Boolean);
+              if (allNames.length === 0) return text;
+              // 用 regex 切分，名字按長度排序避免短名匹配長名
+              const sorted = [...allNames].sort((a, b) => b.length - a.length);
+              const pattern = new RegExp(`@(${sorted.map(n => n.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\\\$&")).join("|")})`, "g");
+              const parts = [];
+              let lastIdx = 0;
+              let m;
+              while ((m = pattern.exec(text)) !== null) {
+                if (m.index > lastIdx) parts.push(text.slice(lastIdx, m.index));
+                parts.push(<span key={m.index} style={{ color: "#5b8af0", fontWeight: 700, background: "rgba(91,138,240,0.12)", padding: "0 3px", borderRadius: 3 }}>@{m[1]}</span>);
+                lastIdx = m.index + m[0].length;
+              }
+              if (lastIdx < text.length) parts.push(text.slice(lastIdx));
+              return parts.length ? parts : text;
+            };
             return (
               <div key={item.id} style={{ marginBottom: 10, display: "flex", flexDirection: "column", alignItems: isOwn ? "flex-end" : "flex-start" }}>
                 <div style={{ fontSize: 10, color: "#666", marginBottom: 3, padding: "0 4px" }}>
                   {item.authorName} · {fmtTime(item.createdAt)}
+                  {iAmMentioned && <span style={{ color: "#e05b5b", fontWeight: 700, marginLeft: 6 }}>· 你被標註 🔔</span>}
                 </div>
                 <div style={{ position: "relative", maxWidth: "85%" }}>
                   <div style={{
-                    background: isOwn ? "rgba(91,138,240,0.15)" : "rgba(255,255,255,0.05)",
-                    border: `1px solid ${isOwn ? "rgba(91,138,240,0.3)" : "rgba(255,255,255,0.08)"}`,
+                    background: iAmMentioned ? "rgba(224,91,91,0.1)" : (isOwn ? "rgba(91,138,240,0.15)" : "rgba(255,255,255,0.05)"),
+                    border: `1px solid ${iAmMentioned ? "rgba(224,91,91,0.5)" : (isOwn ? "rgba(91,138,240,0.3)" : "rgba(255,255,255,0.08)")}`,
                     borderRadius: 10,
                     padding: "8px 12px",
                     fontSize: 13,
@@ -5465,7 +5544,7 @@ function ProjectCommentsModal({ project, currentUser, onClose, onUpdate }) {
                     wordBreak: "break-word",
                     lineHeight: 1.5,
                   }}>
-                    {item.content}
+                    {renderContent(item.content)}
                   </div>
                   {isOwn && (
                     <button onClick={() => deleteComment(item.id)} title="刪除"
@@ -5491,10 +5570,36 @@ function ProjectCommentsModal({ project, currentUser, onClose, onUpdate }) {
                 ))}
               </div>
             )}
+            {/* v70：@ 標註人選單 */}
+            {mentionPickerOpen && (
+              <div style={{ marginBottom: 8, padding: 8, background: "rgba(91,138,240,0.06)", border: "1px solid rgba(91,138,240,0.3)", borderRadius: 8 }}>
+                <div style={{ fontSize: 11, color: "#5b8af0", fontWeight: 700, marginBottom: 6 }}>標註本案件相關人員</div>
+                {relatedUsers.length === 0 ? (
+                  <div style={{ fontSize: 11, color: "#666", padding: "4px 0" }}>本案件沒有其他相關人員可標註</div>
+                ) : (
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                    {relatedUsers.map(name => (
+                      <button key={name} onClick={() => {
+                          setInput(prev => `${prev}${prev && !prev.endsWith(" ") ? " " : ""}@${name} `);
+                          setMentionPickerOpen(false);
+                          setTimeout(() => inputRef.current?.focus(), 50);
+                        }}
+                        style={{ background: "rgba(91,138,240,0.15)", border: "1px solid rgba(91,138,240,0.4)", borderRadius: 6, padding: "4px 10px", color: "#5b8af0", fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
+                        @{name}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
             <div style={{ display: "flex", gap: 6, alignItems: "flex-end" }}>
               <button onClick={() => setEmojiOpen(!emojiOpen)} title="選 emoji"
                 style={{ background: emojiOpen ? "rgba(192,132,245,0.2)" : "rgba(255,255,255,0.05)", border: "1px solid rgba(192,132,245,0.3)", borderRadius: 6, padding: "6px 8px", color: "#c084f5", fontSize: 14, cursor: "pointer", flexShrink: 0 }}>
                 😊
+              </button>
+              <button onClick={() => setMentionPickerOpen(!mentionPickerOpen)} title="標註人員"
+                style={{ background: mentionPickerOpen ? "rgba(91,138,240,0.2)" : "rgba(255,255,255,0.05)", border: "1px solid rgba(91,138,240,0.3)", borderRadius: 6, padding: "6px 8px", color: "#5b8af0", fontSize: 14, fontWeight: 700, cursor: "pointer", flexShrink: 0 }}>
+                @
               </button>
               <textarea ref={inputRef} value={input}
                 onChange={e => setInput(e.target.value)}
@@ -6021,6 +6126,10 @@ export default function App() {
   const [progressPastExpanded, setProgressPastExpanded] = useState(false);
   // v69.2：新增工程時的工種選擇器是否展開
   const [showCatPicker, setShowCatPicker] = useState(false);
+  // v70：留言板 TAG 通知中心
+  const [showTagNotificationModal, setShowTagNotificationModal] = useState(false);
+  // v70：用 tick 強制每次打開首頁/Modal 時重新計算未讀（因為 localStorage 更新不會觸發 re-render）
+  const [tagNotifTick, setTagNotifTick] = useState(0);
 
   // form state
   const [form, setForm] = useState(EMPTY_PROJECT);
@@ -6393,8 +6502,16 @@ export default function App() {
 
   // 垃圾場操作
   async function moveToTrash(project) {
+    // v70：丟垃圾場必填理由
+    const reason = window.prompt(`確定把「${project.name}」丟進垃圾場？\n\n請填寫理由（必填）：`, "");
+    if (reason === null) return; // 按取消
+    const trimmed = (reason || "").trim();
+    if (!trimmed) {
+      alert("⚠️ 必須填寫丟棄理由");
+      return;
+    }
     const year = new Date().getFullYear();
-    const trashItem = { ...project, trashedAt: new Date().toISOString(), trashedYear: year };
+    const trashItem = { ...project, trashedAt: new Date().toISOString(), trashedYear: year, trashReason: trimmed };
     setTrashProjects(prev => [trashItem, ...prev]);
     setProjects(projects.filter(p => p.id !== project.id));
     setModal(null);
@@ -6403,7 +6520,7 @@ export default function App() {
   }
 
   async function reviveFromTrash(trashItem) {
-    const { trashedAt, trashedYear, ...project } = trashItem;
+    const { trashedAt, trashedYear, trashReason, ...project } = trashItem;
     // v54：救回案件時保留原 ownerEmail（不要改成 currentUser）
     const revived = { ...project, id: Date.now(), ownerEmail: project.ownerEmail || currentUser.email };
     setProjects(prev => [revived, ...prev]);
@@ -6860,7 +6977,7 @@ export default function App() {
               {/* 第一行：晚安 + 需追蹤 + 天氣 */}
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6, flexWrap: "wrap", gap: 8 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13, color: "#f0ead8", flexWrap: "wrap" }}>
-                  <span style={{ fontWeight: 600 }}>{greeting.emoji} {greeting.text}，{currentUser.name}</span>
+                  <span onClick={() => setShowPersonalModal(true)} style={{ fontWeight: 600, cursor: "pointer", textDecoration: "underline", textDecorationColor: "rgba(192,132,245,0.4)", textUnderlineOffset: 3 }} title="點擊開個人中心">{greeting.emoji} {greeting.text}，{currentUser.name}</span>
                   {trackingTotal > 0 && (
                     <button onClick={() => setShowTrackingModal(true)}
                       style={{ background: "rgba(240,168,80,0.15)", border: "1px solid rgba(240,168,80,0.4)", borderRadius: 6, padding: "2px 8px", color: "#f0a850", fontSize: 11, fontWeight: 700, cursor: "pointer" }}>
@@ -7050,9 +7167,47 @@ export default function App() {
           </button>
         )}
 
-        {/* v45：設計語錄已移除 */}
+        {/* v70：留言板 TAG 通知入口（有未讀紅光，無未讀灰色） */}
+        {(() => {
+          const items = getProjectsWithUnreadComments(allVisibleProjects, currentUser);
+          const totalUnread = items.reduce((s, it) => s + it.unreadCount, 0);
+          const totalMentioned = items.reduce((s, it) => s + it.mentionedCount, 0);
+          const hasUnread = totalUnread > 0;
+          return (
+            <button onClick={() => { setTagNotifTick(t => t + 1); setShowTagNotificationModal(true); }}
+              style={{
+                width: "100%",
+                background: hasUnread ? "rgba(224,91,91,0.15)" : "rgba(91,138,240,0.06)",
+                border: `1px solid ${hasUnread ? "rgba(224,91,91,0.5)" : "rgba(91,138,240,0.25)"}`,
+                borderRadius: 10,
+                padding: "10px 14px",
+                fontSize: 13,
+                color: hasUnread ? "#e05b5b" : "#5b8af0",
+                fontWeight: 700,
+                cursor: "pointer",
+                marginBottom: 8,
+                animation: hasUnread ? "pulse 2s infinite" : "none",
+                boxShadow: hasUnread ? "0 0 18px rgba(224,91,91,0.4)" : "none",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
+              }}>
+              {hasUnread ? (
+                <>
+                  <span>🔴 各案件留言板 TAG 通知（重要）— 儘速查看</span>
+                  <span style={{ fontSize: 11, background: "rgba(224,91,91,0.3)", border: "1px solid rgba(224,91,91,0.5)", borderRadius: 5, padding: "1px 6px" }}>
+                    {totalMentioned > 0 ? `🔔 @${totalMentioned} · ` : ""}{totalUnread} 則
+                  </span>
+                </>
+              ) : (
+                <span>📬 各案件留言板 TAG 通知 — 暫時無新留言</span>
+              )}
+            </button>
+          );
+        })()}
 
-        {/* 公告跑馬燈 */}
+        {/* v70：公告跑馬燈（從原位移到 TAG 通知下方） */}
         {(() => {
           if (announcements.length === 0) {
             return (
@@ -7074,14 +7229,12 @@ export default function App() {
           const text = `📢 有新公告！「${latest.title}」· 請前往公告欄查看 · 📢 有新公告！「${latest.title}」· 請前往公告欄查看 · `;
           return (
             <div onClick={() => {
-              setTab("公告");
-              setAnnMarqueeRead(latestId);
-              try { localStorage.setItem("mudao_ann_read_id", latestId); } catch {}
-            }} style={{
-              marginTop: 8, background: "rgba(91,138,240,0.1)", border: "1px solid rgba(91,138,240,0.3)",
-              borderRadius: 10, padding: "8px 0", overflow: "hidden", cursor: "pointer",
-            }}>
-              <span className="marquee-text" style={{ fontSize: 12, color: "#5b8af0", fontWeight: 600, paddingLeft: "100%" }}>
+                setTab("公告");
+                setAnnMarqueeRead(latestId);
+                try { localStorage.setItem("mudao_ann_read_id", latestId); } catch {}
+              }}
+              style={{ marginTop: 8, background: "rgba(240,208,80,0.08)", border: "1px solid rgba(240,208,80,0.4)", borderRadius: 10, padding: "8px 12px", overflow: "hidden", cursor: "pointer", whiteSpace: "nowrap" }}>
+              <span style={{ fontSize: 12, color: "#f0d050", fontWeight: 600, display: "inline-block", animation: "marquee 20s linear infinite" }}>
                 {text}
               </span>
             </div>
@@ -7132,156 +7285,8 @@ export default function App() {
 
         {tab === "home" && (
           <div className="fade-up">
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 20 }}>
-              {STAGES.map(s => {
-                const count = stageProjects(s).length;
-                const svgBgs = {
-                  "提案中": (
-                    <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.15 }} viewBox="0 0 160 120" preserveAspectRatio="xMidYMid slice">
-                      <rect x="20" y="15" width="120" height="90" rx="4" fill="none" stroke="#f0a850" strokeWidth="1"/>
-                      <line x1="20" y1="38" x2="140" y2="38" stroke="#f0a850" strokeWidth="0.5"/>
-                      <line x1="20" y1="60" x2="140" y2="60" stroke="#f0a850" strokeWidth="0.5"/>
-                      <line x1="60" y1="15" x2="60" y2="105" stroke="#f0a850" strokeWidth="0.5"/>
-                      <line x1="100" y1="15" x2="100" y2="105" stroke="#f0a850" strokeWidth="0.5"/>
-                      <rect x="25" y="44" width="28" height="10" rx="2" fill="#f0a850"/>
-                      <rect x="65" y="44" width="28" height="10" rx="2" fill="#f0a850" opacity="0.5"/>
-                      <circle cx="130" cy="49" r="10" fill="none" stroke="#f0a850" strokeWidth="1.5"/>
-                      <line x1="126" y1="49" x2="134" y2="49" stroke="#f0a850" strokeWidth="1.5"/>
-                      <line x1="130" y1="45" x2="130" y2="53" stroke="#f0a850" strokeWidth="1.5"/>
-                    </svg>
-                  ),
-                  "已簽約": (
-                    <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.15 }} viewBox="0 0 160 120" preserveAspectRatio="xMidYMid slice">
-                      <rect x="15" y="20" width="130" height="80" rx="6" fill="none" stroke="#5b8af0" strokeWidth="1"/>
-                      <line x1="15" y1="42" x2="145" y2="42" stroke="#5b8af0" strokeWidth="0.5"/>
-                      <rect x="25" y="52" width="55" height="5" rx="2" fill="#5b8af0"/>
-                      <rect x="25" y="64" width="85" height="5" rx="2" fill="#5b8af0" opacity="0.5"/>
-                      <rect x="25" y="76" width="65" height="5" rx="2" fill="#5b8af0" opacity="0.3"/>
-                      <path d="M115 60 L125 72 L148 44" stroke="#5b8af0" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-                    </svg>
-                  ),
-                  "施工中": (
-                    <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.15 }} viewBox="0 0 160 120" preserveAspectRatio="xMidYMid slice">
-                      <rect x="25" y="75" width="22" height="35" fill="#50c878"/>
-                      <rect x="53" y="55" width="22" height="55" fill="#50c878" opacity="0.8"/>
-                      <rect x="81" y="40" width="22" height="70" fill="#50c878" opacity="0.9"/>
-                      <rect x="109" y="60" width="22" height="50" fill="#50c878" opacity="0.7"/>
-                      <line x1="15" y1="75" x2="145" y2="75" stroke="#50c878" strokeWidth="0.8"/>
-                    </svg>
-                  ),
-                  "完工": (
-                    <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.15 }} viewBox="0 0 160 120" preserveAspectRatio="xMidYMid slice">
-                      <rect x="20" y="25" width="120" height="70" rx="4" fill="#a0a0a0" opacity="0.2"/>
-                      <rect x="35" y="40" width="38" height="38" rx="3" fill="#a0a0a0" opacity="0.3"/>
-                      <rect x="82" y="40" width="50" height="16" rx="2" fill="#a0a0a0" opacity="0.4"/>
-                      <rect x="82" y="62" width="35" height="10" rx="2" fill="#a0a0a0" opacity="0.2"/>
-                      <circle cx="54" cy="59" r="14" fill="none" stroke="#a0a0a0" strokeWidth="1.5"/>
-                      <path d="M47 59 L53 65 L62 51" stroke="#a0a0a0" strokeWidth="2" fill="none" strokeLinecap="round"/>
-                    </svg>
-                  ),
-                };
-
-                return (
-                  <div key={s} onClick={() => setTab(s)} className="glass-stat" style={{ borderRadius: 16, padding: "14px 16px", position: "relative", overflow: "hidden", minHeight: 90 }}>
-                    {/* 提案中/已簽約用照片背景，其他用 SVG */}
-                    {s === "提案中" ? (
-                      <>
-                        <div style={{ position: "absolute", inset: 0, backgroundImage: `url(${PROPOSAL_IMG})`, backgroundSize: "cover", backgroundPosition: "center", opacity: 0.25 }} />
-                        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(10,9,8,0.6), rgba(10,9,8,0.3))" }} />
-                      </>
-                    ) : s === "已簽約" ? (
-                      <>
-                        <div style={{ position: "absolute", inset: 0, backgroundImage: `url(${SIGNED_IMG})`, backgroundSize: "cover", backgroundPosition: "center", opacity: 0.25 }} />
-                        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(10,9,8,0.6), rgba(10,9,8,0.3))" }} />
-                      </>
-                    ) : s === "施工中" ? (
-                      <>
-                        <div style={{ position: "absolute", inset: 0, backgroundImage: `url(${CONSTRUCTION_IMG})`, backgroundSize: "cover", backgroundPosition: "center", opacity: 0.25 }} />
-                        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(10,9,8,0.6), rgba(10,9,8,0.3))" }} />
-                      </>
-                    ) : s === "完工" ? (
-                      <>
-                        <div style={{ position: "absolute", inset: 0, backgroundImage: `url(${COMPLETE_IMG})`, backgroundSize: "cover", backgroundPosition: "center", opacity: 0.25 }} />
-                        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(10,9,8,0.6), rgba(10,9,8,0.3))" }} />
-                      </>
-                    ) : svgBgs[s]}
-                    <div style={{ position: "relative", zIndex: 1 }}>
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
-                        <div style={{ fontSize: 34, fontWeight: 700, color: STAGE_COLORS[s], lineHeight: 1 }}>{count}</div>
-                        <div style={{ fontSize: 11, color: STAGE_COLORS[s], background: `${STAGE_COLORS[s]}18`, border: `1px solid ${STAGE_COLORS[s]}33`, borderRadius: 6, padding: "2px 7px" }}>{s}</div>
-                      </div>
-                      <div style={{ fontSize: 10, color: "#444" }}>
-                        {count === 0 ? "尚無案件" : `共 ${count} 件進行中`}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-
-              {/* 垃圾場卡片 */}
-              <div onClick={() => setTab("垃圾場")} className="glass-stat" style={{ borderRadius: 16, padding: "14px 16px", position: "relative", overflow: "hidden", minHeight: 90 }}>
-                <div style={{ position: "absolute", inset: 0, backgroundImage: `url(${TRASH_IMG})`, backgroundSize: "cover", backgroundPosition: "center", opacity: 0.25 }} />
-                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(10,9,8,0.6), rgba(10,9,8,0.3))" }} />
-                <div style={{ position: "relative", zIndex: 1 }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
-                    <div style={{ fontSize: 34, fontWeight: 700, color: "#e05b5b", lineHeight: 1 }}>{allVisibleTrash.length}</div>
-                    <div style={{ fontSize: 11, color: "#e05b5b", background: "rgba(224,91,91,0.1)", border: "1px solid rgba(224,91,91,0.2)", borderRadius: 6, padding: "2px 7px" }}>垃圾場</div>
-                  </div>
-                  <div style={{ fontSize: 10, color: "#444" }}>
-                    {allVisibleTrash.length === 0 ? "保持清空！" : `共 ${allVisibleTrash.length} 件流失`}
-                  </div>
-                </div>
-              </div>
-
-              {/* v55：個人中心卡片（第 6 格） */}
-              <div onClick={() => setShowPersonalModal(true)} className="glass-stat" style={{ borderRadius: 16, padding: "14px 16px", position: "relative", overflow: "hidden", minHeight: 90 }}>
-                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(192,132,245,0.15), rgba(91,138,240,0.08))" }} />
-                <div style={{ position: "relative", zIndex: 1 }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
-                    <div style={{ fontSize: 30, lineHeight: 1 }}>👤</div>
-                    <div style={{ fontSize: 11, color: "#c084f5", background: "rgba(192,132,245,0.1)", border: "1px solid rgba(192,132,245,0.3)", borderRadius: 6, padding: "2px 7px" }}>個人中心</div>
-                  </div>
-                  <div style={{ fontSize: 10, color: "#888" }}>
-                    {(() => {
-                      const myProjs = allVisibleProjects.filter(p => p.designer === currentUser?.name && p.stage !== "完工").length;
-                      const otherProjs = allVisibleProjects.filter(p =>
-                        (p.projectManager === currentUser?.name || p.assistant === currentUser?.name || p.siteManager === currentUser?.name)
-                        && p.designer !== currentUser?.name && p.stage !== "完工"
-                      ).length;
-                      return `負責 ${myProjs} · 相關 ${otherProjs}`;
-                    })()}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* 資料庫區塊（v39：3 格並排，整合公司人員） */}
-            <div style={{ marginBottom: 16 }}>
-              <div style={{ fontSize: 12, color: "#555", marginBottom: 10 }}>📊 資料庫</div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
-                <div className="glass-card btn" onClick={() => setShowPriceDBModal(true)}
-                  style={{ borderRadius: 12, padding: "14px 8px", borderLeft: "3px solid #5b8af0", cursor: "pointer", textAlign: "center", minHeight: 92, display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                  <div style={{ fontSize: 20, marginBottom: 4 }}>💰</div>
-                  <div style={{ fontSize: 11, color: "#5b8af0", fontWeight: 700, lineHeight: 1.4 }}>報價成本<br/>單價查詢</div>
-                  <div style={{ fontSize: 9, color: "#666", marginTop: 4 }}>{priceDB.length} 項工項</div>
-                </div>
-                <div className="glass-card btn" onClick={() => setShowWorkDayCalc(true)}
-                  style={{ borderRadius: 12, padding: "14px 8px", borderLeft: "3px solid #50c878", cursor: "pointer", textAlign: "center", minHeight: 92, display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                  <div style={{ fontSize: 20, marginBottom: 4 }}>🏗️</div>
-                  <div style={{ fontSize: 11, color: "#50c878", fontWeight: 700, lineHeight: 1.4 }}>工期<br/>預抓器</div>
-                  <div style={{ fontSize: 9, color: "#666", marginTop: 4 }}>計算工作天</div>
-                </div>
-                <div className="glass-card btn" onClick={() => setShowMembersModal(true)}
-                  style={{ borderRadius: 12, padding: "14px 8px", borderLeft: "3px solid #c084f5", cursor: "pointer", textAlign: "center", minHeight: 92, display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                  <div style={{ fontSize: 20, marginBottom: 4 }}>👥</div>
-                  <div style={{ fontSize: 11, color: "#c084f5", fontWeight: 700, lineHeight: 1.4 }}>公司人員</div>
-                  <div style={{ fontSize: 9, color: "#666", marginTop: 4 }}>{allUsers.length} 位成員</div>
-                </div>
-              </div>
-            </div>
-
-            {/* 🎓 設計師專業助理 AI（v65：取代對罵 AI） */}
-            <AskAIBox currentUser={currentUser} />
+            {/* v70：首頁簡化 — 砍掉 6 格卡片 / 資料庫 / AI 區塊 */}
+            {/* 案件清單從上方分頁標籤進入；個人中心點擊「夜深了」名字、其他從 ⚙️ 設定進入 */}
 
           </div>
         )}
@@ -7571,6 +7576,10 @@ export default function App() {
                             {t.consultDate && (
                               <div style={{ fontSize: 11, color: "#3a3a3e", marginTop: 3 }}>諮詢：{t.consultDate}</div>
                             )}
+                            {/* v70：丟棄理由（顯眼紅字） */}
+                            <div style={{ marginTop: 6, padding: "5px 9px", background: "rgba(224,91,91,0.1)", border: "1px solid rgba(224,91,91,0.35)", borderLeft: "3px solid #e05b5b", borderRadius: 5, fontSize: 12, color: "#e05b5b", fontWeight: 700 }}>
+                              ⚠️ 理由：{t.trashReason || "（舊資料未填）"}
+                            </div>
                           </div>
                           <div style={{ display: "flex", gap: 6, flexShrink: 0, marginLeft: 8 }}>
                             <button className="btn" onClick={() => reviveFromTrash(t)} style={{ background: "rgba(80,200,120,0.12)", border: "1px solid rgba(80,200,120,0.3)", borderRadius: 8, padding: "5px 10px", color: "#50c878", fontSize: 12, cursor: "pointer" }}>
@@ -11395,6 +11404,65 @@ export default function App() {
         );
       })()}
 
+      {/* 📬 留言板 TAG 通知中心 MODAL（v70） */}
+      {showTagNotificationModal && (() => {
+        const items = getProjectsWithUnreadComments(allVisibleProjects, currentUser);
+        const totalUnread = items.reduce((s, it) => s + it.unreadCount, 0);
+        const totalMentioned = items.reduce((s, it) => s + it.mentionedCount, 0);
+        return (
+          <Modal onClose={() => setShowTagNotificationModal(false)} title="📬 留言板 TAG 通知中心">
+            {items.length === 0 ? (
+              <div style={{ textAlign: "center", padding: "40px 20px" }}>
+                <div style={{ fontSize: 36, marginBottom: 10 }}>🌙</div>
+                <div style={{ fontSize: 14, color: "#888", fontWeight: 600 }}>暫時無新留言</div>
+                <div style={{ fontSize: 11, color: "#555", marginTop: 6 }}>所有跟你相關的案件留言都已讀完</div>
+              </div>
+            ) : (
+              <>
+                <div style={{ marginBottom: 12, padding: "8px 12px", background: totalMentioned > 0 ? "rgba(224,91,91,0.08)" : "rgba(91,138,240,0.08)", border: `1px solid ${totalMentioned > 0 ? "rgba(224,91,91,0.3)" : "rgba(91,138,240,0.3)"}`, borderRadius: 8 }}>
+                  <div style={{ fontSize: 12, color: totalMentioned > 0 ? "#e05b5b" : "#5b8af0", fontWeight: 700 }}>
+                    {totalMentioned > 0 && `🔔 你被標註 ${totalMentioned} 次 · `}共 {totalUnread} 則新留言（{items.length} 個案件）
+                  </div>
+                </div>
+                {items.map(({ project, unreadCount, mentionedCount, latestComment }) => (
+                  <div key={project.id}
+                    onClick={() => {
+                      setShowTagNotificationModal(false);
+                      setActiveProject(project);
+                      setCommentsModalOpen(true);
+                    }}
+                    style={{
+                      cursor: "pointer",
+                      background: mentionedCount > 0 ? "rgba(224,91,91,0.06)" : "rgba(255,255,255,0.03)",
+                      border: `1px solid ${mentionedCount > 0 ? "rgba(224,91,91,0.4)" : "rgba(255,255,255,0.08)"}`,
+                      borderLeft: `3px solid ${mentionedCount > 0 ? "#e05b5b" : "#5b8af0"}`,
+                      borderRadius: 8,
+                      padding: "10px 12px",
+                      marginBottom: 8,
+                    }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 4 }}>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontSize: 13, fontWeight: 700, color: "#e8e4dc", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{project.name || "未命名"}</div>
+                        <div style={{ fontSize: 10, color: "#666", marginTop: 2 }}>{project.client && `${project.client} · `}{project.stage}</div>
+                      </div>
+                      <div style={{ display: "flex", gap: 4, flexShrink: 0, marginLeft: 8 }}>
+                        {mentionedCount > 0 && (
+                          <span style={{ fontSize: 10, fontWeight: 700, color: "#e05b5b", background: "rgba(224,91,91,0.15)", border: "1px solid rgba(224,91,91,0.4)", borderRadius: 5, padding: "2px 6px" }}>🔔 @{mentionedCount}</span>
+                        )}
+                        <span style={{ fontSize: 10, fontWeight: 700, color: "#5b8af0", background: "rgba(91,138,240,0.15)", border: "1px solid rgba(91,138,240,0.4)", borderRadius: 5, padding: "2px 6px" }}>{unreadCount} 則新</span>
+                      </div>
+                    </div>
+                    <div style={{ marginTop: 5, padding: "5px 8px", background: "rgba(0,0,0,0.2)", borderRadius: 5, fontSize: 11, color: "#aaa", lineHeight: 1.4 }}>
+                      <span style={{ color: "#888", fontWeight: 600 }}>{latestComment.authorName}：</span>
+                      <span style={{ overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>{(latestComment.content || "").slice(0, 60)}{(latestComment.content || "").length > 60 ? "..." : ""}</span>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
+          </Modal>
+        );
+      })()}
       {/* 📋 需追蹤公告欄 MODAL（v54） */}
       {showTrackingModal && (() => {
         const items = getMyTrackingItems(allVisibleProjects, currentUser);
@@ -11853,6 +11921,33 @@ export default function App() {
 
         return (
         <Modal onClose={() => { setShowExportImport(false); setImportText(""); setEditingBio(false); }} title="⚙️ 設定">
+
+          {/* v70：快速入口（取代被砍掉的首頁卡片區） */}
+          <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 12, padding: "12px", marginBottom: 14 }}>
+            <div style={{ fontSize: 11, color: "#888", fontWeight: 700, marginBottom: 10, letterSpacing: 1 }}>🚀 快速入口</div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+              <button onClick={() => { setShowExportImport(false); setShowPersonalModal(true); }}
+                style={{ background: "rgba(192,132,245,0.1)", border: "1px solid rgba(192,132,245,0.3)", borderRadius: 8, padding: "10px", color: "#c084f5", fontSize: 12, fontWeight: 700, cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+                <span style={{ fontSize: 18 }}>👤</span>
+                <span>個人中心</span>
+              </button>
+              <button onClick={() => { setShowExportImport(false); setShowPriceDBModal(true); }}
+                style={{ background: "rgba(91,138,240,0.1)", border: "1px solid rgba(91,138,240,0.3)", borderRadius: 8, padding: "10px", color: "#5b8af0", fontSize: 12, fontWeight: 700, cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+                <span style={{ fontSize: 18 }}>💰</span>
+                <span>報價成本<br/>單價查詢</span>
+              </button>
+              <button onClick={() => { setShowExportImport(false); setShowWorkDayCalc(true); }}
+                style={{ background: "rgba(80,200,120,0.1)", border: "1px solid rgba(80,200,120,0.3)", borderRadius: 8, padding: "10px", color: "#50c878", fontSize: 12, fontWeight: 700, cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+                <span style={{ fontSize: 18 }}>🏗️</span>
+                <span>工期預抓器</span>
+              </button>
+              <button onClick={() => { setShowExportImport(false); setShowMembersModal(true); }}
+                style={{ background: "rgba(240,168,80,0.1)", border: "1px solid rgba(240,168,80,0.3)", borderRadius: 8, padding: "10px", color: "#f0a850", fontSize: 12, fontWeight: 700, cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+                <span style={{ fontSize: 18 }}>👥</span>
+                <span>公司人員</span>
+              </button>
+            </div>
+          </div>
 
           {/* ── 個人資料 ── */}
           <div style={{ background: "rgba(255,255,255,0.04)", borderRadius: 12, padding: "14px", marginBottom: 14 }}>
