@@ -7285,59 +7285,8 @@ export default function App() {
 
         {tab === "home" && (
           <div className="fade-up">
-            {/* 6 格卡片：4 階段 + 垃圾場 + 個人中心 */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 12 }}>
-              {STAGES.map(stg => {
-                const count = stageProjects(stg).length;
-                return (
-                  <div key={stg} className="glass-stat" onClick={() => setTab(stg)}
-                    style={{ borderRadius: 12, padding: "14px 10px", borderLeft: `3px solid ${STAGE_COLORS[stg]}` }}>
-                    <div style={{ fontSize: 11, color: "#888", marginBottom: 4, fontWeight: 600 }}>{stg}</div>
-                    <div style={{ fontSize: 22, fontWeight: 700, color: STAGE_COLORS[stg] }}>{count}</div>
-                    <div style={{ fontSize: 10, color: "#555", marginTop: 2 }}>件案件</div>
-                  </div>
-                );
-              })}
-              {/* 垃圾場 */}
-              <div className="glass-stat" onClick={() => setTab("垃圾場")}
-                style={{ borderRadius: 12, padding: "14px 10px", borderLeft: "3px solid #e05b5b" }}>
-                <div style={{ fontSize: 11, color: "#888", marginBottom: 4, fontWeight: 600 }}>🗑️ 垃圾場</div>
-                <div style={{ fontSize: 22, fontWeight: 700, color: "#e05b5b" }}>{allVisibleTrash.length}</div>
-                <div style={{ fontSize: 10, color: "#555", marginTop: 2 }}>件流失</div>
-              </div>
-              {/* 個人中心 */}
-              <div className="glass-stat" onClick={() => setShowPersonalModal(true)}
-                style={{ borderRadius: 12, padding: "14px 10px", borderLeft: "3px solid #c084f5" }}>
-                <div style={{ fontSize: 11, color: "#888", marginBottom: 4, fontWeight: 600 }}>👤 個人中心</div>
-                <div style={{ fontSize: 22, fontWeight: 700, color: "#c084f5" }}>{personalMemos.filter(m => !m.done).length}</div>
-                <div style={{ fontSize: 10, color: "#555", marginTop: 2 }}>備忘待辦</div>
-              </div>
-            </div>
-
-            {/* 3 格資料庫 */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 16 }}>
-              <div className="glass-stat" onClick={() => setShowPriceDBModal(true)}
-                style={{ borderRadius: 12, padding: "12px 10px", borderLeft: "3px solid #f0d050" }}>
-                <div style={{ fontSize: 18, marginBottom: 4 }}>💰</div>
-                <div style={{ fontSize: 11, color: "#f0d050", fontWeight: 700 }}>報價成本</div>
-                <div style={{ fontSize: 9, color: "#555", marginTop: 2 }}>{priceDB.length} 筆資料</div>
-              </div>
-              <div className="glass-stat" onClick={() => setShowWorkDayCalc(true)}
-                style={{ borderRadius: 12, padding: "12px 10px", borderLeft: "3px solid #5b8af0" }}>
-                <div style={{ fontSize: 18, marginBottom: 4 }}>🧮</div>
-                <div style={{ fontSize: 11, color: "#5b8af0", fontWeight: 700 }}>工期預抓器</div>
-                <div style={{ fontSize: 9, color: "#555", marginTop: 2 }}>跳週末/國假</div>
-              </div>
-              <div className="glass-stat" onClick={() => setShowMembersModal(true)}
-                style={{ borderRadius: 12, padding: "12px 10px", borderLeft: "3px solid #50c878" }}>
-                <div style={{ fontSize: 18, marginBottom: 4 }}>👥</div>
-                <div style={{ fontSize: 11, color: "#50c878", fontWeight: 700 }}>公司人員</div>
-                <div style={{ fontSize: 9, color: "#555", marginTop: 2 }}>{allUsers.length} 位同事</div>
-              </div>
-            </div>
-
-            {/* 設計師助理 AI */}
-            <AskAIBox currentUser={currentUser} />
+            {/* v70：首頁簡化 — 砍掉 6 格卡片 / 資料庫 / AI 區塊 */}
+            {/* 案件清單從上方分頁標籤進入；個人中心點擊「夜深了」名字、其他從 ⚙️ 設定進入 */}
 
           </div>
         )}
