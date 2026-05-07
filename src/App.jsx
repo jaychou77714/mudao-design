@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v70.7";
+const APP_VERSION = "v70.8";
 const APP_RELEASE_DATE = "2026-05-07";
 
 const PROPOSAL_IMG = "data:image/jpeg;base64,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";
@@ -6327,11 +6327,21 @@ export default function App() {
       const cloudProjects = cloudProjectsRaw.filter(p => !isLegacyFake(p)).map(migrateProposalPipeline).map(migrateContractPipeline).map(migrateConstruction).map(migrateV56Progress).map(migrateChangeOrders).map(migrateV68FinalizedAt).map(migrateV684FinalizedAt).map(migrateV697Reservation);
       console.log("雲端同步：取得", cloudProjects.length, "筆案件");
 
+      // v70.8：分流 — stage="垃圾場" 進 trashProjects，其他進 projects
+      const liveProjects = cloudProjects.filter(p => p.stage !== "垃圾場");
+      const trashedProjects = cloudProjects.filter(p => p.stage === "垃圾場");
+
       setProjects(prev => {
         // v69.6：純雲端覆蓋（保留 TEST_PROJECT_IDS），不再保留 localOnly 避免殭屍復活
-        const cloudIds = new Set(cloudProjects.map(p => p.id));
+        const cloudIds = new Set(liveProjects.map(p => p.id));
         const testOnly = prev.filter(p => TEST_PROJECT_IDS.has(p.id) && !cloudIds.has(p.id));
-        return [...cloudProjects, ...testOnly];
+        return [...liveProjects, ...testOnly];
+      });
+      // v70.8：trash 也同步雲端
+      setTrashProjects(prev => {
+        const cloudIds = new Set(trashedProjects.map(p => p.id));
+        const testOnly = prev.filter(t => DEVELOPER_TRASH_EXAMPLES.some(d => d.id === t.id) && !cloudIds.has(t.id));
+        return [...trashedProjects, ...testOnly];
       });
 
       setLastSyncTime(Date.now());
@@ -6525,25 +6535,38 @@ export default function App() {
       return;
     }
     const year = new Date().getFullYear();
-    const trashItem = { ...project, trashedAt: new Date().toISOString(), trashedYear: year, trashReason: trimmed };
+    // v70.8：垃圾桶改成存進雲端（stage="垃圾場"），不再 cloudDeleteProject
+    const trashItem = {
+      ...project,
+      originalStage: project.stage,  // 保留原 stage 以便復活
+      stage: "垃圾場",
+      trashedAt: new Date().toISOString(),
+      trashedYear: year,
+      trashReason: trimmed
+    };
     setTrashProjects(prev => [trashItem, ...prev]);
     setProjects(projects.filter(p => p.id !== project.id));
     setModal(null);
-    // v54：用案件原本的 ownerEmail，避免無法刪除別人建立的案件
-    await cloudDeleteProject(project.id, project.ownerEmail || currentUser.email);
+    // v70.8：cloudSaveProject 取代 cloudDeleteProject，trash 也同步到雲端
+    await cloudSaveProject(trashItem, trashItem.ownerEmail || currentUser.email);
   }
 
   async function reviveFromTrash(trashItem) {
-    const { trashedAt, trashedYear, trashReason, ...project } = trashItem;
-    // v54：救回案件時保留原 ownerEmail（不要改成 currentUser）
-    const revived = { ...project, id: Date.now(), ownerEmail: project.ownerEmail || currentUser.email };
+    // v70.8：保留原 id（同 id 蓋掉雲端 trash 紀錄），還原 originalStage
+    const { trashedAt, trashedYear, trashReason, originalStage, ...project } = trashItem;
+    const revived = {
+      ...project,
+      stage: originalStage || (STAGES.includes(project.stage) ? project.stage : "提案中"),
+      ownerEmail: project.ownerEmail || currentUser.email
+    };
     setProjects(prev => [revived, ...prev]);
     setTrashProjects(prev => prev.filter(t => t.id !== trashItem.id));
     await cloudSaveProject(revived, revived.ownerEmail);
   }
 
   function deleteFromTrash(id) {
-    // 先從真實垃圾場刪
+    // v70.8：永久刪除，從雲端真的移除
+    const item = trashProjects.find(t => t.id === id);
     setTrashProjects(prev => prev.filter(t => t.id !== id));
     // 如果是測試案件，加入已刪除清單
     const isTestItem = DEVELOPER_TRASH_EXAMPLES.some(t => t.id === id);
@@ -6553,6 +6576,9 @@ export default function App() {
         try { localStorage.setItem("mudao_deleted_test_ids", JSON.stringify(next)); } catch {}
         return next;
       });
+    } else if (item) {
+      // v70.8：真實 trash 從雲端永久刪除
+      cloudDeleteProject(id, item.ownerEmail || currentUser.email);
     }
   }
 
@@ -6589,16 +6615,26 @@ export default function App() {
         const cloudProjects = cloudProjectsRaw.filter(p => !isLegacyFake(p)).map(migrateProposalPipeline).map(migrateContractPipeline).map(migrateConstruction).map(migrateV56Progress).map(migrateChangeOrders).map(migrateV68FinalizedAt).map(migrateV684FinalizedAt).map(migrateV697Reservation);
         console.log("登入後雲端案件：", cloudProjects.length, "筆");
 
+        // v70.8：分流 — stage="垃圾場" 進 trashProjects，其他進 projects
+        const liveProjects = cloudProjects.filter(p => p.stage !== "垃圾場");
+        const trashedProjects = cloudProjects.filter(p => p.stage === "垃圾場");
+
         setProjects(prev => {
           // v69.6：純雲端覆蓋（保留 TEST_PROJECT_IDS），不再保留任何 localOnly
-          const cloudIds = new Set(cloudProjects.map(p => p.id));
+          const cloudIds = new Set(liveProjects.map(p => p.id));
           const testOnly = prev.filter(p => TEST_PROJECT_IDS.has(p.id) && !cloudIds.has(p.id));
           // 偵測並警告被丟掉的本地案件（debug 用）
           const dropped = prev.filter(p => !cloudIds.has(p.id) && !TEST_PROJECT_IDS.has(p.id));
           if (dropped.length > 0) {
             console.warn("[v69.6] 初始載入：丟掉", dropped.length, "個本地殘留案件（雲端沒這些）", dropped.map(p => p.name));
           }
-          return [...cloudProjects, ...testOnly];
+          return [...liveProjects, ...testOnly];
+        });
+        // v70.8：trash 也從雲端載入
+        setTrashProjects(prev => {
+          const cloudIds = new Set(trashedProjects.map(p => p.id));
+          const testOnly = prev.filter(t => DEVELOPER_TRASH_EXAMPLES.some(d => d.id === t.id) && !cloudIds.has(t.id));
+          return [...trashedProjects, ...testOnly];
         });
 
         // 開發者帳號：注入測試案件
@@ -6737,12 +6773,20 @@ export default function App() {
         if (cloudProjects && cloudProjects.length > 0) {
           // v68.9.1：直接用雲端結果，不再保留 localOnly
           // 唯一例外：保留測試案件（TEST_PROJECT_IDS）
+          // v70.8：分流 trash
+          const liveProjects = cloudProjects.filter(p => p.stage !== "垃圾場");
+          const trashedProjects = cloudProjects.filter(p => p.stage === "垃圾場");
           setProjects(prev => {
-            const cloudIds = new Set(cloudProjects.map(p => p.id));
+            const cloudIds = new Set(liveProjects.map(p => p.id));
             const testOnly = prev.filter(p => TEST_PROJECT_IDS.has(p.id) && !cloudIds.has(p.id));
-            return [...cloudProjects, ...testOnly];
+            return [...liveProjects, ...testOnly];
           });
-          console.log("[v68.9.1] 切回 App 重拉案件完成，共", cloudProjects.length, "筆");
+          setTrashProjects(prev => {
+            const cloudIds = new Set(trashedProjects.map(p => p.id));
+            const testOnly = prev.filter(t => DEVELOPER_TRASH_EXAMPLES.some(d => d.id === t.id) && !cloudIds.has(t.id));
+            return [...trashedProjects, ...testOnly];
+          });
+          console.log("[v70.8] 切回 App 重拉案件完成，共", liveProjects.length, "筆案件 +", trashedProjects.length, "筆 trash");
         }
       } catch (e) { console.error("[v68.9.1] 切回 App 重拉案件失敗:", e); }
     };
@@ -6985,7 +7029,10 @@ export default function App() {
           {/* v70.3：右上角 3 個小 icon — 哈利 + 同步 + TAG + 設定（全寬同步/全寬 TAG 已搬到此） */}
           {/* v70.6：哈利左邊加版本號 */}
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            <span style={{ fontSize: 9, color: "#555", letterSpacing: 1, fontWeight: 600 }}>{APP_VERSION}</span>
+            <span style={{
+              fontSize: 11, color: "#c8a870", letterSpacing: 1.2, fontWeight: 700,
+              textShadow: "0 0 8px rgba(200,168,112,0.7), 0 0 14px rgba(200,168,112,0.4)"
+            }}>{APP_VERSION}</span>
             <span style={{ fontSize: 13, color: "#c8b89a", fontWeight: 600, marginRight: 4 }}>{currentUser.name}</span>
 
             {/* 🔄 同步 */}
@@ -7398,25 +7445,46 @@ export default function App() {
             {/* —— 工具 / TOOLS Section */}
             <div style={{ fontSize: 9, color: "#666", letterSpacing: 4, marginBottom: 12, marginTop: 4, fontWeight: 600 }}>—— 工具 / TOOLS</div>
 
-            {/* 3 格資料庫 */}
+            {/* 3 格資料庫（v70.8 改 Bauhaus 風 — 大數字 + 半透明色塊） */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 16 }}>
-              <div className="glass-stat" onClick={() => setShowPriceDBModal(true)}
-                style={{ borderRadius: 12, padding: "12px 10px", borderLeft: "3px solid #f0d050" }}>
-                <div style={{ fontSize: 18, marginBottom: 4 }}>💰</div>
-                <div style={{ fontSize: 11, color: "#f0d050", fontWeight: 700 }}>報價查詢</div>
-                <div style={{ fontSize: 9, color: "#555", marginTop: 2 }}>{priceDB.length} 筆資料</div>
+              <div onClick={() => setShowPriceDBModal(true)}
+                style={{
+                  borderRadius: 12, padding: "16px 12px", cursor: "pointer", minHeight: 90,
+                  background: "linear-gradient(135deg, rgba(240,208,80,0.4) 0%, rgba(240,208,80,0.18) 100%)",
+                  border: "1px solid rgba(240,208,80,0.4)",
+                  transition: "transform 0.18s, box-shadow 0.18s",
+                  overflow: "hidden",
+                }}
+                onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 20px rgba(240,208,80,0.3)"; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
+                <div style={{ fontFamily: "'Anton', sans-serif", fontSize: 36, lineHeight: 0.9, color: "#fff5d8" }}>{priceDB.length}</div>
+                <div style={{ fontSize: 12, color: "#fff5d8", fontWeight: 700, marginTop: 6, letterSpacing: 1 }}>報價查詢</div>
               </div>
-              <div className="glass-stat" onClick={() => setShowWorkDayCalc(true)}
-                style={{ borderRadius: 12, padding: "12px 10px", borderLeft: "3px solid #5b8af0" }}>
-                <div style={{ fontSize: 18, marginBottom: 4 }}>🧮</div>
-                <div style={{ fontSize: 11, color: "#5b8af0", fontWeight: 700 }}>工期預抓器</div>
-                <div style={{ fontSize: 9, color: "#555", marginTop: 2 }}>跳週末/國假</div>
+              <div onClick={() => setShowWorkDayCalc(true)}
+                style={{
+                  borderRadius: 12, padding: "16px 12px", cursor: "pointer", minHeight: 90,
+                  background: "linear-gradient(135deg, rgba(91,138,240,0.4) 0%, rgba(91,138,240,0.18) 100%)",
+                  border: "1px solid rgba(91,138,240,0.4)",
+                  transition: "transform 0.18s, box-shadow 0.18s",
+                  overflow: "hidden",
+                }}
+                onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 20px rgba(91,138,240,0.3)"; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
+                <div style={{ fontFamily: "'Anton', sans-serif", fontSize: 36, lineHeight: 0.9, color: "#dde6ff" }}>—</div>
+                <div style={{ fontSize: 12, color: "#dde6ff", fontWeight: 700, marginTop: 6, letterSpacing: 1 }}>工期預抓器</div>
               </div>
-              <div className="glass-stat" onClick={() => setShowMembersModal(true)}
-                style={{ borderRadius: 12, padding: "12px 10px", borderLeft: "3px solid #50c878" }}>
-                <div style={{ fontSize: 18, marginBottom: 4 }}>👥</div>
-                <div style={{ fontSize: 11, color: "#50c878", fontWeight: 700 }}>公司成員</div>
-                <div style={{ fontSize: 9, color: "#555", marginTop: 2 }}>{allUsers.length} 位同事</div>
+              <div onClick={() => setShowMembersModal(true)}
+                style={{
+                  borderRadius: 12, padding: "16px 12px", cursor: "pointer", minHeight: 90,
+                  background: "linear-gradient(135deg, rgba(80,200,120,0.4) 0%, rgba(80,200,120,0.18) 100%)",
+                  border: "1px solid rgba(80,200,120,0.4)",
+                  transition: "transform 0.18s, box-shadow 0.18s",
+                  overflow: "hidden",
+                }}
+                onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 20px rgba(80,200,120,0.3)"; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
+                <div style={{ fontFamily: "'Anton', sans-serif", fontSize: 36, lineHeight: 0.9, color: "#d8f0e0" }}>{allUsers.length}</div>
+                <div style={{ fontSize: 12, color: "#d8f0e0", fontWeight: 700, marginTop: 6, letterSpacing: 1 }}>公司成員</div>
               </div>
             </div>
 
