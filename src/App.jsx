@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v70.3";
+const APP_VERSION = "v70.4";
 const APP_RELEASE_DATE = "2026-05-07";
 
 const PROPOSAL_IMG = "data:image/jpeg;base64,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";
@@ -3195,25 +3195,39 @@ function AskAIBox({ currentUser }) {
     return (
       <div onClick={() => setOpen(true)}
         style={{
-          background: "rgba(91,138,240,0.08)",
-          border: "1px solid rgba(91,138,240,0.3)",
-          borderRadius: 14,
-          padding: "14px 16px",
+          background: "linear-gradient(135deg, rgba(226,201,126,0.45), rgba(200,168,112,0.35))",
+          backdropFilter: "blur(8px)",
+          border: "1px solid rgba(226,201,126,0.55)",
+          color: "#0c0c0e",
+          padding: "20px 18px",
           marginBottom: 16,
           cursor: "pointer",
+          position: "relative",
+          overflow: "hidden",
           transition: "all 0.2s",
-        }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
-          <span style={{ fontSize: 11, color: "#5b8af0", fontWeight: 700, letterSpacing: 1 }}>
+          borderRadius: 14,
+        }}
+        onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(226,201,126,0.3)"; }}
+        onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
+        {/* 角落裝飾 */}
+        <div style={{ position: "absolute", bottom: -25, right: -15, width: 100, height: 100, borderRadius: "50%", background: "rgba(200,168,112,0.4)" }} />
+        <div style={{ position: "absolute", top: 16, right: 16, fontSize: 18, opacity: 0.4 }}>✦</div>
+        <div style={{ position: "relative" }}>
+          <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: 4, marginBottom: 6, color: "#5a3520" }}>
+            ASK ANYTHING · INTERIOR DESIGN Q&amp;A
+          </div>
+          <div style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.2, marginBottom: 6, color: "#0c0c0e" }}>
             🎓 室內設計專業問答 AI
-          </span>
-          <span style={{ fontSize: 10, color: "#666" }}>{messages.length > 0 ? `${messages.length} 則訊息 · 點開繼續 →` : "點此開啟 →"}</span>
-        </div>
-        <div style={{ fontSize: 16, fontWeight: 700, color: "#f0ead8", marginBottom: 4 }}>
-          問工法 · 問法規 · 問報價 · 問材料
-        </div>
-        <div style={{ fontSize: 11, color: "#888" }}>
-          20 年資歷的台灣設計師，什麼都能問
+          </div>
+          <div style={{ fontSize: 11, lineHeight: 1.6, color: "#5a3520", marginBottom: 4 }}>
+            問工法 · 問法規 · 問報價 · 問材料
+          </div>
+          <div style={{ fontSize: 10, color: "#3a2010", fontStyle: "italic" }}>
+            20 年資歷的台灣設計師，什麼都能問
+          </div>
+          <div style={{ fontSize: 9, color: "#3a2010", marginTop: 10, fontWeight: 700, letterSpacing: 1 }}>
+            {messages.length > 0 ? `${messages.length} 則訊息 · 點開繼續 →` : "點此開啟 →"}
+          </div>
         </div>
       </div>
     );
@@ -6852,8 +6866,18 @@ export default function App() {
       {/* Content container - centered max width */}
       <div className="app-container" style={{ maxWidth: 480, margin: "0 auto", position: "relative", zIndex: 2, minHeight: "100vh", display: "flex", flexDirection: "column", overflowX: "hidden", width: "100%" }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
-        html, body { background: #0a0908; margin: 0; padding: 0; }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Anton&display=swap');
+        html, body {
+          background: #0a0908;
+          background-image:
+            radial-gradient(ellipse 600px 400px at top right, rgba(200,168,112,0.06), transparent 60%),
+            radial-gradient(ellipse 500px 400px at bottom left, rgba(91,138,240,0.035), transparent 60%),
+            linear-gradient(rgba(255,255,255,0.014) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.014) 1px, transparent 1px);
+          background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+          background-attachment: fixed;
+          margin: 0; padding: 0;
+        }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         input,textarea,select { font-family:'Noto Sans TC',sans-serif; }
         ::-webkit-scrollbar { width:3px; } ::-webkit-scrollbar-thumb { background:#ffffff22; }
@@ -7144,7 +7168,7 @@ export default function App() {
 
         {/* v70.3：全寬 TAG 通知按鈕已移除，功能搬到 Header 右上角 @ 小 icon（含未讀紅點+數字 badge） */}
 
-        {/* v70：公告跑馬燈（從原位移到 TAG 通知下方） */}
+        {/* v70.4：跑馬燈樣式升級（左紅標籤 + 中段滾動 + 右箭頭） */}
         {(() => {
           if (announcements.length === 0) {
             return (
@@ -7158,22 +7182,59 @@ export default function App() {
           const isRead = annMarqueeRead === latestId;
           if (isRead) {
             return (
-              <div style={{ marginTop: 8, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 10, padding: "8px 12px", textAlign: "center" }}>
-                <span style={{ fontSize: 11, color: "#333" }}>目前尚無最新公告</span>
+              <div onClick={() => setTab("公告")} style={{ marginTop: 8, background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 10, padding: "8px 12px", textAlign: "center", cursor: "pointer" }}>
+                <span style={{ fontSize: 11, color: "#666" }}>📢 公告：{latest.title} · 點此查看 ›</span>
               </div>
             );
           }
-          const text = `📢 有新公告！「${latest.title}」· 請前往公告欄查看 · 📢 有新公告！「${latest.title}」· 請前往公告欄查看 · `;
+          // 多筆公告連續滾動
+          const allText = announcements.slice(0, 5).map(a => `📢 ${a.title}`).join("　·　");
           return (
-            <div onClick={() => {
+            <div
+              onClick={() => {
                 setTab("公告");
                 setAnnMarqueeRead(latestId);
                 try { localStorage.setItem("mudao_ann_read_id", latestId); } catch {}
               }}
-              style={{ marginTop: 8, background: "rgba(240,208,80,0.08)", border: "1px solid rgba(240,208,80,0.4)", borderRadius: 10, padding: "8px 12px", overflow: "hidden", cursor: "pointer", whiteSpace: "nowrap" }}>
-              <span style={{ fontSize: 12, color: "#f0d050", fontWeight: 600, display: "inline-block", animation: "marquee 20s linear infinite" }}>
-                {text}
-              </span>
+              style={{
+                marginTop: 8,
+                display: "flex",
+                alignItems: "stretch",
+                background: "rgba(224,91,91,0.18)",
+                border: "1px solid rgba(224,91,91,0.4)",
+                borderRadius: 10,
+                height: 34,
+                overflow: "hidden",
+                cursor: "pointer",
+              }}>
+              {/* 左：紅標籤 */}
+              <div style={{
+                flexShrink: 0,
+                background: "rgba(224,91,91,0.7)",
+                padding: "0 12px",
+                display: "flex", alignItems: "center", gap: 4,
+                fontSize: 9, fontWeight: 700, letterSpacing: 2, color: "#fff",
+              }}>
+                📢 公告
+              </div>
+              {/* 中：跑馬燈內容 */}
+              <div style={{ flex: 1, overflow: "hidden", display: "flex", alignItems: "center", position: "relative" }}>
+                <div style={{
+                  display: "flex",
+                  animation: "marquee 35s linear infinite",
+                  whiteSpace: "nowrap",
+                  fontSize: 11.5, color: "#ffd5c0", fontWeight: 500,
+                }}>
+                  <span style={{ paddingLeft: 16, paddingRight: 16 }}>{allText}</span>
+                  <span style={{ paddingLeft: 16, paddingRight: 16 }}>{allText}</span>
+                </div>
+              </div>
+              {/* 右：箭頭 */}
+              <div style={{
+                flexShrink: 0, padding: "0 10px",
+                display: "flex", alignItems: "center",
+                fontSize: 14, color: "#ffd5c0", opacity: 0.7,
+              }}>›</div>
             </div>
           );
         })()}
@@ -7222,90 +7283,125 @@ export default function App() {
 
         {tab === "home" && (
           <div className="fade-up">
-            {/* 6 格卡片：4 階段 + 垃圾場 + 個人中心（每格都有對應的背景照片）*/}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 12 }}>
-              {(() => {
-                const stageImgs = {
-                  "提案中": PROPOSAL_IMG,
-                  "已簽約": SIGNED_IMG,
-                  "施工中": CONSTRUCTION_IMG,
-                  "完工": COMPLETE_IMG,
-                };
-                return STAGES.map(stg => {
-                  const count = stageProjects(stg).length;
-                  const img = stageImgs[stg];
-                  return (
-                    <div key={stg} onClick={() => setTab(stg)}
-                      style={{
-                        position: "relative",
-                        borderRadius: 12,
-                        padding: "14px 10px",
-                        cursor: "pointer",
-                        overflow: "hidden",
-                        minHeight: 90,
-                        backgroundImage: `linear-gradient(135deg, rgba(10,9,8,0.45), rgba(10,9,8,0.6)), url(${img})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        border: `1px solid ${STAGE_COLORS[stg]}33`,
-                        borderLeft: `3px solid ${STAGE_COLORS[stg]}`,
-                        transition: "transform 0.18s, box-shadow 0.18s",
-                      }}
-                      onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = `0 8px 20px ${STAGE_COLORS[stg]}33`; }}
-                      onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
-                      <div style={{ position: "relative", zIndex: 2 }}>
-                        <div style={{ fontSize: 11, color: "#ddd", marginBottom: 4, fontWeight: 600, textShadow: "0 1px 3px rgba(0,0,0,0.8)" }}>{stg}</div>
-                        <div style={{ fontSize: 22, fontWeight: 700, color: STAGE_COLORS[stg], textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}>{count}</div>
-                        <div style={{ fontSize: 10, color: "#aaa", marginTop: 2, textShadow: "0 1px 3px rgba(0,0,0,0.8)" }}>件案件</div>
-                      </div>
-                    </div>
-                  );
-                });
-              })()}
-              {/* 垃圾場（用 TRASH_IMG）*/}
-              <div onClick={() => setTab("垃圾場")}
+            {/* —— 案件 / PROJECTS Section */}
+            <div style={{ fontSize: 9, color: "#666", letterSpacing: 4, marginBottom: 12, marginTop: 4, fontWeight: 600 }}>—— 案件 / PROJECTS</div>
+
+            {/* v70.4：6 格卡片 Bauhaus 不對稱大小（保留照片背景 + 編號 + 超大數字）*/}
+            {/* 第一排：提案中(大 2/3) + 已簽約(小 1/3) */}
+            <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 8, marginBottom: 8 }}>
+              {/* 提案中 */}
+              <div onClick={() => setTab("提案中")}
                 style={{
-                  position: "relative",
-                  borderRadius: 12,
-                  padding: "14px 10px",
-                  cursor: "pointer",
-                  overflow: "hidden",
-                  minHeight: 90,
-                  backgroundImage: `linear-gradient(135deg, rgba(10,9,8,0.45), rgba(10,9,8,0.6)), url(${TRASH_IMG})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  border: "1px solid rgba(224,91,91,0.2)",
-                  borderLeft: "3px solid #e05b5b",
+                  position: "relative", overflow: "hidden", minHeight: 110, padding: "16px 14px", cursor: "pointer",
+                  borderRadius: 12, color: "#f0ead8",
+                  backgroundImage: `linear-gradient(135deg, rgba(240,168,80,0.42), rgba(240,168,80,0.42)), url(${PROPOSAL_IMG})`,
+                  backgroundSize: "cover", backgroundPosition: "center",
+                  border: `1px solid ${STAGE_COLORS["提案中"]}55`,
                   transition: "transform 0.18s, box-shadow 0.18s",
                 }}
-                onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 20px rgba(224,91,91,0.2)"; }}
+                onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = `0 8px 20px ${STAGE_COLORS["提案中"]}44`; }}
                 onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
                 <div style={{ position: "relative", zIndex: 2 }}>
-                  <div style={{ fontSize: 11, color: "#ddd", marginBottom: 4, fontWeight: 600, textShadow: "0 1px 3px rgba(0,0,0,0.8)" }}>🗑️ 垃圾場</div>
-                  <div style={{ fontSize: 22, fontWeight: 700, color: "#e05b5b", textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}>{allVisibleTrash.length}</div>
-                  <div style={{ fontSize: 10, color: "#aaa", marginTop: 2, textShadow: "0 1px 3px rgba(0,0,0,0.8)" }}>件流失</div>
+                  <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: 2, color: "#fff5d8", marginBottom: 4 }}>01 / 提案中</div>
+                  <div style={{ fontFamily: "'Anton', sans-serif", fontSize: 70, lineHeight: 0.85, color: "#fff5d8", textShadow: "0 2px 8px rgba(0,0,0,0.4)" }}>{stageProjects("提案中").length}</div>
+                  <div style={{ position: "absolute", top: 6, right: 6, width: 12, height: 12, borderRadius: "50%", background: STAGE_COLORS["提案中"], boxShadow: `0 0 8px ${STAGE_COLORS["提案中"]}` }}></div>
                 </div>
               </div>
-              {/* 個人中心（用紫色漸層）*/}
-              <div onClick={() => setShowPersonalModal(true)}
+              {/* 已簽約 */}
+              <div onClick={() => setTab("已簽約")}
                 style={{
-                  position: "relative",
-                  borderRadius: 12,
-                  padding: "14px 10px",
-                  cursor: "pointer",
-                  overflow: "hidden",
-                  minHeight: 90,
-                  background: "linear-gradient(135deg, rgba(192,132,245,0.18), rgba(91,138,240,0.12))",
-                  border: "1px solid rgba(192,132,245,0.25)",
-                  borderLeft: "3px solid #c084f5",
+                  position: "relative", overflow: "hidden", minHeight: 110, padding: "14px 12px", cursor: "pointer",
+                  borderRadius: 12, color: "#f0ead8",
+                  backgroundImage: `linear-gradient(135deg, rgba(91,138,240,0.42), rgba(91,138,240,0.42)), url(${SIGNED_IMG})`,
+                  backgroundSize: "cover", backgroundPosition: "center",
+                  border: `1px solid ${STAGE_COLORS["已簽約"]}55`,
                   transition: "transform 0.18s, box-shadow 0.18s",
                 }}
-                onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 20px rgba(192,132,245,0.25)"; }}
+                onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = `0 8px 20px ${STAGE_COLORS["已簽約"]}44`; }}
                 onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
-                <div style={{ fontSize: 11, color: "#ddd", marginBottom: 4, fontWeight: 600 }}>👤 個人中心</div>
-                <div style={{ fontSize: 22, fontWeight: 700, color: "#c084f5" }}>{personalMemos.filter(m => !m.done).length}</div>
-                <div style={{ fontSize: 10, color: "#aaa", marginTop: 2 }}>備忘待辦</div>
+                <div style={{ position: "relative", zIndex: 2 }}>
+                  <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: 2, color: "#dde6ff", marginBottom: 4 }}>02 / 已簽約</div>
+                  <div style={{ fontFamily: "'Anton', sans-serif", fontSize: 50, lineHeight: 0.9, color: "#dde6ff", textShadow: "0 2px 8px rgba(0,0,0,0.4)" }}>{stageProjects("已簽約").length}</div>
+                </div>
               </div>
             </div>
+
+            {/* 第二排：施工中（全寬，紅邊框） */}
+            <div onClick={() => setTab("施工中")}
+              style={{
+                position: "relative", overflow: "hidden", padding: "16px 18px", marginBottom: 8, cursor: "pointer",
+                borderRadius: 12,
+                backgroundImage: `linear-gradient(135deg, rgba(80,200,120,0.3), rgba(80,200,120,0.3)), url(${CONSTRUCTION_IMG})`,
+                backgroundSize: "cover", backgroundPosition: "center",
+                border: `2px solid ${STAGE_COLORS["施工中"]}aa`,
+                display: "flex", alignItems: "center", justifyContent: "space-between",
+                transition: "transform 0.18s, box-shadow 0.18s",
+              }}
+              onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = `0 8px 20px ${STAGE_COLORS["施工中"]}55`; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
+              <div>
+                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, color: STAGE_COLORS["施工中"], textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}>03 / 施工中</div>
+                <div style={{ fontSize: 12, color: "#ddd", marginTop: 4, textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}>正在進行的案件</div>
+              </div>
+              <div style={{ fontFamily: "'Anton', sans-serif", fontSize: 56, lineHeight: 0.85, color: STAGE_COLORS["施工中"], textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>{stageProjects("施工中").length}</div>
+            </div>
+
+            {/* 第三排：垃圾場(小 1/3) + 完工(大 2/3，反白邊框) */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: 8, marginBottom: 8 }}>
+              {/* 垃圾場 */}
+              <div onClick={() => setTab("垃圾場")}
+                style={{
+                  position: "relative", overflow: "hidden", minHeight: 110, padding: "14px 12px", cursor: "pointer",
+                  borderRadius: 12, color: "#f0ead8",
+                  backgroundImage: `linear-gradient(135deg, rgba(60,60,60,0.65), rgba(60,60,60,0.65)), url(${TRASH_IMG})`,
+                  backgroundSize: "cover", backgroundPosition: "center",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  transition: "transform 0.18s, box-shadow 0.18s",
+                }}
+                onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 20px rgba(224,91,91,0.3)"; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
+                <div style={{ position: "relative", zIndex: 2 }}>
+                  <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: 2, color: "#bbb", marginBottom: 4 }}>05 / 垃圾場</div>
+                  <div style={{ fontFamily: "'Anton', sans-serif", fontSize: 44, lineHeight: 0.9, color: "#888" }}>{allVisibleTrash.length}</div>
+                </div>
+              </div>
+              {/* 完工（反白邊框） */}
+              <div onClick={() => setTab("完工")}
+                style={{
+                  position: "relative", overflow: "hidden", minHeight: 110, padding: "14px 16px", cursor: "pointer",
+                  borderRadius: 12,
+                  backgroundImage: `linear-gradient(135deg, rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url(${COMPLETE_IMG})`,
+                  backgroundSize: "cover", backgroundPosition: "center",
+                  border: `2px solid #f0ead8`,
+                  transition: "transform 0.18s, box-shadow 0.18s",
+                }}
+                onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 20px rgba(240,234,216,0.25)"; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
+                <div style={{ position: "relative", zIndex: 2 }}>
+                  <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 2, color: "#f0ead8" }}>04 / 完工</div>
+                  <div style={{ fontFamily: "'Anton', sans-serif", fontSize: 70, lineHeight: 0.85, color: "#f0ead8", textShadow: "0 2px 8px rgba(0,0,0,0.6)", textAlign: "right", marginTop: 4 }}>{stageProjects("完工").length}</div>
+                </div>
+              </div>
+            </div>
+
+            {/* 第四排：個人中心（全寬紫塊） */}
+            <div onClick={() => setShowPersonalModal(true)}
+              style={{
+                position: "relative", overflow: "hidden", padding: "14px 16px", marginBottom: 16, cursor: "pointer",
+                borderRadius: 12, color: "#f0ead8",
+                background: "linear-gradient(135deg, rgba(192,132,245,0.25), rgba(160,128,200,0.18))",
+                border: "1px solid rgba(192,132,245,0.4)",
+                display: "flex", justifyContent: "space-between", alignItems: "center",
+                transition: "transform 0.18s, box-shadow 0.18s",
+              }}
+              onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 20px rgba(192,132,245,0.3)"; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
+              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, color: "#e0d0ff" }}>06 / 個人中心 · PERSONAL</div>
+              <div style={{ fontFamily: "'Anton', sans-serif", fontSize: 30, lineHeight: 1, color: "#e0d0ff" }}>{personalMemos.filter(m => !m.done).length}</div>
+            </div>
+
+            {/* —— 工具 / TOOLS Section */}
+            <div style={{ fontSize: 9, color: "#666", letterSpacing: 4, marginBottom: 12, marginTop: 4, fontWeight: 600 }}>—— 工具 / TOOLS</div>
 
             {/* 3 格資料庫 */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 16 }}>
@@ -7329,7 +7425,10 @@ export default function App() {
               </div>
             </div>
 
-            {/* 設計師助理 AI */}
+            {/* —— AI 助理 / ASSISTANT Section */}
+            <div style={{ fontSize: 9, color: "#666", letterSpacing: 4, marginBottom: 12, marginTop: 4, fontWeight: 600 }}>—— AI 助理 / ASSISTANT</div>
+
+            {/* 室內設計專業問答 AI */}
             <AskAIBox currentUser={currentUser} />
 
           </div>
