@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v70.14.1";
+const APP_VERSION = "v70.15";
 const APP_RELEASE_DATE = "2026-05-07";
 
 const PROPOSAL_IMG = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAC0AV4DASIAAhEBAxEB/8QAHAAAAgIDAQEAAAAAAAAAAAAAAAECBAMFBgcI/8QARhAAAQMDAgMGAwQGBwcFAQAAAQACAwQRIQUxBhJBEyJRYXGBB5GhFDJCsSNSYpLB0QgVJIKi4fAzQ1Njc4PxFjRyk7LC/8QAGAEBAQEBAQAAAAAAAAAAAAAAAAECAwT/xAAaEQEBAQEBAQEAAAAAAAAAAAAAARExAiFB/9oADAMBAAIRAxEAPwD3cOPsFEkk2aUiSAfJLmubg2Xnd0/4Kpq2o02lUbqqrceW/Kxg+9I7oB/rCep11LplC+trX8kTcAD7z3dGtHUledalX1Wr1/2ytFmEEMjuA2Bv8b+PirIjYSVM1fVzVdbI+OQxktIFmwt8ATi4Wy0qslELnTwuibkxOOS5uLEjo472Wgo7ObH23OaZluzLjcuI2c6+SPD5notlo9JU67UFgdJHQQu5ZZeYl0hH4Gnx8XdNt9rUbGkhm4jqDzuI01h5XkYMhG7Gnw8T7DqusjYyGNrI2hrGiwAFgAsdOyOnhZDCxscbGhrWtFgAOiZd6rLUibX52Q91z0CxuIAuFz/F/F2j8MwtNfM6SrlBMFHBZ00vmBs1v7TrAeKDonyMbGXOcA1oLnEmwAG58gvN+KPia18x0/g+JldUE8rq57SYGf8ATH+9PnhnmdlzNdUcT8fVJjrW/ZNK5u7QROJjI6GR2DKfWzR0ad13nC3CFLp8bXOYHP6kqyJafw8bqrabm1FznyP7znOAu5xyTgAfIALuoyOUFVaanZE0BrQLK00WC3EZFEnKLqJKqGbnKRCRNrXuEr5RTc7FlFM2QEA4qDgmUnbIF0SQhAibFG4RdLbqgCg4wo38EXQMoOyXRFkC80E3yg4KWAgd1F3ig7IJxZArpHCEdUCTBskd0uqB3SJN0e6HBAwUic2SOAooA+Sj6qXRRPog1nBWqf1lpPYyuJqKazHk7ub+F38PZbPVK+i0qilra+XsoIxkjJcTs0DqSvNeH9TOlavFVEkxu7koHVh3+W/su84k0aDXdNZC6Xke13aQyNyAbdR1BCx6mVZdjgNa1et13UhVygNgjcBBTl2Im9T5u636+ihGYg3u8vIx/NIy++bkny8uqw1lLJpNRPSzwn7RYBocSGmxy64GbjA6Kxw9pdVxBXOjj5oKJjh284AvjZoPV1vkPZWsthomnz6/VljC+KhifeWYOPNfcsafHx/VHnt6JSQwUdPHT08bYoY28rWtFg0KFHT01FTR0tJE2KGMWa1vRZXOscLFrcjK9wIusFRUQU0EtRUzRwwRNLpJJHhrWNHUk4A9Vy/G3Hei8LA087nVuqObeOggI7TOxedo2+bsnoCvM5m8T8f1zJNZkEdE1/NFQxAiCPwJvl7v2newapJpuOk4o+JVTqU7tO4KiuDh2pSx3H/ZYd//AJux4Nduq/CPAkk07q/VZJaiomdzyyTOL3yHxc45P8Oll1fC3CdHpsbT2YL97lddE2GBo5nNb4XNl0nlnVfTNKgo4msijDQB0C2bGBoUoKermt2NLIWn8TxyN+v8lci0mdw/T1LIx4RN5j8zj6KoqA/RQZKJXlkAfM4dIml35YC3EOlUTLF8RncOszuf6bfRXm2a0MaA1vQAWA9k0aOKgr5clkdOP+Y7mPyb/NXIdIhb3p5pZj1F+RvyGfqthsPVRfI1pbzODeY2HmU0xyfH2nuoNGqNb0VkkVfSsMvZtkcY6hrRcxvYTbIBAIAIJBB3B12g69SatSRVNM7uSMD23ObEXC7msjbNSSxkc127b3tleEcGh+j6pW6MSQ2hqpIGD9i/NGf3HNU36r1ZrrqYyqNHLzsBVtrloM7pIJSugCkQmEicIFtlIov4Iz1QLrZJNRBsgngKBOVLdIoFdLdPfCRCAKSL4SugDcoyi6V7oApJlJADCL3SKEAQlbKZASCAOyjdSN1EoPHIJY6iBksTrscL3Xf/AA/1X7RRO0+V95qb7gO7o/8AI49LLx/hbUXPiLZy0Oc9zJLfdZM374A6A3Dx5OK6bStSfpmpw1sZyw94frNO49wnqbEleocRaPR63R/ZqovYR92SM2c3+Y8la0ykpdOoYqKjibFBGLNaPz8yfFY6aYVcUctJeeORocwsHMSD6KxVUes/YpHUVJB9otaMVcpjZfxdyhzreguuP1v4xarqNFpdBLqGpVcFHSQi8k0zw1jffx8Buei8e4r+Keqa5UP0zguKajpieV2oSstM/wD6bT9wftG7vJq3+t/CfWuJNQZXcY8aPq3Rm8VLQ0fZ08PkwPcf3iOY9T0XX/D74bcLafXGKeOoq/0d2MlcA0kHN+UA9Ri9lqRLa8z4E4Blmm7WoimqJpHc77B0kj3HcuOST5ley6HwhWQRNaKeKkYP+K67v3W/xIXoFLS09HAIKSCKnhbsyNga36Ifut4y0NPw/Tx2M80s1ugPZt+mfqthT0lLS3+z08UR8Wtz891nc/vcoDibXwP4qnW1kMED5JKiONrMuP3zjNrDrZQWSb3J3+axukYALuFieUZ3K1epaoYBG+Knkla94Akc7kjbzYFxuR+ShqI1GWlcIqpsD2xG8UDcPcPB5yPBBuS4AXJAG+TZLnweUOd6C31KwwuYWteWcrnNDiCbkXG11MuJHMTygfrY2RUudxYHYbsTm6HNa8WcAQcG+cFVKerpqt8rKecTlhAcY8ht9s7fJWGOMkYOOY3GDfIKDK12BcrxP4g0h0j4lduwWi1CmDvLniPKfmxzPkvaGkdpyXFzm182XnPx3oraNR6y0WdQVLHvI/4bj2b/AKPaf7qlFnR5+eFpvuFuIyVyXC1SH0zRfZdVC7AWoM/RRQCmVQklMA2UHFAdUE4S6oKBdUDzR5pIBCDdHqgRSui+6RQCXVMbII6oEcpbJnwSQBSwnlFsIEkUwLotlBG+MIGyla6XL1QK+FE7qdsWUCg4bQ/gfqsuoPr9X1emoGzsYZYKZnaydow914dhoNiWne4XpGkfDrhbTSJHULq2Ufjq384/dFm/Rdi4Z8lB2ylZVWRR08QjgiZDGBhkbQ1o9gq87BvuVakdfYF1zbui6qVEjA8MLm8xJAF7m4F/yUaayqa25uceqwafIaevp5dg2QB3mDg/mrdU0XyPnha6dpcC0YuLbLFV3YPdGbrHJt5rFpVR9p0+Gbq9gJ9dj9U3GYvN2Na0dS7LvZdGGl4hjIbA975nwtmtI0OOWu2wPAqMFO2INeym7NsbuUfhPiD1J6DPgr2p0r6qGeAySMZLFa7DYtcDcEKlTydqxrmSNcHtu0kHBHW5tnH1RSq4IZKdra0sc0kxlgBs47jzvYLJBUtq6KOpgDuxkaHtuOWwvn+OFhpq2H+tZKQzF0hjDhHbDXN+96XBGDnBWSiqjNW1cM1MInU0nK3mdzFzSPvW6YP1UFTR31k01RTuqYGR00jo+VjLuIOWm99rLO7S4HVb6iftpnOcHDtJC4AHBsNgFGrqaum1AfZ6GWpZJCbcjQ0Ne045nnYEH6LNXCtnjibEWU3fAe4s7Q2t06b2yUCNPBS6lG9h7ITR9iI2izSRkH1thW2SRve5gLe8Oaw+TvqtPqdAQ4Vj55XTwlrmSPkIjbynNx5hbguiZaYENYRe4+6Qevz/ADQKKHsxEXuu+NpjwcW6EqhxfpkWscN12nSgctRC6M+XMC2/te/stna7rjYjNgpOaJIyxww4Fp90V4X8Pq176OJs9xO0cko8HtPK4fMFei0jrsBXnFRC7R/iDq1CQGslmFXGPKUd7/G1/wA132myc0bSnkbNqn4LGw4UitCd7BQdui+EIIkIUsJEoIlFsIQUAl7pnIUTugVgkUzYI9kCCd8JbIuUC2SKZugZQJCCLBIZKB3QSgpboC6WUJ9MoC+Fj97KQ3KRyg7ioqIo3sY6S3aXDbC5JWCeQiTmEbMAODpH9CbHHT/NLV5YoII6pxc3sXh7RflvfFrdd9lmDWMlc6w75Fnb7j/L6qMtXqcUlVTyNEk5aL9wdxruuf8AyFluQO/G1hc0PIb4jB/grbnte1zrONujgRe2/stY0v8A9izkMsEgFgDYNd5nyyo0dQ3y+i1tQ0c3j5XWyk53NHd5cZLiCbjyWuniLJC/mdY4O2VmkbvhSa9NLAT/ALOS4Hk7P53W2mNhcNJyMD5LmOHJey1QMJ7szCz3GR/FdJWxmaBzAbOOWk9De4PzWvPErDOXBgcS1hBBN84vstFp+kUxqqyOrY+cMnLohLIXNDSLizdhZb+VrXtLXAEHcW+a0+o1NRBqULqenkqWSNdE9sTQSHgi1ydsIL0YaQ6NsLo2sODYAHzCpO+zU2pNfIHGep/RB5AP3RcAlZhJWvj5pmR0xcbNaw9o7I69N1r6rR3PLJzWTTVUT2PD5Xd1tjmzWjFwg27nWHM4+Y6pOMjqd1mkP5TZodY3tjPRNxL2913LYnJH8E+0aDfmtcXybbIrVgT6ppkDmyCidJmZrbSEbhzcjxtlPTKZ0OnCOSLtZo7xjnN+cB12+QRpdZTvqKimp4i+NsnOx0bO6Q4XOfG906Qah9uqHytigjlsWRuk53AtxewxkZRG0vzAO6bpXAFifLdRjaQ0tc4uBcSOlgeik1rRctaATuQN0V5N8Z6P7JxHo+sxt7sjnUkrrfrDnZ/iY8f3lstAqBJTMIN8Lb/GLTHahwRWGFnNNTt7eLx54yJG/PlI91xnBVa2eljex12PaHN9DkKTo7mI3CzBVad12hWGlbEkBBygoDdIgICRCBFIp2QBfdAkJ8qVrIFy3S2UksIEUimokIH0SOEYsgIDCSZyNrJWQB2ul5p5SQLonug7IG+UEbJGykTZRIQdEYKGmjd2/ZGG3Jed5c4B17/wVmhqIqyhZV0gLuVrmNYMXLTa2dtgnTabSxSF4pImPA++4858slOn7SHUJ4nQWilIkZJzCxdbvC2/S/zUZTeJ5D33NhB/V7xWukLaetZSukkeZ2Ye94wW2GB/rqsesM1CCF1VJqMjmxzh3ZRxhrez5tidzi11h1iSmZUw1Z7NhjLXh7h+k5b5ABza7goq8JOcuAabYcHWwbrX18Je0HmLS13MLH/XRbK7SA4AWJx6EXCrVDTy3spVa+OR0M7J2bxuD/l/ku1aQ5l2nBGD5dFxMgsbOzY2I8V1GgzGXSornLAYzf8AZwPpZPPSrDmAE7m5vk33VeePmPNnmwRdxsCPIK1IN+VVmskDO/JzOOTYWA9FqohJI1tiXb7WNvNQD3St7jTY/iGLX9VU1migqKKVsjJi7luHwH9M1zfuuacd4dPHbquX4X4omZUt0nXqundVud/ZpuYAVDDe1rgXcCCCLA4yLgrO5cXP10emQ6k2FsVTWxO5GlhEbeZ9+hLj1t5LPPHTwuE8t7i/3zzWvv6YViFwcC/nJByOgCk8AgDsxIRcgWFgVRFuQ3kH6Mt6GzR7KRaMHmIsb93Hsk1xc1rudgHUNzf39Uu1YMXz4blBkFuuFjY+VxB7MMjv+N3ePso88plbeN/LY2vbcbfxQ6OV5cDUODScBotYeu5QOui7ajkYW8123APUjNl4Rwmz+qdWrNHc4/2KpfA2/wCpfmZ/gc1e+tPK0XJJHXxXi3xApDpPxG+0MHLFqFOD/wByI2PzY5n7qlHaUb7sGVdZlaXR5e0hab9FuIzhbGRCEIBBGFK1golAkbo3RsgRBKWU7oB8EESUjlN26R3QJwPRAPin0SQBURumMlBsgRNkIO+EIBI74QbhHVADZBQjqgRUcFSKid0HamIucXSPeARy8gNmrI5rS3kLQW7WKriuhcy4c0yWu5oyWnwICgZKx7R2TG2Jy6Ucth0sFGVbUNLZUyl76mrEZjLDCyUhpN78x636W2VeKXT36d9qcxsXLEY3c3ee0NwQd84V+po/tUbW1MspAcH2jcWNuPzCKalpqfmjgijYAfwC5z1JUVr6CaWfTY5DC8TFhbbl5Rcbb9E52uk5S67LWcWtznwJ8FsHNILjvfxdex9FUqRIQQwNvtk2HqpVauoZYuOcm5uceC2nCs1pZ6dxwQJG/kf4LXPZMCTI6Mkgd1jTYHrk7qWky9hqMLzcXdyOv4Ox+dlOVfx1kiwuWZ22VheLLdYV5gHAiy8k+KfDMB4ig1erBdTTjsoqh7gG0NUbAOv+BsgDWlwyHBpOCb+uS2Au7AWs1inpNQpJtOq6f7RBURObLG4d1zTggqX605DgHiWokedJ1UltbB3SS23aAYv63wR0K76J7XAOBXhWuUlZoWrf1dUzyuqqdhno6twzUQMH4j+uwCz/ABaA7ouu+GfxH0biWlnEFYO0pJBHMzwO1x+s09CMFZmrXos8bXwyMN3Y6+RuMeyys5eQcoAByOirCZzsMbix73mFNjXNYOeQNF7Cx+WVpGSoIjj5ybBhBPp1+ili2DfwKwtnpnAhlpTueQc3r5KTJsfpGdmSbND3i5+SDJ6rzr450Q/qej1lre9Q1LHuNvwO/Rv+jwf7q9FHgPotRxlpser8N1unyjuzROYfIOBbf2vf2Uo4Phao7SmaCcjC6iJ115t8PayR1MyOccsze5KDuHtPK4fMFehUz7tC1OC6E7qDTdSHmqJXCicoKAgiQlnqpW8SkR1QK2EKXRRIygXVG6Rai6A6WStlBymgRUVI7pWQLqgkJlQKCVrhLZA23S6oHdMqBOUzdAHyUCCVIlK6DtoImRcwjaxjSebuNtc9bnqp2wQMHx3Q9zWfecBfGSqVTUTTMa+jc1kYe0ulcy4c25BDR4rLLKYDzmSaZ7rO5gOazR5f+VjdWwGqZTMcXvcD90d0WzkrI6ngABmPaechxnyWOqIEbZYgSIyHWGBbYoqb/HY74VWUdLD3VkOa8loc023scD3WElrwSxwcBuQitfVi/ite43JDdyMeRWxlfFIy8b2vBxg3I9fBUZh1P1KzVjraOYVFJFOPxsDj7jKxyCUuN3Bo6Bv81T4Xm56KSHrE829HZH1ulxBPVQRtdTPaw3BPM3mxsf4LUuxlkqJYYAXEFztjYXPuenutIJ6uaoklpSwtdO2OUvz2PdsQ2++4OwGVadSOe6rhklc8gNlgtdtxvnOe8PqlWzAQVMjIbRzQdq1oba9hY+mLH2RXI/FbhabizhSeip659NqMMglpZhcBsrR91wG7DsR/JfJWl6jrHBfFh1Wmp30tVTyugr6J2ADfvRnyO7Svtmnm5oI5QXFkg5nPeQ1pxYWA9vmvHP6QXw9/rOGXinRqdkldTw/2yCMf+6hG9v22HIPUY6BJWbP16Z8OOLqLifh6l1OjmD2SsBJJyHbEEdCD0XWy8rrEhpc4FgLj3b7jHXK+JvhFxvNwPxG3tZ3SaHWuHbH9QnAlA6eDgvsbRNShr6FlRC9r2uaHNcO8D6eNx+anFl1fY98tg0yv/ZibyMsQepyfZOGVjZwT2AkDRdrLvf4HKjyPlLg6Nz2/h7WTu+IwPDz8FYjheHZls3muGxtDRnxO5VVmYS5gcWubfo7BCHtEkbozs4Fp907o2x+aDwuppzo/H2p0pu1s0ratgO1pB3rf32v+a7qgkDmAjwWh+M1IaTXtL1hgs2RzqaU+TxzN/wATHD+8r3D9QJKZjvJTyV0MZWQLDC7urN0wthpdUIQMqKZckSgLmyAi6iUASo3TOyj1QCL+KR3QN9kD6p4HVIbpWygHXUVIqKBnZLqmlbN0AUE4Qd0FBE+KWUyErFB2xDGHuM5ifDf5qiyVxdNEzlc10j2xvuXWxc39HXSndV1BfDByU8bXFpc7vOfbawG3jlV4JoY5ZhPUtuQJBGS0BlsEADzBWUizG2s5G81YHu5R3uxaT7WWKWCd4ex9fMea4Nw0YI6WWWCpjMb3NPIxty1zu6CDncp0zI5GtmcyMyPYO+081/TyQa4U9Q+k7E1MwtGWuDTnmB8SMfJN0TGDnlllB6XkN9tvPCuPJjqpA43DrPaD54P5D5rW6w+dhsCwC3cJNruHQdb2UVjoWwxOcyEBrHgvHS5Odt+p+SKgbm3yCp6XPBLW2g5i4uvzWyQRi58N1sapnXfw6qUjLw1N2eo9mTYSsLd+oyP/AOlutVjL4Ry2GbX9f87LloZHU9THOD/s3h+PAb/S67KVrJI7OAc0jrn0V8laSnqGRspZ5ZA02MDy6/MSdgD6jZDqN84YKloDWc4awHDmnbn/AJKwdOdC+SSGUvDyHdnK0OaPTwUWN7M8rWupundHM36qiP2SljDT9mis3Y8oAHoqlVAyQOs0ue4OaLDNt/kFcL8ua+RkhGwYMZ2v536KccRF5H/fdk3yg+UP6Qvwz/8AT1Q/iLT476PVSXqYWNxSTO/GP+W7Y+B9lsPgDxxVcPUkGi8UTso6R5cdNfM/vujAu4EdGD8LjYOvi6+k9X0+m1Chmo6ynjqIZmFkkcjQWuadwR1Xx38Y+Da/h7iN9DWyT1j5AZNOrpCS6ohb/uj/AMyMYA6twMWTrPPr7I0+piqYGSxva9rgCHNN7hXhnr8185f0ePiTJVQt0PVp7zRlrWOcfHAt+yengbjwX0LSzB7A5pGdrKa0s5O2An6bqIsU7+fzVHJfFnS36nwbVtibzTwt7WIDfnYQ9v1bb3XFcFVraikjexwLXtDm+hFwvV9alp4NIqp6qVsVPDGXySPNmtAzcnovCvh3PejjcxrmQve8wgixERe7kv8A3eVT9HqVO7AVgFUaN12i6utPgtiQTIQD5IQRPqkhyBgZQBuhSwoEoFayCmVD6IDfZMbpdUzgoC6RKEigDlIp3SQHui6e6RQRJsU7pWTQG6Tt0X8Eig6OsrnU8zZjFI+lkjEhETLu5huPSxB9ioGH7XWU0zGNjbDIS5rWg90gj0/NZTD9rp6ftAOQOD+8TzcpvcWHrZXaWIxU8cIJeWtDS4ttcgb2WUTcLjleb42Ofoq1nQtEUMJfykgXIY23srAsX45j4kDHzVOtrG0M4LmF7HtAAZlwcP5g/QoIyUnaTieaNjpGgtbyuI5WnNr9dgq9bp8FTHzBpAJuQ3Lrg7Z9FmOovqByUkDrm45327vsp6cyRtKY6gl5a4991hz3N72Hrb2RWgjoGmoeyMPa1jnAEOLnWNiN8YN1ffG8MDec2HQgG62kgsNlTlAAIH0UGqmHK/O3yXUaJN22lQkm7mDkd6tx+S5qqHe/kttwvNZ09OeoEg//ACfyCk6XjcOF1hkaDuAQfHKzv81if9FpFfsWCXtBe4HKBfA9kH0wshNgbLG7yPyRWNwuMLkfiXwhQcYcNz6XVgxyD9JTVDB36eVv3XtP5+IW/wBc1rSNFi7TV9SpKFp27eUNcfRu59gVw+s/FXSWAt0fTNQ1V/R5b9ni+b+8R6NQfKWuUOs8L8TzGSEQapQShlXE3DHh2zgf+HJuD0cvpv4Q/EXT9a4cbNW6hDE6Bo7WSolDNsZJsAeh8/ULyr4pN4g42rItUOl6dDVUkTo4oIA/+0RE3MUj3HvdbYFiVxnAOhVhrn6oY4xpPKeYVEffvzAEgdHMIAcfQ9cLzWZ8+PqnUfilwtS/o6Oep1eUfhooSWX85HWZ8iVz1f8AETijUAY9K0+h0qM7PlJqZbendYD7OXKaVpnI8BwXW6bp8eDyhTrTQ1lBquuua7XtTrdTaHBwjnk/RA9LRtsz6LfaNpPYyB1rWW5p6RgGAr0UQaMBawTpWBrQFabhYmNssrVRJNK6CgN1Ep3SySgdrKBvdSKLXCCN0k7Wyn7II9UyboI8EDyQJHqgoQLFrFROE8XTQIbXQTlBwkgfRAzujbqk45QLF7JHCZSyg7Nha0BsbcDA5W2AHunlw73d8mnPzUuU9fqbploO5O6yyRNu6BtjxVaeihmlEj2nmBuOY3ANrbK0BYY22TRVKmoIqdnK10hFyTc2v5Y6KxYbAWHSyn5/kou/11RWCRt8qpILXx/FXZSSCqs5DWOeTZjcucTYNHmeilGsqmbko0WYQ6lC5xsCSw/3sfnZc3xFx9wtpznx/wBY/bqgYMNAztjfwLh3B7uC4TWOPOI9S5otEo4NHjO1RNaef1DfuNPrzKK+iSbg2BNsm3Rcxr3G3CujPdHXa3S9sMdhTnt5f3WXI97LxKVmv683k1zX9V1RvVk0/LH/APWzlZ9FtNM4ZhijDY4mRt/Va0AfRaZdNqvxXfK4x6Fw/NJ4T6hII2/uMu4+5auar9e411kkVOtS0sLv9zQMFO23m4Xef3lu6XQ4mgdwLZQaZG0CzQmVXC0PDDO2M5ivK770ju893q45PzW9o+H4xbmZldVFRtaRhZmwAdFcHPx6LG38IUG8PU4rJZwHtEob2sQtySObfleRb7wBIuLXBsbrp+z8kdmPBMHNP08MkuGq/RxcmFsnwAlRbEGlARNWdosotHRZGtVE2jCaQwpeiAJwjoglJAFAcldJBJBPRRv5I80AUDASugIHcqN1J2AoHe4QNFzdIJg42QLdSCj4ouAgChIkJEnogDlJPokUDJyhGyRIQdwM36Z6IOL2xgoQsskTYlDsBCEUjvc+Kictv5IQivHvjT8ROIeGOIKbRtHFFCydgcZ3w88jb+HMS35tXntfVahrkgdreqV2pHflqJSWD0YLMHsEISotUlJAwNa1gAGw8FuaSmhuO6hCiui02nibazVvKeNltkIWoLjGN8FmDG2vZCFRJoCmAEIQLrZO2ChCCJAsVjICEIAbqQQhBJMIQgiTlHS6EIDqhCECR0QhEoGyYGUIQpdUupQhAWQEIRS6XR0QhBAdE7IQgHCyGoQgCVEoQg//2Q==";
@@ -1534,6 +1534,49 @@ function pruneTagTasksIfNeeded(tagState, tasks) {
     newState[t.commentId] = { status: "hidden", at: now };
   }
   return newState;
+}
+
+// v70.15：取我 @ 別人的留言（用來追蹤後續，看對方有沒有處理）
+function getMyTagsToOthers(projects, currentUser, allUsers) {
+  const myEmail = currentUser?.email;
+  if (!myEmail) return [];
+  const tasks = [];
+  for (const p of projects) {
+    if (p.stage === "完工") continue;
+    const comments = p.comments || [];
+    for (const c of comments) {
+      if (c.type !== "comment") continue;
+      if (c.authorEmail !== myEmail) continue; // 必須是我發的
+      if (!Array.isArray(c.mentions) || c.mentions.length === 0) continue;
+      for (const mentionedName of c.mentions) {
+        const mentionedUser = allUsers.find(u => u.name === mentionedName);
+        const otherTagState = mentionedUser?.tagTaskState || {};
+        const state = otherTagState[c.id];
+        let otherStatus = "unread";
+        if (state?.status === "done") otherStatus = "done";
+        else if (state?.status === "hidden") otherStatus = "hidden";
+        tasks.push({
+          commentId: c.id,
+          projectId: p.id,
+          projectName: p.name || "未命名",
+          projectStage: p.stage,
+          mentionedName,
+          mentionedEmail: mentionedUser?.email || null,
+          content: c.content || "",
+          createdAt: c.createdAt,
+          otherStatus,
+          otherDoneAt: state?.status === "done" ? state.at : null,
+        });
+      }
+    }
+  }
+  // 排序：未讀(unread)在前 → 其他按 createdAt 倒序
+  tasks.sort((a, b) => {
+    if (a.otherStatus === "unread" && b.otherStatus !== "unread") return -1;
+    if (a.otherStatus !== "unread" && b.otherStatus === "unread") return 1;
+    return new Date(b.createdAt) - new Date(a.createdAt);
+  });
+  return tasks;
 }
 
 function getProjectsWithUnreadComments(projects, currentUser) {
@@ -3694,8 +3737,8 @@ function ProjectCard({ p, onClick, allUsers = [], onWaitingToggle = null }) {
           </div>
         )}
 
-        {/* v40：提案 4 階段 mini 進度條（v41：修繕案 1 段） */}
-        {p.stage === "提案中" && p.consultDate && (() => {
+        {/* v40：提案 4 階段 mini 進度條（v70.15：公司反饋取消顯示，code 保留以備將來） */}
+        {false && p.stage === "提案中" && p.consultDate && (() => {
           const isRepair = p.projectType === "repair";
           const segIndices = isRepair ? [3] : [0, 1, 2, 3];
           const segs = [];
@@ -3747,8 +3790,8 @@ function ProjectCard({ p, onClick, allUsers = [], onWaitingToggle = null }) {
           );
         })()}
 
-        {/* v45：已簽約 7 階段 mini 進度條 */}
-        {p.stage === "已簽約" && p.contractDate && (() => {
+        {/* v45：已簽約 7 階段 mini 進度條（v70.15：公司反饋取消顯示，code 保留以備將來） */}
+        {false && p.stage === "已簽約" && p.contractDate && (() => {
           const cp = p.contractPipeline || {};
           const segs = [];
           // v68.6：6 段（跟新進度系統 PROGRESS_CONTRACT_DEF 一致，砍掉約看樣品）
@@ -3965,6 +4008,24 @@ function ProgressItemBlock({ project, itemDef, currentUser, isDevMode, onUpdate 
     onUpdate({ progressItems: newItems });
   };
 
+  // v70.15：刪除誤鍵入紀錄（提交者本人 或 負責人/主管 可刪）
+  const deleteRecord = (recordId) => {
+    const r = (item.records || []).find(x => x.id === recordId);
+    if (!r) return;
+    const isMine = r.submittedBy === currentUser.name;
+    if (!isMine && !canReview) {
+      alert("⚠️ 只有提交者本人或負責人可以刪除紀錄");
+      return;
+    }
+    const dateInfo = r.submittedAt ? `（${r.submittedAt}）` : "";
+    if (!window.confirm(`確定刪除這筆${r.status === "approved" ? "已通過" : r.status === "rejected" ? "已退回" : "等待覆核"}的紀錄${dateInfo}？\n\n此動作無法復原。`)) return;
+    const newItems = items.map(it => {
+      if (it.key !== itemDef.key) return it;
+      return { ...it, records: (it.records || []).filter(x => x.id !== recordId) };
+    });
+    onUpdate({ progressItems: newItems });
+  };
+
   // 切換定稿
   const toggleFinalize = () => {
     const newItems = items.map(it => {
@@ -4102,6 +4163,14 @@ function ProgressItemBlock({ project, itemDef, currentUser, isDevMode, onUpdate 
                       退回
                     </button>
                   </div>
+                )}
+                {/* v70.15：刪除按鈕（提交者本人 或 負責人 可刪，誤鍵入時用） */}
+                {(r.submittedBy === currentUser.name || canReview) && (
+                  <button onClick={() => deleteRecord(r.id)}
+                    title="刪除這筆紀錄"
+                    style={{ background: "rgba(120,120,120,0.1)", border: "1px solid rgba(120,120,120,0.3)", borderRadius: 4, padding: "3px 6px", color: "#888", fontSize: 11, fontWeight: 700, cursor: "pointer", lineHeight: 1 }}>
+                    🗑
+                  </button>
                 )}
               </div>
             );
@@ -6225,6 +6294,7 @@ export default function App() {
   const [showCatPicker, setShowCatPicker] = useState(false);
   // v70：留言板 TAG 通知中心
   const [showTagNotificationModal, setShowTagNotificationModal] = useState(false);
+  const [tagModalTab, setTagModalTab] = useState("received"); // v70.15: "received" | "sent"
   // v70：用 tick 強制每次打開首頁/Modal 時重新計算未讀（因為 localStorage 更新不會觸發 re-render）
   const [tagNotifTick, setTagNotifTick] = useState(0);
 
@@ -6997,14 +7067,7 @@ export default function App() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Anton&display=swap');
         html, body {
-          background: #0a0908;
-          background-image:
-            radial-gradient(ellipse 600px 400px at top right, rgba(200,168,112,0.06), transparent 60%),
-            radial-gradient(ellipse 500px 400px at bottom left, rgba(91,138,240,0.035), transparent 60%),
-            linear-gradient(rgba(255,255,255,0.014) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.014) 1px, transparent 1px);
-          background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
-          background-attachment: fixed;
+          background: #000000;
           margin: 0; padding: 0;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -7434,7 +7497,7 @@ export default function App() {
                 style={{
                   position: "relative", overflow: "hidden", minHeight: 110, padding: "16px 14px", cursor: "pointer",
                   borderRadius: 12, color: "#f0ead8",
-                  backgroundImage: `linear-gradient(135deg, rgba(226,201,126,0.4) 0%, rgba(226,201,126,0.18) 100%)`,
+                  backgroundImage: `linear-gradient(135deg, rgba(226,201,126,1) 0%, rgba(180,150,90,1) 100%)`,
                   backgroundSize: "cover", backgroundPosition: "center",
                   border: `1px solid rgba(226,201,126,0.5)`,
                   transition: "transform 0.18s, box-shadow 0.18s",
@@ -7452,7 +7515,7 @@ export default function App() {
                 style={{
                   position: "relative", overflow: "hidden", minHeight: 110, padding: "14px 12px", cursor: "pointer",
                   borderRadius: 12, color: "#f0ead8",
-                  backgroundImage: `linear-gradient(135deg, rgba(200,168,112,0.4) 0%, rgba(200,168,112,0.18) 100%)`,
+                  backgroundImage: `linear-gradient(135deg, rgba(200,168,112,1) 0%, rgba(160,128,80,1) 100%)`,
                   backgroundSize: "cover", backgroundPosition: "center",
                   border: `1px solid rgba(200,168,112,0.5)`,
                   transition: "transform 0.18s, box-shadow 0.18s",
@@ -7471,7 +7534,7 @@ export default function App() {
               style={{
                 position: "relative", overflow: "hidden", padding: "16px 18px", marginBottom: 8, cursor: "pointer",
                 borderRadius: 12,
-                backgroundImage: `linear-gradient(135deg, rgba(200,89,59,0.25) 0%, rgba(200,89,59,0.1) 100%)`,
+                backgroundImage: `linear-gradient(135deg, rgba(200,89,59,1) 0%, rgba(150,60,40,1) 100%)`,
                 backgroundSize: "cover", backgroundPosition: "center",
                 border: `2px solid rgba(200,89,59,0.7)`,
                 display: "flex", alignItems: "center", justifyContent: "space-between",
@@ -7493,7 +7556,7 @@ export default function App() {
                 style={{
                   position: "relative", overflow: "hidden", minHeight: 110, padding: "14px 12px", cursor: "pointer",
                   borderRadius: 12, color: "#f0ead8",
-                  backgroundImage: `linear-gradient(135deg, rgba(60,60,60,0.55) 0%, rgba(60,60,60,0.3) 100%)`,
+                  backgroundImage: `linear-gradient(135deg, rgba(50,50,50,1) 0%, rgba(30,30,30,1) 100%)`,
                   backgroundSize: "cover", backgroundPosition: "center",
                   border: "1px solid rgba(255,255,255,0.1)",
                   transition: "transform 0.18s, box-shadow 0.18s",
@@ -7510,7 +7573,7 @@ export default function App() {
                 style={{
                   position: "relative", overflow: "hidden", minHeight: 110, padding: "14px 16px", cursor: "pointer",
                   borderRadius: 12,
-                  backgroundImage: `linear-gradient(135deg, rgba(20,20,20,0.55) 0%, rgba(20,20,20,0.3) 100%)`,
+                  backgroundImage: `linear-gradient(135deg, rgba(15,15,15,1) 0%, rgba(5,5,5,1) 100%)`,
                   backgroundSize: "cover", backgroundPosition: "center",
                   border: `2px solid #f0ead8`,
                   transition: "transform 0.18s, box-shadow 0.18s",
@@ -7529,7 +7592,7 @@ export default function App() {
               style={{
                 position: "relative", overflow: "hidden", padding: "14px 16px", marginBottom: 16, cursor: "pointer",
                 borderRadius: 12, color: "#f0ead8",
-                background: "linear-gradient(135deg, rgba(160,128,104,0.35) 0%, rgba(140,108,84,0.18) 100%)",
+                background: "linear-gradient(135deg, rgba(160,128,104,1) 0%, rgba(120,90,70,1) 100%)",
                 border: "1px solid rgba(160,128,104,0.5)",
                 display: "flex", justifyContent: "space-between", alignItems: "center",
                 transition: "transform 0.18s, box-shadow 0.18s",
@@ -7548,7 +7611,7 @@ export default function App() {
               <div onClick={() => setShowPriceDBModal(true)}
                 style={{
                   borderRadius: 12, padding: "16px 12px", cursor: "pointer", minHeight: 90,
-                  background: "linear-gradient(135deg, rgba(226,201,126,0.4) 0%, rgba(226,201,126,0.18) 100%)",
+                  background: "linear-gradient(135deg, rgba(226,201,126,1) 0%, rgba(180,150,90,1) 100%)",
                   border: "1px solid rgba(226,201,126,0.5)",
                   transition: "transform 0.18s, box-shadow 0.18s",
                   overflow: "hidden",
@@ -7561,7 +7624,7 @@ export default function App() {
               <div onClick={() => setShowWorkDayCalc(true)}
                 style={{
                   borderRadius: 12, padding: "16px 12px", cursor: "pointer", minHeight: 90,
-                  background: "linear-gradient(135deg, rgba(200,168,112,0.4) 0%, rgba(200,168,112,0.18) 100%)",
+                  background: "linear-gradient(135deg, rgba(200,168,112,1) 0%, rgba(160,128,80,1) 100%)",
                   border: "1px solid rgba(200,168,112,0.5)",
                   transition: "transform 0.18s, box-shadow 0.18s",
                   overflow: "hidden",
@@ -10155,11 +10218,25 @@ export default function App() {
               const activeItems = allItems.filter(it => getItemTimeBucket(it) === "active");
               const upcomingItems = allItems.filter(it => getItemTimeBucket(it) === "upcoming")
                 .sort((a, b) => {
-                  // v70.13：沒設 startDate 的排最前（剛新增的、待填的優先看到），同類按 id 倒序（新的在前）
-                  if (!a.startDate && !b.startDate) return (b.id || 0) - (a.id || 0);
-                  if (!a.startDate) return -1;
-                  if (!b.startDate) return 1;
-                  return a.startDate.localeCompare(b.startDate);
+                  // v70.15：3 層排序 — 已預約有日期(近→遠) → 已預約無日期 → 未預約
+                  const aReserved = a.reservation === "reserved";
+                  const bReserved = b.reservation === "reserved";
+                  const aHasDate = !!a.startDate;
+                  const bHasDate = !!b.startDate;
+                  // Tier 1：已預約 + 有日期
+                  const aT1 = aReserved && aHasDate;
+                  const bT1 = bReserved && bHasDate;
+                  if (aT1 && !bT1) return -1;
+                  if (!aT1 && bT1) return 1;
+                  if (aT1 && bT1) return a.startDate.localeCompare(b.startDate); // 近→遠
+                  // Tier 2：已預約 + 無日期
+                  const aT2 = aReserved && !aHasDate;
+                  const bT2 = bReserved && !bHasDate;
+                  if (aT2 && !bT2) return -1;
+                  if (!aT2 && bT2) return 1;
+                  if (aT2 && bT2) return (b.id || 0) - (a.id || 0); // 新增的在前
+                  // Tier 3：未預約 / null（最下）
+                  return (b.id || 0) - (a.id || 0);
                 });
               const pastItems = allItems.filter(it => getItemTimeBucket(it) === "past")
                 .sort((a, b) => (b.endDate || "").localeCompare(a.endDate || ""));
@@ -11721,9 +11798,8 @@ export default function App() {
       })()}
 
       {/* 📬 留言板 TAG 通知中心 MODAL（v70） */}
-      {/* v70.14：TAG 任務中心 — 逐筆 TAG 任務 + checkbox */}
+      {/* v70.14/v70.15：TAG 任務中心 — 收到 + 發出 雙 tab */}
       {showTagNotificationModal && (() => {
-        // v70.14.1：inline 時間格式化函式（fmtTime 是 ProjectCommentsModal 內部函式，這邊取不到）
         const fmtTaskTime = (iso) => {
           try {
             const d = new Date(iso);
@@ -11736,26 +11812,26 @@ export default function App() {
           } catch { return ""; }
         };
         const tasks = getTagTasks(allVisibleProjects, currentUser);
+        const sentTasks = getMyTagsToOthers(allVisibleProjects, currentUser, allUsers);
         const undone = tasks.filter(t => !t.doneAt);
         const done = tasks.filter(t => t.doneAt);
+        const sentUnread = sentTasks.filter(t => t.otherStatus === "unread");
+        const sentDone = sentTasks.filter(t => t.otherStatus === "done");
 
         const toggleDone = async (task) => {
           const tagState = { ...(currentUser.tagTaskState || {}) };
           if (tagState[task.commentId]?.status === "done") {
-            delete tagState[task.commentId]; // 取消完成 → 變回未完成
+            delete tagState[task.commentId];
           } else {
             tagState[task.commentId] = { status: "done", at: new Date().toISOString() };
           }
-          // 100 項自動清理
           const refreshedTasks = getTagTasks(allVisibleProjects, { ...currentUser, tagTaskState: tagState });
           const pruned = pruneTagTasksIfNeeded(tagState, refreshedTasks);
           const finalState = pruned || tagState;
-          // 樂觀更新
           const updated = { ...currentUser, tagTaskState: finalState };
           setCurrentUser(updated);
           setAllUsers(prev => prev.map(x => x.email === currentUser.email ? { ...x, tagTaskState: finalState } : x));
           try { localStorage.setItem("mudao_user", JSON.stringify(updated)); } catch {}
-          // 雲端同步（要 Supabase users 表有 tag_task_state jsonb 欄位）
           try {
             await sbFetch(`users?email=eq.${encodeURIComponent(currentUser.email)}`, {
               method: "PATCH",
@@ -11772,12 +11848,10 @@ export default function App() {
           setShowTagNotificationModal(false);
           setActiveProject(project);
           setCommentsModalOpen(true);
-          // 開了 comments modal 後 scroll 到該 comment
           setTimeout(() => {
             const el = document.querySelector(`[data-comment-id="${task.commentId}"]`);
             if (el) {
               el.scrollIntoView({ behavior: "smooth", block: "center" });
-              // 高亮閃爍提示
               el.style.outline = "2px solid #c084f5";
               el.style.outlineOffset = "2px";
               el.style.borderRadius = "10px";
@@ -11786,7 +11860,7 @@ export default function App() {
           }, 350);
         };
 
-        const TaskRow = ({ task, isDone }) => (
+        const ReceivedRow = ({ task, isDone }) => (
           <div onClick={() => jumpToComment(task)}
             style={{
               cursor: "pointer", display: "flex", gap: 10, alignItems: "flex-start",
@@ -11796,16 +11870,13 @@ export default function App() {
               borderRadius: 8, padding: "10px 12px", marginBottom: 6,
               opacity: isDone ? 0.55 : 1,
             }}>
-            {/* checkbox */}
-            <button
-              onClick={(e) => { e.stopPropagation(); toggleDone(task); }}
+            <button onClick={(e) => { e.stopPropagation(); toggleDone(task); }}
               style={{
                 flexShrink: 0, marginTop: 1, width: 18, height: 18, borderRadius: 4,
                 background: isDone ? "#50c878" : "transparent",
                 border: `1.5px solid ${isDone ? "#50c878" : "#888"}`,
                 color: "#fff", fontSize: 11, lineHeight: 1, cursor: "pointer",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                padding: 0,
+                display: "flex", alignItems: "center", justifyContent: "center", padding: 0,
               }}
               title={isDone ? "點擊取消完成" : "點擊標記為完成"}>
               {isDone ? "✓" : ""}
@@ -11830,34 +11901,132 @@ export default function App() {
           </div>
         );
 
+        const SentRow = ({ task }) => {
+          const isUnread = task.otherStatus === "unread";
+          const isDone = task.otherStatus === "done";
+          return (
+            <div onClick={() => jumpToComment(task)}
+              style={{
+                cursor: "pointer", display: "flex", gap: 10, alignItems: "flex-start",
+                background: isUnread ? "rgba(91,138,240,0.08)" : "rgba(80,200,120,0.05)",
+                border: `1px solid ${isUnread ? "rgba(91,138,240,0.3)" : "rgba(80,200,120,0.25)"}`,
+                borderLeft: `3px solid ${isUnread ? "#5b8af0" : "#50c878"}`,
+                borderRadius: 8, padding: "10px 12px", marginBottom: 6,
+              }}>
+              <div style={{ flexShrink: 0, marginTop: 1, fontSize: 14, lineHeight: 1 }}>
+                {isUnread ? "📤" : isDone ? "✅" : "👻"}
+              </div>
+              <div style={{ flex: 1, minWidth: 0, color: "#e8e4dc" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 3 }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: isUnread ? "#5b8af0" : "#50c878" }}>
+                    {task.projectName} · {task.projectStage}
+                  </span>
+                  <span style={{ fontSize: 9, color: "#666" }}>{fmtTaskTime(task.createdAt)}</span>
+                </div>
+                <div style={{ fontSize: 10, color: "#aaa", marginBottom: 3 }}>
+                  → 給 <span style={{ color: "#c084f5", fontWeight: 700 }}>@{task.mentionedName}</span>
+                </div>
+                <div style={{ fontSize: 11, color: "#aaa", marginBottom: 2 }}>
+                  {(task.content || "").slice(0, 80)}{(task.content || "").length > 80 ? "..." : ""}
+                </div>
+                <div style={{ fontSize: 9, color: isUnread ? "#5b8af0" : "#50c878", marginTop: 3, fontWeight: 700 }}>
+                  {isUnread && "⏳ 對方尚未處理"}
+                  {isDone && `✓ 對方已完成 · ${fmtTaskTime(task.otherDoneAt)}`}
+                </div>
+              </div>
+            </div>
+          );
+        };
+
+        const isReceivedTab = tagModalTab === "received";
+
         return (
           <Modal onClose={() => setShowTagNotificationModal(false)} title="📬 TAG 任務中心">
-            {tasks.length === 0 ? (
-              <div style={{ textAlign: "center", padding: "40px 20px" }}>
-                <div style={{ fontSize: 36, marginBottom: 10 }}>🌙</div>
-                <div style={{ fontSize: 14, color: "#888", fontWeight: 600 }}>暫無 TAG 任務</div>
-                <div style={{ fontSize: 11, color: "#555", marginTop: 6 }}>沒有人 @你 的留言</div>
-              </div>
-            ) : (
+            {/* Tab 切換 */}
+            <div style={{ display: "flex", gap: 6, marginBottom: 14, borderBottom: "1px solid rgba(255,255,255,0.08)", paddingBottom: 10 }}>
+              <button onClick={() => setTagModalTab("received")}
+                style={{
+                  flex: 1, padding: "8px 12px", borderRadius: 6,
+                  background: isReceivedTab ? "rgba(192,132,245,0.2)" : "rgba(255,255,255,0.04)",
+                  border: `1px solid ${isReceivedTab ? "rgba(192,132,245,0.5)" : "rgba(255,255,255,0.08)"}`,
+                  color: isReceivedTab ? "#c084f5" : "#888",
+                  fontSize: 12, fontWeight: 700, cursor: "pointer",
+                }}>
+                📥 別人 TAG 我 {undone.length > 0 && <span style={{ color: "#e05b5b", marginLeft: 4 }}>({undone.length})</span>}
+              </button>
+              <button onClick={() => setTagModalTab("sent")}
+                style={{
+                  flex: 1, padding: "8px 12px", borderRadius: 6,
+                  background: !isReceivedTab ? "rgba(91,138,240,0.2)" : "rgba(255,255,255,0.04)",
+                  border: `1px solid ${!isReceivedTab ? "rgba(91,138,240,0.5)" : "rgba(255,255,255,0.08)"}`,
+                  color: !isReceivedTab ? "#5b8af0" : "#888",
+                  fontSize: 12, fontWeight: 700, cursor: "pointer",
+                }}>
+                📤 我 TAG 別人 {sentUnread.length > 0 && <span style={{ color: "#f0a850", marginLeft: 4 }}>({sentUnread.length})</span>}
+              </button>
+            </div>
+
+            {/* 「別人 TAG 我」內容 */}
+            {isReceivedTab && (
               <>
-                {/* 統計 */}
-                <div style={{ marginBottom: 12, padding: "8px 12px", background: undone.length > 0 ? "rgba(192,132,245,0.08)" : "rgba(80,200,120,0.08)", border: `1px solid ${undone.length > 0 ? "rgba(192,132,245,0.3)" : "rgba(80,200,120,0.3)"}`, borderRadius: 8 }}>
-                  <div style={{ fontSize: 12, color: undone.length > 0 ? "#c084f5" : "#50c878", fontWeight: 700 }}>
-                    {undone.length > 0 ? `🔔 待處理 ${undone.length} 項` : "✓ 全部處理完成！"} · 已完成 {done.length} 項 · 總共 {tasks.length}/100
+                {tasks.length === 0 ? (
+                  <div style={{ textAlign: "center", padding: "40px 20px" }}>
+                    <div style={{ fontSize: 36, marginBottom: 10 }}>🌙</div>
+                    <div style={{ fontSize: 14, color: "#888", fontWeight: 600 }}>暫無 TAG 任務</div>
+                    <div style={{ fontSize: 11, color: "#555", marginTop: 6 }}>沒有人 @你 的留言</div>
                   </div>
-                </div>
-                {/* 未完成 */}
-                {undone.length > 0 && (
+                ) : (
                   <>
-                    <div style={{ fontSize: 10, color: "#c084f5", fontWeight: 700, letterSpacing: 2, marginBottom: 6, marginTop: 4 }}>—— 待處理</div>
-                    {undone.map(task => <TaskRow key={task.commentId} task={task} isDone={false} />)}
+                    <div style={{ marginBottom: 12, padding: "8px 12px", background: undone.length > 0 ? "rgba(192,132,245,0.08)" : "rgba(80,200,120,0.08)", border: `1px solid ${undone.length > 0 ? "rgba(192,132,245,0.3)" : "rgba(80,200,120,0.3)"}`, borderRadius: 8 }}>
+                      <div style={{ fontSize: 12, color: undone.length > 0 ? "#c084f5" : "#50c878", fontWeight: 700 }}>
+                        {undone.length > 0 ? `🔔 待處理 ${undone.length} 項` : "✓ 全部處理完成！"} · 已完成 {done.length} 項 · 總共 {tasks.length}/100
+                      </div>
+                    </div>
+                    {undone.length > 0 && (
+                      <>
+                        <div style={{ fontSize: 10, color: "#c084f5", fontWeight: 700, letterSpacing: 2, marginBottom: 6, marginTop: 4 }}>—— 待處理</div>
+                        {undone.map(task => <ReceivedRow key={task.commentId} task={task} isDone={false} />)}
+                      </>
+                    )}
+                    {done.length > 0 && (
+                      <>
+                        <div style={{ fontSize: 10, color: "#666", fontWeight: 700, letterSpacing: 2, marginBottom: 6, marginTop: 14 }}>—— 已完成（灰色，可點 ✓ 取消）</div>
+                        {done.map(task => <ReceivedRow key={task.commentId} task={task} isDone={true} />)}
+                      </>
+                    )}
                   </>
                 )}
-                {/* 已完成 */}
-                {done.length > 0 && (
+              </>
+            )}
+
+            {/* 「我 TAG 別人」內容 */}
+            {!isReceivedTab && (
+              <>
+                {sentTasks.length === 0 ? (
+                  <div style={{ textAlign: "center", padding: "40px 20px" }}>
+                    <div style={{ fontSize: 36, marginBottom: 10 }}>📭</div>
+                    <div style={{ fontSize: 14, color: "#888", fontWeight: 600 }}>還沒 @ 過任何人</div>
+                    <div style={{ fontSize: 11, color: "#555", marginTop: 6 }}>到案件留言區用 @ 標註相關同事</div>
+                  </div>
+                ) : (
                   <>
-                    <div style={{ fontSize: 10, color: "#666", fontWeight: 700, letterSpacing: 2, marginBottom: 6, marginTop: 14 }}>—— 已完成（灰色，可點 ✓ 取消）</div>
-                    {done.map(task => <TaskRow key={task.commentId} task={task} isDone={true} />)}
+                    <div style={{ marginBottom: 12, padding: "8px 12px", background: sentUnread.length > 0 ? "rgba(91,138,240,0.08)" : "rgba(80,200,120,0.08)", border: `1px solid ${sentUnread.length > 0 ? "rgba(91,138,240,0.3)" : "rgba(80,200,120,0.3)"}`, borderRadius: 8 }}>
+                      <div style={{ fontSize: 12, color: sentUnread.length > 0 ? "#5b8af0" : "#50c878", fontWeight: 700 }}>
+                        {sentUnread.length > 0 ? `⏳ 對方未處理 ${sentUnread.length} 項` : "✓ 對方都處理完了"} · 對方已完成 {sentDone.length} 項 · 總共 {sentTasks.length} 項
+                      </div>
+                    </div>
+                    {sentUnread.length > 0 && (
+                      <>
+                        <div style={{ fontSize: 10, color: "#5b8af0", fontWeight: 700, letterSpacing: 2, marginBottom: 6, marginTop: 4 }}>—— 對方尚未處理</div>
+                        {sentUnread.map(task => <SentRow key={`${task.commentId}_${task.mentionedName}`} task={task} />)}
+                      </>
+                    )}
+                    {sentDone.length > 0 && (
+                      <>
+                        <div style={{ fontSize: 10, color: "#50c878", fontWeight: 700, letterSpacing: 2, marginBottom: 6, marginTop: 14 }}>—— 對方已處理</div>
+                        {sentDone.map(task => <SentRow key={`${task.commentId}_${task.mentionedName}`} task={task} />)}
+                      </>
+                    )}
                   </>
                 )}
               </>
