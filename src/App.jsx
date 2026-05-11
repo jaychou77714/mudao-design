@@ -9493,12 +9493,14 @@ export default function App() {
             {/* 已簽約：客戶需求 */}
             {detailSection === "需求" && (() => {
               // v45：直接 inline 編輯
+              // v70.25：所有 update/add/delete 都內部 cloudSave，避免 stale closure 造成資料丟失
               const updateReq = (idx, field, value) => {
                 const reqs = [...(p.clientRequirements || [])];
                 reqs[idx] = { ...reqs[idx], [field]: value };
                 const updated = { ...p, clientRequirements: reqs };
                 setProjects(prev => prev.map(x => x.id === p.id ? updated : x));
                 setActiveProject(updated);
+                cloudSaveProject(updated, updated.ownerEmail || currentUser.email);
               };
               const addReq = () => {
                 const reqs = [...(p.clientRequirements || [])];
@@ -9506,6 +9508,7 @@ export default function App() {
                 const updated = { ...p, clientRequirements: reqs };
                 setProjects(prev => prev.map(x => x.id === p.id ? updated : x));
                 setActiveProject(updated);
+                cloudSaveProject(updated, updated.ownerEmail || currentUser.email);
               };
               const deleteReq = (idx) => {
                 if (!confirm("確定刪除這條需求？")) return;
@@ -9514,9 +9517,7 @@ export default function App() {
                 const updated = { ...p, clientRequirements: reqs };
                 setProjects(prev => prev.map(x => x.id === p.id ? updated : x));
                 setActiveProject(updated);
-              };
-              const saveAndSync = () => {
-                cloudSaveProject(p, p.ownerEmail || currentUser.email);
+                cloudSaveProject(updated, updated.ownerEmail || currentUser.email);
               };
               return (
                 <div>
@@ -9529,10 +9530,10 @@ export default function App() {
                         <span style={{ fontSize: 12, color: "#5b8af0" }}>需求 #{i + 1}</span>
                         <button onClick={() => deleteReq(i)} style={{ background: "transparent", border: "none", color: "#666", fontSize: 11, cursor: "pointer" }}>🗑️ 刪除</button>
                       </div>
-                      <input value={r.item || ""} onChange={e => updateReq(i, "item", e.target.value)} onBlur={saveAndSync}
+                      <input value={r.item || ""} onChange={e => updateReq(i, "item", e.target.value)}
                         placeholder="需求項目（例如：客廳要中島、想要書牆）"
                         style={{ width: "100%", background: "rgba(0,0,0,0.2)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 8, padding: "8px 10px", color: "#f0ead8", fontSize: 14, fontWeight: 600, marginBottom: 6, outline: "none" }} />
-                      <textarea value={r.note || ""} onChange={e => updateReq(i, "note", e.target.value)} onBlur={saveAndSync}
+                      <textarea value={r.note || ""} onChange={e => updateReq(i, "note", e.target.value)}
                         placeholder="補充說明（可選）"
                         rows={2}
                         style={{ width: "100%", background: "rgba(0,0,0,0.2)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 8, padding: "8px 10px", color: "#aaa", fontSize: 12, lineHeight: 1.6, outline: "none", resize: "vertical", fontFamily: "inherit" }} />
@@ -9687,11 +9688,13 @@ export default function App() {
               const skippedItems = p.skippedItems || [];
 
               // v58：inline 編輯 helpers
+              // v70.25：所有 update 都內部 cloudSave，避免 stale closure 造成資料丟失
               const updateBilling = (item, value) => {
                 const newBilling = { ...(p.billing || {}), [item]: value };
                 const updated = { ...p, billing: newBilling };
                 setProjects(prev => prev.map(x => x.id === p.id ? updated : x));
                 setActiveProject(updated);
+                cloudSaveProject(updated, updated.ownerEmail || currentUser.email);
               };
               const updateQuoteField = (item, field, value) => {
                 const cur = (p.quote || {})[item] || { price: "", cost: "" };
@@ -9699,6 +9702,7 @@ export default function App() {
                 const updated = { ...p, quote: newQuote };
                 setProjects(prev => prev.map(x => x.id === p.id ? updated : x));
                 setActiveProject(updated);
+                cloudSaveProject(updated, updated.ownerEmail || currentUser.email);
               };
               // 標為無施作
               const markSkipped = (item) => {
@@ -9726,9 +9730,7 @@ export default function App() {
                 setActiveProject(updated);
                 cloudSaveProject(updated, updated.ownerEmail || currentUser.email);
               };
-              const saveAndSync = () => cloudSaveProject(p, p.ownerEmail || currentUser.email);
-
-              // 計算未處理工項數（未填且未標無施作）
+              const saveAndSync = () => cloudSaveProject(p, p.ownerEmail || currentUser.email); // v70.25：保留作為 backup,但 update/add/delete 已內部 cloudSave,onBlur 不再呼叫
               const pendingCount = WORK_ITEMS.filter(item => {
                 if (skippedItems.includes(item)) return false;
                 const q = (p.quote || {})[item] || {};
@@ -9788,19 +9790,16 @@ export default function App() {
                       {/* 報價 input */}
                       <input type="text" inputMode="numeric"
                         value={q.price} onChange={e => updateQuoteField(item, "price", e.target.value.replace(/[^\d]/g, ""))}
-                        onBlur={saveAndSync}
                         placeholder="—"
                         style={{ width: "100%", background: q.price ? "rgba(80,200,120,0.1)" : "rgba(0,0,0,0.15)", border: "1px solid rgba(80,200,120,0.2)", borderRadius: 6, padding: "4px 6px", color: "#50c878", fontSize: 12, textAlign: "right", outline: "none" }} />
                       {/* 成本 input */}
                       <input type="text" inputMode="numeric"
                         value={q.cost} onChange={e => updateQuoteField(item, "cost", e.target.value.replace(/[^\d]/g, ""))}
-                        onBlur={saveAndSync}
                         placeholder="—"
                         style={{ width: "100%", background: q.cost ? "rgba(240,168,80,0.1)" : "rgba(0,0,0,0.15)", border: "1px solid rgba(240,168,80,0.2)", borderRadius: 6, padding: "4px 6px", color: "#f0a850", fontSize: 12, textAlign: "right", outline: "none" }} />
                       {/* 廠商請款 input */}
                       <input type="text" inputMode="numeric"
                         value={billing} onChange={e => updateBilling(item, e.target.value.replace(/[^\d]/g, ""))}
-                        onBlur={saveAndSync}
                         placeholder="—"
                         style={{ width: "100%", background: billing ? "rgba(224,91,91,0.1)" : "rgba(0,0,0,0.15)", border: "1px solid rgba(224,91,91,0.2)", borderRadius: 6, padding: "4px 6px", color: "#e05b5b", fontSize: 12, textAlign: "right", outline: "none" }} />
                       {/* 無施作 button */}
@@ -10011,17 +10010,20 @@ export default function App() {
 
             {/* 額外追加 詳細頁 */}
             {detailSection === "額外追加" && (() => {
+              // v70.25：所有 update/add 都內部 cloudSave，避免 stale closure 造成資料丟失
               const updateExtra = (id, patch) => {
                 const newExtras = (p.extraItems || []).map(e => e.id === id ? { ...e, ...patch } : e);
                 const updated = { ...p, extraItems: newExtras };
                 setProjects(prev => prev.map(x => x.id === p.id ? updated : x));
                 setActiveProject(updated);
+                cloudSaveProject(updated, updated.ownerEmail || currentUser.email);
               };
               const addExtra = () => {
                 const newExtra = { id: Date.now(), name: "", price: "", cost: "", collected: false };
                 const updated = { ...p, extraItems: [...(p.extraItems || []), newExtra] };
                 setProjects(prev => prev.map(x => x.id === p.id ? updated : x));
                 setActiveProject(updated);
+                cloudSaveProject(updated, updated.ownerEmail || currentUser.email);
               };
               const deleteExtra = (id) => {
                 if (!confirm("確定刪除這項？")) return;
@@ -10030,7 +10032,6 @@ export default function App() {
                 setActiveProject(updated);
                 cloudSaveProject(updated, updated.ownerEmail || currentUser.email);
               };
-              const saveAndSync = () => cloudSaveProject(p, p.ownerEmail || currentUser.email);
               return (
               <div>
                 <div style={{ fontSize: 11, color: "#888", marginBottom: 12 }}>💡 已收款項目自動計入毛利（可直接點欄位編輯）</div>
@@ -10042,12 +10043,11 @@ export default function App() {
                     <div style={{ display: "flex", gap: 6, alignItems: "center", marginBottom: 8 }}>
                       <input value={e.name || ""}
                         onChange={ev => updateExtra(e.id, { name: ev.target.value })}
-                        onBlur={saveAndSync}
                         placeholder="項目名稱"
                         style={{ flex: 1, background: "rgba(0,0,0,0.2)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 6, padding: "5px 8px", color: "#f0ead8", fontSize: 13, fontWeight: 600, outline: "none" }} />
                       <label style={{ display: "flex", alignItems: "center", gap: 4, cursor: "pointer" }}>
                         <input type="checkbox" checked={!!e.collected}
-                          onChange={ev => { updateExtra(e.id, { collected: ev.target.checked }); cloudSaveProject({ ...p, extraItems: (p.extraItems || []).map(x => x.id === e.id ? { ...x, collected: ev.target.checked } : x) }, p.ownerEmail || currentUser.email); }}
+                          onChange={ev => updateExtra(e.id, { collected: ev.target.checked })}
                           style={{ width: 16, height: 16, cursor: "pointer" }} />
                         <span style={{ fontSize: 11, color: e.collected ? "#50c878" : "#888", fontWeight: 600 }}>{e.collected ? "已收款" : "未收"}</span>
                       </label>
@@ -10058,14 +10058,12 @@ export default function App() {
                         <div style={{ fontSize: 9, color: "#666", marginBottom: 2 }}>客戶價</div>
                         <input type="text" inputMode="numeric" value={e.price || ""}
                           onChange={ev => updateExtra(e.id, { price: ev.target.value.replace(/[^\d]/g, "") })}
-                          onBlur={saveAndSync}
                           style={{ width: "100%", background: "rgba(80,200,120,0.08)", border: "1px solid rgba(80,200,120,0.25)", borderRadius: 5, padding: "4px 6px", color: "#50c878", fontSize: 12, textAlign: "right", outline: "none" }} />
                       </div>
                       <div>
                         <div style={{ fontSize: 9, color: "#666", marginBottom: 2 }}>成本</div>
                         <input type="text" inputMode="numeric" value={e.cost || ""}
                           onChange={ev => updateExtra(e.id, { cost: ev.target.value.replace(/[^\d]/g, "") })}
-                          onBlur={saveAndSync}
                           style={{ width: "100%", background: "rgba(240,168,80,0.08)", border: "1px solid rgba(240,168,80,0.25)", borderRadius: 5, padding: "4px 6px", color: "#f0a850", fontSize: 12, textAlign: "right", outline: "none" }} />
                       </div>
                       <div>
@@ -10211,17 +10209,20 @@ export default function App() {
 
             {/* 吸收成本 詳細頁 */}
             {detailSection === "吸收成本" && (() => {
+              // v70.25：所有 update/add 都內部 cloudSave，避免 stale closure 造成資料丟失
               const updateAbs = (id, patch) => {
                 const newAbs = (p.absorbedCosts || []).map(a => a.id === id ? { ...a, ...patch } : a);
                 const updated = { ...p, absorbedCosts: newAbs };
                 setProjects(prev => prev.map(x => x.id === p.id ? updated : x));
                 setActiveProject(updated);
+                cloudSaveProject(updated, updated.ownerEmail || currentUser.email);
               };
               const addAbs = () => {
                 const newAbs = { id: Date.now(), name: "", amount: "" };
                 const updated = { ...p, absorbedCosts: [...(p.absorbedCosts || []), newAbs] };
                 setProjects(prev => prev.map(x => x.id === p.id ? updated : x));
                 setActiveProject(updated);
+                cloudSaveProject(updated, updated.ownerEmail || currentUser.email);
               };
               const deleteAbs = (id) => {
                 if (!confirm("確定刪除這項？")) return;
@@ -10230,7 +10231,6 @@ export default function App() {
                 setActiveProject(updated);
                 cloudSaveProject(updated, updated.ownerEmail || currentUser.email);
               };
-              const saveAndSync = () => cloudSaveProject(p, p.ownerEmail || currentUser.email);
               return (
               <div>
                 <div style={{ fontSize: 11, color: "#888", marginBottom: 12 }}>💡 自行吸收的成本，直接從淨利扣除（可直接點欄位編輯）</div>
@@ -10242,12 +10242,10 @@ export default function App() {
                     <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
                       <input value={a.name || ""}
                         onChange={e => updateAbs(a.id, { name: e.target.value })}
-                        onBlur={saveAndSync}
                         placeholder="項目名稱"
                         style={{ flex: 1, background: "rgba(0,0,0,0.2)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 6, padding: "5px 8px", color: "#ccc", fontSize: 13, outline: "none" }} />
                       <input type="text" inputMode="numeric" value={a.amount || ""}
                         onChange={e => updateAbs(a.id, { amount: e.target.value.replace(/[^\d]/g, "") })}
-                        onBlur={saveAndSync}
                         placeholder="金額"
                         style={{ width: 110, background: a.amount ? "rgba(224,91,91,0.1)" : "rgba(0,0,0,0.15)", border: "1px solid rgba(224,91,91,0.25)", borderRadius: 6, padding: "5px 8px", color: "#e05b5b", fontSize: 13, fontWeight: 600, textAlign: "right", outline: "none" }} />
                       <button onClick={() => deleteAbs(a.id)} style={{ background: "transparent", border: "none", color: "#666", fontSize: 11, cursor: "pointer" }}>🗑️</button>
@@ -10373,17 +10371,20 @@ export default function App() {
               const items = p.customerChanges || [];
               const today = new Date().toISOString().split("T")[0];
 
+              // v70.25：所有 add/update 都內部 cloudSave，避免 stale closure 造成資料丟失
               const addItem = () => {
                 const newItem = { id: Date.now(), content: "", author: currentUser?.name || "未知", date: today };
                 const updated = { ...p, customerChanges: [...items, newItem] };
                 setProjects(prev => prev.map(x => x.id === p.id ? updated : x));
                 setActiveProject(updated);
+                cloudSaveProject(updated, updated.ownerEmail || currentUser.email);
               };
               const updateItem = (id, patch) => {
                 const newItems = items.map(it => it.id === id ? { ...it, ...patch } : it);
                 const updated = { ...p, customerChanges: newItems };
                 setProjects(prev => prev.map(x => x.id === p.id ? updated : x));
                 setActiveProject(updated);
+                cloudSaveProject(updated, updated.ownerEmail || currentUser.email);
               };
               const deleteItem = (id) => {
                 if (!confirm("確定刪除這筆修改紀錄？")) return;
@@ -10392,7 +10393,6 @@ export default function App() {
                 setActiveProject(updated);
                 cloudSaveProject(updated, updated.ownerEmail || currentUser.email);
               };
-              const saveAndSync = () => cloudSaveProject(p, p.ownerEmail || currentUser.email);
 
               // 按年月分群
               const grouped = {};
@@ -10430,7 +10430,6 @@ export default function App() {
                               </div>
                               <textarea value={it.content || ""}
                                 onChange={e => updateItem(it.id, { content: e.target.value })}
-                                onBlur={saveAndSync}
                                 placeholder="客戶提出的修改要求（可長文字）"
                                 rows={3}
                                 style={{ width: "100%", background: "rgba(0,0,0,0.2)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 6, padding: "6px 9px", color: "#ccc", fontSize: 12, lineHeight: 1.6, outline: "none", resize: "vertical", fontFamily: "inherit" }} />
@@ -10475,6 +10474,7 @@ export default function App() {
                 const updated = { ...p, constructionProgress: { ...cp, [catKey]: { ...cat, items: newItems } } };
                 setProjects(prev => prev.map(x => x.id === p.id ? updated : x));
                 setActiveProject(updated);
+                cloudSaveProject(updated, updated.ownerEmail || currentUser.email); // v70.25 fix: 之前漏了,造成編輯欄位後重整消失(陽光街/油漆/結束日期 bug)
               };
               const deleteItem = (catKey, itemId) => {
                 if (!confirm("確定刪除這筆？")) return;
@@ -10621,7 +10621,7 @@ export default function App() {
                   // 點同一個再次 = 取消（變 null）；否則設為新值
                   const newVal = it.reservation === val ? null : val;
                   updateItem(it._catKey, it.id, { reservation: newVal });
-                  saveAndSync();
+                  // v70.25：updateItem 已內部 cloudSave,不需再呼叫 saveAndSync
                 };
                 return (
                   <div key={it.id} data-item-id={it.id} style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${color}33`, borderLeft: `3px solid ${color}`, borderRadius: 8, padding: "8px 10px", marginBottom: 6 }}>
@@ -10630,7 +10630,6 @@ export default function App() {
                       <span style={{ fontSize: 16, flexShrink: 0 }} title={it._catLabel}>{it._emoji}</span>
                       <input value={it.name || ""}
                         onChange={e => updateItem(it._catKey, it.id, { name: e.target.value })}
-                        onBlur={saveAndSync}
                         placeholder={`項目名稱（${it._catLabel}）`}
                         style={{ flex: 1, background: "rgba(0,0,0,0.2)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 6, padding: "5px 8px", color: "#ccc", fontSize: 12, outline: "none" }} />
                       <button onClick={() => deleteItem(it._catKey, it.id)} style={{ background: "transparent", border: "none", color: "#666", fontSize: 12, cursor: "pointer" }}>🗑️</button>
@@ -10655,19 +10654,16 @@ export default function App() {
                     <div style={{ display: "flex", gap: 4, alignItems: "center", marginBottom: 5 }}>
                       <DateInput value={it.startDate || ""}
                         onChange={e => updateItem(it._catKey, it.id, { startDate: e.target.value })}
-                        onBlur={saveAndSync}
                         style={{ flex: 1, background: "rgba(0,0,0,0.15)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 5, padding: "4px 6px", color: "#aaa", fontSize: 11 }} />
                       <span style={{ fontSize: 11, color: "#444" }}>—</span>
                       <DateInput value={it.endDate || ""}
                         onChange={e => updateItem(it._catKey, it.id, { endDate: e.target.value })}
-                        onBlur={saveAndSync}
                         style={{ flex: 1, background: "rgba(0,0,0,0.15)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 5, padding: "4px 6px", color: "#aaa", fontSize: 11 }} />
                     </div>
 
                     {/* Row 4: 內容備註 */}
                     <textarea value={it.note || ""}
                       onChange={e => updateItem(it._catKey, it.id, { note: e.target.value })}
-                      onBlur={saveAndSync}
                       placeholder="內容備註（選填）"
                       rows={2}
                       style={{ width: "100%", background: "rgba(0,0,0,0.15)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: 5, padding: "5px 7px", color: "#aaa", fontSize: 11, outline: "none", resize: "vertical", boxSizing: "border-box" }} />
