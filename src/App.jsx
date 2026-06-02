@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v70.25";
+const APP_VERSION = "v70.26.1";
 const APP_RELEASE_DATE = "2026-05-07";
 
 const PROPOSAL_IMG = "data:image/jpeg;base64,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";
@@ -2190,6 +2190,30 @@ function getMyTrackingItems(projects, currentUser) {
           // 注意：上面 it.endDate <= today 改成 continue 後，下面這段 it.endDate < today 永遠不會進入
           // 此程式碼留空（v68.5 工程超時不再提醒）
         }
+      }
+    }
+
+    // 6. v70.26.1：@ 我但未處理(留言板 TAG)— 整合「@ 提及」到首頁追蹤計算
+    // 邏輯:遍歷 project.comments,找 mentions 包含我 + 不是我自己留的 + tagTaskState 沒標 done/hidden
+    if (p.comments && Array.isArray(p.comments)) {
+      const tagState = currentUser.tagTaskState || {};
+      for (const c of p.comments) {
+        if (!c.mentions || !c.mentions.includes(currentUser.name)) continue;
+        if (c.authorEmail === currentUser.email) continue; // 不算自己 @ 自己
+        const status = tagState[c.id]?.status;
+        if (status === "done" || status === "hidden") continue;
+        const mentionDate = c.createdAt ? c.createdAt.slice(0, 10) : today;
+        const days = naturalDaysBetween(mentionDate, today);
+        items.push({
+          id: `mention-${p.id}-${c.id}`,
+          project: p,
+          category: "at_mention",
+          categoryLabel: "@ 標註待回",
+          emoji: "💬",
+          color: days >= 3 ? "#e05b5b" : "#c084f5",
+          reason: `${c.authorName || "有人"} 標註你：${(c.content || "").slice(0, 20)}${(c.content || "").length > 20 ? "…" : ""}`,
+          urgency: 75 + days,
+        });
       }
     }
   }
@@ -5717,7 +5741,8 @@ function SimpleChoiceStage({ num, emoji, name, stageKey, p, cp, canApprove, upda
 //   - 看：所有人都能看
 //   - 留言：CAN_SEE_ALL（主管+開發者）/ designer / assistant / projectManager / 已簽約後的 siteManager
 //   - 刪：自己留言可刪不可改
-function ProjectCommentsModal({ project, currentUser, onClose, onUpdate }) {
+// v70.26.1：Body 拆出來,讓「留言板」分頁可以 inline 用。ProjectCommentsModal 變成 wrapper(在這個元件後面)
+function ProjectCommentsBody({ project, currentUser, onUpdate, isInline = false }) {
   const comments = project.comments || [];
   const [input, setInput] = useState("");
   const [emojiOpen, setEmojiOpen] = useState(false);
@@ -5814,36 +5839,14 @@ function ProjectCommentsModal({ project, currentUser, onClose, onUpdate }) {
     } catch { return ""; }
   };
 
-  return (
-    <div onClick={onClose}
-      style={{
-        position: "fixed", inset: 0, zIndex: 9000,
-        background: "rgba(0,0,0,0.75)",
-        display: "flex", alignItems: "center", justifyContent: "center",
-        padding: 16,
-      }}>
-      <div onClick={e => e.stopPropagation()}
-        style={{
-          background: "#1a1816",
-          border: "1px solid rgba(192,132,245,0.4)",
-          borderRadius: 14,
-          width: "100%", maxWidth: 520,
-          maxHeight: "90vh",
-          display: "flex", flexDirection: "column",
-          overflow: "hidden",
-        }}>
-        <div style={{ padding: "14px 16px", borderBottom: "1px solid rgba(255,255,255,0.08)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <div>
-            <div style={{ fontSize: 11, color: "#c084f5", fontWeight: 700, letterSpacing: 1 }}>💬 案件留言板</div>
-            <div style={{ fontSize: 14, fontWeight: 700, color: "#f0ead8", marginTop: 2 }}>{project.caseName || project.address || "（無名稱）"}</div>
-          </div>
-          <button onClick={onClose}
-            style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 6, padding: "5px 9px", color: "#888", fontSize: 14, cursor: "pointer" }}>
-            ✕
-          </button>
-        </div>
+  // v70.26.1：inline 用 maxHeight,modal 用 flex:1
+  const scrollContainerStyle = isInline
+    ? { maxHeight: "55vh", overflowY: "auto", padding: "12px 14px", minHeight: 200 }
+    : { flex: 1, overflowY: "auto", padding: "12px 14px", minHeight: 200 };
 
-        <div ref={scrollRef} style={{ flex: 1, overflowY: "auto", padding: "12px 14px", minHeight: 200 }}>
+  return (
+    <>
+      <div ref={scrollRef} style={scrollContainerStyle}>
           {renderItems.length === 0 && (
             <div style={{ textAlign: "center", color: "#444", padding: 30, fontSize: 12 }}>
               尚無留言<br/><span style={{ color: "#333", fontSize: 11 }}>點下方輸入框開始對話</span>
@@ -5980,6 +5983,41 @@ function ProjectCommentsModal({ project, currentUser, onClose, onUpdate }) {
             🔒 你不是這個案子的指派人員，只能查看不能留言
           </div>
         )}
+    </>
+  );
+}
+
+// v70.26.1：Modal wrapper(保留給 TAG 通知 jumpToComment 等場景使用)
+function ProjectCommentsModal({ project, currentUser, onClose, onUpdate }) {
+  return (
+    <div onClick={onClose}
+      style={{
+        position: "fixed", inset: 0, zIndex: 9000,
+        background: "rgba(0,0,0,0.75)",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        padding: 16,
+      }}>
+      <div onClick={e => e.stopPropagation()}
+        style={{
+          background: "#1a1816",
+          border: "1px solid rgba(192,132,245,0.4)",
+          borderRadius: 14,
+          width: "100%", maxWidth: 520,
+          maxHeight: "90vh",
+          display: "flex", flexDirection: "column",
+          overflow: "hidden",
+        }}>
+        <div style={{ padding: "14px 16px", borderBottom: "1px solid rgba(255,255,255,0.08)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <div>
+            <div style={{ fontSize: 11, color: "#c084f5", fontWeight: 700, letterSpacing: 1 }}>💬 案件留言板</div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: "#f0ead8", marginTop: 2 }}>{project.caseName || project.address || "（無名稱）"}</div>
+          </div>
+          <button onClick={onClose}
+            style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 6, padding: "5px 9px", color: "#888", fontSize: 14, cursor: "pointer" }}>
+            ✕
+          </button>
+        </div>
+        <ProjectCommentsBody project={project} currentUser={currentUser} onUpdate={onUpdate} isInline={false} />
       </div>
     </div>
   );
@@ -7535,12 +7573,29 @@ export default function App() {
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6, flexWrap: "wrap", gap: 8 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 13, color: "#f0ead8", flexWrap: "wrap" }}>
                   <span onClick={() => setShowPersonalModal(true)} style={{ fontWeight: 600, cursor: "pointer", textDecoration: "underline", textDecorationColor: "rgba(192,132,245,0.4)", textUnderlineOffset: 3 }} title="點擊開個人中心">{greeting.emoji} {greeting.text}，{currentUser.name}</span>
-                  {trackingTotal > 0 && (
-                    <button onClick={() => setShowTrackingModal(true)}
-                      style={{ background: "rgba(240,168,80,0.15)", border: "1px solid rgba(240,168,80,0.4)", borderRadius: 6, padding: "2px 8px", color: "#f0a850", fontSize: 11, fontWeight: 700, cursor: "pointer" }}>
-                      📋 {trackingTotal} 件需追蹤 →
-                    </button>
-                  )}
+                  {trackingTotal > 0 && (() => {
+                    // v70.26.1：有 @ 我未處理時,按鈕變紅色更醒目;沒 @ 時保持橘色
+                    const mentionCount = myTracking.filter(it => it.category === "at_mention").length;
+                    const hasMention = mentionCount > 0;
+                    return (
+                      <button onClick={() => setShowTrackingModal(true)}
+                        style={{
+                          position: "relative",
+                          background: hasMention ? "rgba(224,91,91,0.18)" : "rgba(240,168,80,0.15)",
+                          border: `1px solid ${hasMention ? "rgba(224,91,91,0.5)" : "rgba(240,168,80,0.4)"}`,
+                          borderRadius: 6,
+                          padding: "2px 8px",
+                          color: hasMention ? "#e05b5b" : "#f0a850",
+                          fontSize: 11,
+                          fontWeight: 700,
+                          cursor: "pointer",
+                        }}>
+                        {hasMention ? "💬" : "📋"} {trackingTotal} 件需追蹤
+                        {hasMention && <span style={{ marginLeft: 4, color: "#fff", background: "#e05b5b", borderRadius: 8, padding: "0 5px", fontSize: 10 }}>@{mentionCount}</span>}
+                        {" →"}
+                      </button>
+                    );
+                  })()}
                   {trackingTotal === 0 && (
                     <span style={{ fontSize: 11, color: "#50c878" }}>✓ 今日無待辦</span>
                   )}
@@ -8269,11 +8324,12 @@ export default function App() {
         // v46：已簽約分頁邏輯
         // 完整設計案 (projectType !== 'repair'): 基本/需求/進度/設計費/最終
         // 修繕案 (projectType === 'repair'): 基本/修繕項目/設計費/最終
+        // v70.26.1：提案中/已簽約的「進度」改為「留言板」(留言板 inline 化,設計師進度 UI 移除)
         const isRepairCase = p.projectType === "repair";
         const sectionTabs = [
           "info",
-          ...(p.stage === "提案中" ? ["進度", "提案後狀態"] : []),
-          ...(p.stage === "已簽約" && !isRepairCase ? ["需求", "進度", "設計費請款", "最終狀態"] : []),
+          ...(p.stage === "提案中" ? ["留言板", "提案後狀態"] : []),
+          ...(p.stage === "已簽約" && !isRepairCase ? ["需求", "留言板", "設計費請款", "最終狀態"] : []),
           ...(p.stage === "已簽約" && isRepairCase ? ["修繕項目", "設計費請款", "最終狀態"] : []),
           ...(p.stage === "施工中" ? ["客戶修改", "工程進度", "報價單", "追加減", "額外追加", "吸收成本", "驗收缺失"] : []),
           ...(p.stage === "完工" ? ["案件歷史", "報價單", "追加減", "額外追加", "吸收成本"] : []),
@@ -8287,21 +8343,8 @@ export default function App() {
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
                 <StageTag stage={p.stage} />
                 <div style={{ display: "flex", gap: 8 }}>
-                  {/* v68 問題 4：留言板按鈕（含未讀紅點）*/}
-                  {(() => {
-                    const unread = getUnreadCommentsCount(p, currentUser);
-                    return (
-                      <button onClick={() => setCommentsModalOpen(true)}
-                        style={{ position: "relative", background: "rgba(192,132,245,0.12)", border: "1px solid rgba(192,132,245,0.35)", borderRadius: 8, padding: "6px 12px", color: "#c084f5", fontSize: 13, cursor: "pointer" }}>
-                        💬 留言
-                        {unread > 0 && (
-                          <span style={{ position: "absolute", top: -5, right: -5, background: "#e05b5b", color: "#fff", borderRadius: 9, padding: "1px 5px", fontSize: 9, fontWeight: 700, minWidth: 16, textAlign: "center", border: "1px solid #1a1816" }}>
-                            {unread > 99 ? "99+" : unread}
-                          </span>
-                        )}
-                      </button>
-                    );
-                  })()}
+                  {/* v70.26.1：右上角「💬 留言」按鈕已移除 — 留言板搬到「💬 留言板」分頁(提案中/已簽約) */}
+                  {/* TAG 通知 jumpToComment 仍會用 ProjectCommentsModal,所以 modal 元件保留 */}
                   {/* v49：完工案件不顯示編輯/刪除（避免誤改歷史紀錄） */}
                   {p.stage === "完工" ? (
                     <div style={{ fontSize: 11, color: "#666", padding: "6px 10px", border: "1px solid rgba(160,160,160,0.2)", borderRadius: 8, background: "rgba(160,160,160,0.08)" }}>📜 完工案件唯讀</div>
@@ -8541,6 +8584,7 @@ export default function App() {
                 }}>{
                   s === "info" ? "📋 基本" :
                   s === "進度" ? "📐 進度" :
+                  s === "留言板" ? "💬 留言板" :
                   s === "提案後狀態" ? "📝 提案後" :
                   s === "需求" ? "👤 需求" :
                   s === "客戶修改" ? "✏️ 客戶修改" :
@@ -9171,229 +9215,19 @@ export default function App() {
               );
             })()}
 
-            {detailSection === "進度" && (
-              <div>
-                {/* 頂部警語 */}
-                {p.stage === "提案中" && p.consultDate && (() => {
-                  const result = getRemainingWorkDays(p.consultDate, 15);
-                  if (!result) return null;
-                  const { deadline, remaining } = result;
-                  if (p.proposalDate) return (
-                    <div style={{ background: "rgba(80,200,120,0.1)", border: "1px solid rgba(80,200,120,0.3)", borderRadius: 10, padding: "10px 14px", marginBottom: 16, fontSize: 12, color: "#50c878", fontWeight: 600 }}>
-                      ✅ 提案時間已訂定！
-                    </div>
-                  );
-                  if (remaining <= 0) return <div style={{ background: "rgba(224,91,91,0.15)", border: "1px solid rgba(224,91,91,0.4)", borderRadius: 10, padding: "10px 14px", marginBottom: 16, fontSize: 12, color: "#e05b5b", fontWeight: 700 }}>🚨 已超過 15 工作天極限！立即跟進！</div>;
-                  if (remaining <= 3) return <div style={{ background: "rgba(240,100,80,0.15)", border: "1px solid rgba(240,100,80,0.3)", borderRadius: 10, padding: "10px 14px", marginBottom: 16, fontSize: 12, color: "#f06450", fontWeight: 700 }}>⚠️ 提案極限剩 {remaining} 天！快決定！</div>;
-                  if (remaining <= 7) return <div style={{ background: "rgba(240,168,80,0.1)", border: "1px solid rgba(240,168,80,0.3)", borderRadius: 10, padding: "10px 14px", marginBottom: 16, fontSize: 12, color: "#f0a850" }}>📋 距提案極限還有 {remaining} 天 / 極限日：{deadline}</div>;
-                  return <div style={{ background: "rgba(91,138,240,0.1)", border: "1px solid rgba(91,138,240,0.2)", borderRadius: 10, padding: "10px 14px", marginBottom: 16, fontSize: 12, color: "#5b8af0" }}>🟢 進度正常，剩 {remaining} 工作天</div>;
-                })()}
-
-                {p.stage === "已簽約" && (() => {
-                  const lastMeeting = (p.signedMeetingDates || []).filter(m => m.start).slice(-1)[0];
-                  if (!lastMeeting) return null;
-                  const result = getRemainingWorkDays(lastMeeting.start, 10);
-                  if (!result) return null;
-                  const { deadline, remaining } = result;
-                  const allDone = p.layoutFinalDate && p.render3dFinalDate && p.planDrawingDate;
-                  if (allDone) return <div style={{ background: "rgba(80,200,120,0.1)", border: "1px solid rgba(80,200,120,0.3)", borderRadius: 10, padding: "10px 14px", marginBottom: 16, fontSize: 12, color: "#50c878", fontWeight: 600 }}>✅ 設計進度已完成！</div>;
-                  if (remaining <= 0) return <div style={{ background: "rgba(224,91,91,0.15)", border: "1px solid rgba(224,91,91,0.4)", borderRadius: 10, padding: "10px 14px", marginBottom: 16, fontSize: 12, color: "#e05b5b", fontWeight: 700 }}>🚨 已超過交件10工作天！</div>;
-                  if (remaining <= 3) return <div style={{ background: "rgba(240,100,80,0.15)", border: "1px solid rgba(240,100,80,0.3)", borderRadius: 10, padding: "10px 14px", marginBottom: 16, fontSize: 12, color: "#f06450", fontWeight: 700 }}>⚠️ 交件極限剩 {remaining} 天！</div>;
-                  return <div style={{ background: "rgba(91,138,240,0.1)", border: "1px solid rgba(91,138,240,0.2)", borderRadius: 10, padding: "10px 14px", marginBottom: 16, fontSize: 12, color: "#5b8af0" }}>📋 距交件極限還有 {remaining} 天 / {deadline}</div>;
-                })()}
-
-                {/* 設計師進度 */}
-                <div style={{ fontSize: 12, color: "#5b8af0", fontWeight: 600, marginBottom: 10, display: "flex", alignItems: "center", gap: 8 }}>
-                  <span>🎨 設計師進度</span>
-                  <div style={{ flex: 1, height: 1, background: "rgba(91,138,240,0.3)" }} />
-                </div>
-
-                {p.stage === "提案中" && (
-                  <>
-                    {/* v68.4：修繕案專屬簡化 UI（不顯示作業區、不顯示一般進度系統）*/}
-                    {p.projectType === "repair" ? (
-                      <RepairProgressSection 
-                        p={p} 
-                        currentUser={currentUser} 
-                        canApprove={canEditProject(currentUser, p, devMode)} 
-                        onUpdate={async (updated) => {
-                          setProjects(prev => prev.map(x => x.id === updated.id ? updated : x));
-                          setActiveProject(updated);
-                          cloudSaveProject(updated, updated.ownerEmail || currentUser.email).then(ok => {
-                            if (!ok) setCloudMsg("⚠️ 同步失敗");
-                          });
-                        }}
-                      />
-                    ) : (
-                      <>
-                        {/* v50：3 職位作業區（在 4 階段之上） */}
-                        <RoleWorkAreas p={p} allUsers={allUsers} />
-
-                        {/* v56：新進度追蹤系統（取代舊 4 階段流程） */}
-                        <ProgressTracker
-                          project={p}
-                          currentUser={currentUser}
-                          isDevMode={devMode}
-                          onUpdate={async (patch) => {
-                            const updated = { ...p, ...patch };
-                            setProjects(prev => prev.map(x => x.id === updated.id ? updated : x));
-                            setActiveProject(updated);
-                            cloudSaveProject(updated, updated.ownerEmail || currentUser.email).then(ok => {
-                              if (!ok) setCloudMsg("⚠️ 同步失敗");
-                            });
-                          }}
-                        />
-                      </>
-                    )}
-
-                    {/* v57：舊 ProposalPipeline 已被 ProgressTracker 取代 */}
-                    {/* 開會時間（保留） */}
-                    {(p.meetingDates || []).filter(m => m.date).length > 0 && (
-                      <div style={{ marginBottom: 10 }}>
-                        <span style={{ fontSize: 11, color: "#555", display: "block", marginBottom: 4 }}>開會時間</span>
-                        {(p.meetingDates || []).filter(m => m.date).map((m, i) => (
-                          <div key={m.id} style={{ fontSize: 13, color: "#ccc", marginBottom: 3 }}>#{i + 1} {m.date}</div>
-                        ))}
-                      </div>
-                    )}
-                    {/* 提案時間（保留作為簽約完成標記） */}
-                    {p.proposalDate && <DetailRow label="提案時間" value={p.proposalDate} highlight />}
-                  </>
-                )}
-
-                {p.stage === "已簽約" && (
-                  <>
-                    {/* 簽約日 + 開會記錄保留 */}
-                    <DetailRow label="簽約日期" value={p.contractDate} showEmpty highlight={!!p.contractDate} />
-                    {(p.signedMeetingDates || []).filter(m => m.start).length > 0 && (
-                      <div style={{ marginBottom: 14 }}>
-                        <span style={{ fontSize: 11, color: "#555", display: "block", marginBottom: 4 }}>開會記錄</span>
-                        {(p.signedMeetingDates || []).filter(m => m.start).map((m, i) => (
-                          <div key={m.id} style={{ fontSize: 12, color: "#ccc", marginBottom: 3 }}>#{i + 1} {m.start}{m.end ? ` → ${m.end}` : ""}</div>
-                        ))}
-                      </div>
-                    )}
-                    {/* v46：3 職等作業區（在 7 階段之上） */}
-                    <RoleWorkAreas p={p} allUsers={allUsers} />
-
-                    {/* v57：新進度追蹤系統（已簽約 6 階段） */}
-                    <ProgressTracker
-                      project={p}
-                      currentUser={currentUser}
-                      isDevMode={devMode}
-                      onUpdate={async (patch) => {
-                        const updated = { ...p, ...patch };
-                        setProjects(prev => prev.map(x => x.id === updated.id ? updated : x));
-                        setActiveProject(updated);
-                        cloudSaveProject(updated, updated.ownerEmail || currentUser.email).then(ok => {
-                          if (!ok) setCloudMsg("⚠️ 同步失敗");
-                        });
-                      }}
-                    />
-
-                    {/* v57：舊 ContractPipeline 已被 ProgressTracker 取代 */}
-                  </>
-                )}
-
-                {/* 分隔線（v45：助理備忘錄，提案中和已簽約都顯示） */}
-                {(p.stage === "提案中" || p.stage === "已簽約") && (
-                  <div style={{ height: 1, background: "rgba(255,255,255,0.1)", margin: "16px 0" }} />
-                )}
-
-                {/* 助理進度（v40：只在已簽約顯示，且舊欄位已被 v45 ContractPipeline 取代，這塊保留作為歷史紀錄參考） */}
-                {false && p.stage === "已簽約" && (
-                <>
-                <div style={{ fontSize: 12, color: "#c084f5", fontWeight: 600, marginBottom: 10, display: "flex", alignItems: "center", gap: 8 }}>
-                  <span>🤝 助理進度</span>
-                  <div style={{ flex: 1, height: 1, background: "rgba(192,132,245,0.3)" }} />
-                </div>
-
-                <DetailRow label="配置圖完成" value={p.assistantLayoutDate || ""} showEmpty />
-                <DetailRow label="3D圖完成" value={p.assistantRender3dDate || ""} showEmpty />
-                {p.stage === "已簽約" && <DetailRow label="平面系統圖" value={p.assistantPlanDate || ""} showEmpty />}
-                <DetailRow label="建材選取" value={p.assistantMaterialSelected || "否"} showEmpty />
-                </>
-                )}
-
-                {/* 助理備忘錄（v45：提案中和已簽約都顯示） */}
-                {(p.stage === "提案中" || p.stage === "已簽約") && (
-                <div style={{ marginTop: 14 }}>
-                  <div style={{ fontSize: 11, color: "#555", marginBottom: 8 }}>📝 助理備忘錄</div>
-                  {(p.assistantMemos || []).length === 0 && (
-                    <div style={{ fontSize: 11, color: "#333", textAlign: "center", padding: "10px 0" }}>尚無備忘錄</div>
-                  )}
-                  {Object.entries(
-                    (p.assistantMemos || []).reduce((acc, memo) => {
-                      const date = memo.date || "未知日期";
-                      if (!acc[date]) acc[date] = [];
-                      acc[date].push(memo);
-                      return acc;
-                    }, {})
-                  ).sort(([a], [b]) => b.localeCompare(a)).map(([date, memos]) => (
-                    <div key={date} style={{ marginBottom: 12 }}>
-                      <div style={{ fontSize: 11, color: "#c084f5", marginBottom: 6 }}>{date}</div>
-                      {memos.map((memo, i) => {
-                        // v60：助理或開發者可刪除
-                        const canDelete = currentUser.role === "assistant" || isDeveloper(currentUser, devMode);
-                        return (
-                          <div key={memo.id} style={{ fontSize: 13, color: "#ccc", padding: "6px 10px", background: "rgba(255,255,255,0.03)", borderRadius: 8, marginBottom: 4, display: "flex", alignItems: "center", gap: 6 }}>
-                            <span style={{ color: "#555" }}>{i + 1}.</span>
-                            <span style={{ flex: 1 }}>{memo.text}</span>
-                            {canDelete && (
-                              <button onClick={() => {
-                                if (!window.confirm(`確定刪除這條備忘錄？\n\n「${memo.text}」`)) return;
-                                const updated = (p.assistantMemos || []).filter(m => m.id !== memo.id);
-                                const updatedProject = { ...p, assistantMemos: updated };
-                                setProjects(prev => prev.map(proj => proj.id === p.id ? updatedProject : proj));
-                                setActiveProject(updatedProject);
-                                cloudSaveProject(updatedProject, updatedProject.ownerEmail || currentUser.email);
-                              }}
-                                title="刪除這條備忘錄"
-                                style={{ background: "transparent", border: "none", color: "#666", fontSize: 14, cursor: "pointer", padding: "0 4px", flexShrink: 0 }}>
-                                🗑️
-                              </button>
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  ))}
-
-                  {/* 只有助理可以新增備忘錄 */}
-                  {(currentUser.role === "assistant" || isDeveloper(currentUser, devMode)) && (
-                    <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
-                      <input id={`asst-memo-${p.id}`} placeholder="新增備忘錄..." style={{ flex: 1, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 10, padding: "9px 12px", color: "#e8e4dc", fontSize: 13, outline: "none" }}
-                        onKeyDown={e => {
-                          if (e.key === "Enter" && e.target.value.trim()) {
-                            const text = e.target.value.trim();
-                            const today = new Date().toISOString().split("T")[0];
-                            const newMemo = { id: Date.now(), date: today, text };
-                            const updated = [...(p.assistantMemos || []), newMemo];
-                            const updatedProject = { ...p, assistantMemos: updated };
-                            setProjects(prev => prev.map(proj => proj.id === p.id ? updatedProject : proj));
-                            setActiveProject(updatedProject);
-                            cloudSaveProject(updatedProject, updatedProject.ownerEmail || currentUser.email);
-                            e.target.value = "";
-                          }
-                        }} />
-                      <button className="btn" onClick={() => {
-                        const input = document.getElementById(`asst-memo-${p.id}`);
-                        if (input && input.value.trim()) {
-                          const text = input.value.trim();
-                          const today = new Date().toISOString().split("T")[0];
-                          const newMemo = { id: Date.now(), date: today, text };
-                          const updated = [...(p.assistantMemos || []), newMemo];
-                          const updatedProject = { ...p, assistantMemos: updated };
-                          setProjects(prev => prev.map(proj => proj.id === p.id ? updatedProject : proj));
-                          setActiveProject(updatedProject);
-                          cloudSaveProject(updatedProject, updatedProject.ownerEmail || currentUser.email);
-                          input.value = "";
-                        }
-                      }} style={{ background: "#c084f5", border: "none", borderRadius: 10, padding: "9px 14px", color: "#0c0c0e", fontSize: 13, fontWeight: 700 }}>新增</button>
-                    </div>
-                  )}
-                </div>
-                )}
+            {/* v70.26.1：「進度」分頁改成「💬 留言板」 — 設計師進度 UI 移除,progressItems 資料保留待 v70.26.2 清 */}
+            {detailSection === "留言板" && (
+              <div style={{ marginTop: -8 }}>
+                <ProjectCommentsBody
+                  project={p}
+                  currentUser={currentUser}
+                  isInline={true}
+                  onUpdate={updated => {
+                    setProjects(prev => prev.map(x => x.id === p.id ? updated : x));
+                    setActiveProject(updated);
+                    cloudSaveProject(updated, updated.ownerEmail || currentUser.email);
+                  }}
+                />
               </div>
             )}
 
