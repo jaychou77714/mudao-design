@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v70.27";
+const APP_VERSION = "v70.28";
 const APP_RELEASE_DATE = "2026-05-07";
 // deploy-trigger 20260609-021222: 重連正式 project 觸發部署
 
@@ -3726,7 +3726,7 @@ function Modal({ children, onClose, title }) {
     </div>
   );
 }
-function ProjectCard({ p, onClick, allUsers = [], onWaitingToggle = null }) {
+function ProjectCard({ p, onClick, allUsers = [], onWaitingToggle = null, hasNewComment = false }) {
   // v70.19：提案中 / 已簽約 / 施工中 / 完工 全套 D 方案
   if (["提案中", "已簽約", "施工中", "完工"].includes(p.stage)) {
     const stage = p.stage;
@@ -3960,7 +3960,14 @@ function ProjectCard({ p, onClick, allUsers = [], onWaitingToggle = null }) {
             </div>
             <div style={{ fontSize: 12, color: "#555" }}>{p.client && `${p.client} · `}{p.address}</div>
           </div>
-          <StageTag stage={p.stage} />
+          <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
+            {hasNewComment && (
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 11, color: "#ff8a8a", background: "rgba(224,91,91,0.15)", border: "1px solid rgba(224,91,91,0.35)", borderRadius: 4, padding: "2px 7px", whiteSpace: "nowrap" }}>
+                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#e05b5b" }} />有新留言
+              </span>
+            )}
+            <StageTag stage={p.stage} />
+          </div>
         </div>
 
         {/* v49：施工中卡片進度條已取消（完工保留淨利率提示） */}
@@ -8082,7 +8089,7 @@ export default function App() {
                           {/* v52：桌機版 2 欄 grid（手機自動退化為單欄） */}
                           <div className="desktop-grid-projects">
                             {designerProjects.map(p => (
-                              <ProjectCard key={p.id} p={p} onClick={() => openDetail(p)} allUsers={allUsers} onWaitingToggle={toggleWaitingClient} />
+                              <ProjectCard key={p.id} p={p} onClick={() => openDetail(p)} allUsers={allUsers} onWaitingToggle={toggleWaitingClient} hasNewComment={getUnreadCommentsCount(p, currentUser) > 0} />
                             ))}
                           </div>
                         </div>
@@ -8363,9 +8370,9 @@ export default function App() {
           "info",
           ...(p.stage === "提案中" ? ["留言板", "提案後狀態"] : []),
           ...(p.stage === "已簽約" && !isRepairCase ? ["需求", "留言板", "設計費請款", "最終狀態"] : []),
-          ...(p.stage === "已簽約" && isRepairCase ? ["修繕項目", "設計費請款", "最終狀態"] : []),
-          ...(p.stage === "施工中" ? ["客戶修改", "工程進度", "報價單", "追加減", "額外追加", "吸收成本", "驗收缺失"] : []),
-          ...(p.stage === "完工" ? ["案件歷史", "報價單", "追加減", "額外追加", "吸收成本"] : []),
+          ...(p.stage === "已簽約" && isRepairCase ? ["留言板", "修繕項目", "設計費請款", "最終狀態"] : []),
+          ...(p.stage === "施工中" ? ["留言板", "客戶修改", "工程進度", "報價單", "追加減", "額外追加", "吸收成本", "驗收缺失"] : []),
+          ...(p.stage === "完工" ? ["留言板", "案件歷史", "報價單", "追加減", "額外追加", "吸收成本"] : []),
           // v46：助理專用按鈕已移除（資訊已整合到「進度」tab 的職等作業區）
         ];
 
