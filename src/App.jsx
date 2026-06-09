@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v70.35";
+const APP_VERSION = "v70.36";
 const APP_RELEASE_DATE = "2026-05-07";
 // deploy-trigger 20260609-021222: 重連正式 project 觸發部署
 
@@ -3109,7 +3109,7 @@ function EditableTimeRow({ label, value, onSave, hint, highlight }) {
 
 function Modal({ children, onClose, title }) {
   return (
-    <div style={{ position: "fixed", inset: 0, zIndex: 100, overflowY: "auto", background: "rgba(8,7,6,0.96)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)" }}>
+    <div style={{ position: "fixed", inset: 0, zIndex: 100, overflowY: "auto", background: "rgba(26,23,20,0.96)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)" }}>
       {/* v52：桌機 Modal 加寬到 800px（手機保持 480px） */}
       <div className="modal-container" style={{ minHeight: "100vh", maxWidth: 480, margin: "0 auto", display: "flex", flexDirection: "column", paddingBottom: 40 }}>
         <div style={{ display: "flex", alignItems: "center", padding: "52px 20px 16px", borderBottom: "1px solid rgba(255,255,255,0.07)", position: "sticky", top: 0, background: "rgba(8,7,6,0.92)", backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", zIndex: 10 }}>
