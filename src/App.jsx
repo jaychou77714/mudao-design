@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v70.29";
+const APP_VERSION = "v70.30";
 const APP_RELEASE_DATE = "2026-05-07";
 // deploy-trigger 20260609-021222: 重連正式 project 觸發部署
 
@@ -445,44 +445,11 @@ const TW_HOLIDAYS = new Set([
   "2026-04-03","2026-04-06","2026-05-01","2026-06-19","2026-10-09","2026-10-12",
 ]);
 
-// v68.1：從進度系統 iteration 取最後一次定稿日期
-// 用於提案中（proposalPipeline）和已簽約（contractPipeline）
-// stageKey: "layout"/"render3d"/"configFinal"/"plan"/"elevation"/"tile"/"board"
-// pipelineType: "proposal" | "contract"
-function getStageFinalizedDate(project, stageKey, pipelineType = "contract") {
-  const pipe = pipelineType === "proposal" 
-    ? (project.proposalPipeline || {}) 
-    : (project.contractPipeline || {});
-  const iters = pipe[stageKey]?.iterations || [];
-  // 找最後一次客戶確認的 iteration
-  const approved = [...iters].reverse().find(it => it.clientResponse === "approved" && it.clientResponseDate);
-  return approved?.clientResponseDate || "";
-}
-
 // v68.1：取提案中的「提案時間」= 配置圖（stage2）第一輪 iteration 的完成日
 function getProposalFirstSubmitDate(project) {
   const iters = project.proposalPipeline?.stage2?.iterations || [];
   const round1 = iters.find(it => it.round === 1);
   return round1?.completedDate || "";
-}
-
-// v68.3：從 progressItems 取得定稿日（v57 progressItems 陣列）
-// progressItems = [{ key, finalized, finalizedAt, finalizedBy, records }]
-// v68.4：優先用最後一筆 approved record 的 submittedAt（更準確），fallback 到 finalizedAt
-function getProgressItemDate(project, key) {
-  const items = project.progressItems || [];
-  const item = items.find(it => it.key === key);
-  if (!item) return "";
-  // 優先：最後一筆 approved record 的 submittedAt
-  const approvedRecords = (item.records || []).filter(r => r.status === "approved" && r.submittedAt);
-  if (approvedRecords.length > 0) {
-    const lastApproved = approvedRecords.reduce((latest, r) =>
-      !latest || r.submittedAt > latest.submittedAt ? r : latest, null);
-    return lastApproved.submittedAt;
-  }
-  // 其次：finalizedAt（但這可能是按定稿那刻的時間，不夠準）
-  if (item.finalizedAt) return String(item.finalizedAt).split("T")[0];
-  return "";
 }
 
 // v68.4：取得「提案時間」= 圖面放樣定稿日
@@ -6683,8 +6650,6 @@ export default function App() {
                     {/* v68.3 問題 1：同時讀兩個進度系統（progressItems 和 iteration）*/}
                     <div style={{ borderTop: "1px solid rgba(255,255,255,0.07)", margin: "10px 0 12px", paddingTop: 10 }} />
                     <DetailRow label="提案時間" value={getProposalSubmitDate(p)} showEmpty highlight={!!getProposalSubmitDate(p)} />
-                    <DetailRow label="配置圖完成" value={getProgressItemDate(p, "config") || getStageFinalizedDate(p, "stage2", "proposal") || p.layoutDoneDate || p.layoutDate} showEmpty />
-                    <DetailRow label="3D 圖完成" value={getProgressItemDate(p, "render3d") || getStageFinalizedDate(p, "stage3", "proposal") || p.render3dDoneDate || p.render3dDate} showEmpty />
                     <DetailRow label="報價單完成" value={p.quoteReady} showEmpty />
                     {(p.meetingDates || []).filter(m => m.date).length > 0 && (
                       <div style={{ marginBottom: 10 }}>
@@ -6747,35 +6712,6 @@ export default function App() {
                     <DetailRow label="報價單完成" value={p.signedQuoteReady || p.quoteReady} showEmpty />
                     {/* v68.7：提案時間 — fallback 到圖面放樣定稿日（自動聯動）*/}
                     <DetailRow label="提案時間" value={p.proposalDate || getProposalSubmitDate(p)} showEmpty highlight={!!(p.proposalDate || getProposalSubmitDate(p))} />
-                    
-                    {/* v68.3 問題 1：6 階段定稿時間軸 — 同時讀 progressItems 和 iteration */}
-                    <div style={{ marginTop: 14, marginBottom: 8 }}>
-                      <div style={{ fontSize: 11, color: "#5b8af0", marginBottom: 8, fontWeight: 700, letterSpacing: 1 }}>🎯 定稿時間軸</div>
-                      <div style={{ fontSize: 10, color: "#444", marginBottom: 8 }}>↓ 自動讀取進度系統的客戶定稿日，要修改請至「進度」分頁</div>
-                      {(() => {
-                        // 優先讀 progressItems，沒有再讀 iteration
-                        const getDate = (key) => {
-                          const fromProgress = getProgressItemDate(p, key);
-                          if (fromProgress) return fromProgress;
-                          // 對 render3d / plan / elevation 也試 iteration
-                          if (["render3d", "plan", "elevation"].includes(key)) {
-                            return getStageFinalizedDate(p, key, "contract");
-                          }
-                          return "";
-                        };
-                        const rows = [
-                          { label: "配置圖最終", value: getDate("configFinal") },
-                          { label: "3D 圖",       value: getDate("render3d") },
-                          { label: "平面系統圖", value: getDate("plan") },
-                          { label: "立面圖",     value: getDate("elevation") },
-                          { label: "磁磚挑選",   value: getDate("tile") },
-                          { label: "板材選定",   value: getDate("board") },
-                        ];
-                        return rows.map(r => (
-                          <DetailRow key={r.label} label={r.label} value={r.value} showEmpty highlight={!!r.value} />
-                        ));
-                      })()}
-                    </div>
                   </>
                 )}
 
