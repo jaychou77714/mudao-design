@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v70.28";
+const APP_VERSION = "v70.29";
 const APP_RELEASE_DATE = "2026-05-07";
 // deploy-trigger 20260609-021222: 重連正式 project 觸發部署
 
@@ -499,141 +499,6 @@ function getProposalSubmitDate(project) {
   if (iterDate) return iterDate;
   // 最後 fallback
   return project.proposalDate || "";
-}
-
-// v68.8：取得案件「目前進度」一行摘要（用於個人中心、會議報告）
-// 返回 { icon, label, sub, color }
-//   icon: emoji
-//   label: 階段名稱
-//   sub: 細節（剩 X 天 / 第 X 次 / 待覆核 等）
-//   color: 警示色（綠/藍/橘/紫/紅）
-function getProjectProgressSummary(p) {
-  if (!p) return null;
-  const today = new Date().toISOString().split("T")[0];
-
-  // ===== 完工 =====
-  if (p.stage === "完工") {
-    return { icon: "🎉", label: "已完工", sub: p.completionDate || "", color: "#666" };
-  }
-
-  // ===== 修繕案 =====
-  if (p.projectType === "repair") {
-    if (p.repairQuoteDone) {
-      return { icon: "✅", label: "報價單完成", sub: p.repairQuoteDone, color: "#50c878" };
-    }
-    if (p.consultDate) {
-      const deadline = addWorkDays(p.consultDate, 5);
-      const remaining = deadline?.endDate ? workDaysBetween(today, deadline.endDate) : null;
-      if (remaining !== null && remaining < 0) {
-        return { icon: "🚨", label: "報價單", sub: `逾期 ${Math.abs(remaining)} 天`, color: "#e05b5b" };
-      }
-      if (remaining !== null) {
-        return { icon: "📋", label: "報價單", sub: `剩 ${remaining} 天`, color: "#5b8af0" };
-      }
-    }
-    return { icon: "📋", label: "尚未開始", sub: "等待諮詢日", color: "#666" };
-  }
-
-  // ===== 提案中 =====
-  if (p.stage === "提案中") {
-    const items = p.progressItems || [];
-    // 4 階段順序檢查
-    const stages = [
-      { key: "layout", icon: "📐", name: "圖面放樣" },
-      { key: "config", icon: "🗂️", name: "配置圖" },
-      { key: "render3d", icon: "🎨", name: "3D 圖" },
-      { key: "quote", icon: "💰", name: "報價單" },
-    ];
-    for (const stg of stages) {
-      const item = items.find(it => it.key === stg.key);
-      if (!item || !item.finalized) {
-        // 還沒定稿這階段
-        const records = item?.records || [];
-        const lastRec = records[records.length - 1];
-        if (lastRec) {
-          if (lastRec.status === "pending") {
-            return { icon: stg.icon, label: stg.name, sub: `第 ${records.length} 次 · 待覆核`, color: "#f0a850" };
-          }
-          if (lastRec.status === "rejected") {
-            return { icon: stg.icon, label: stg.name, sub: `第 ${records.length} 次 · 退件中`, color: "#e05b5b" };
-          }
-          return { icon: stg.icon, label: stg.name, sub: `進行中（${records.length} 次紀錄）`, color: "#5b8af0" };
-        }
-        // 還沒紀錄 → 看 15 工作天提示
-        if (p.consultDate) {
-          const deadline = addWorkDays(p.consultDate, 15);
-          if (deadline?.endDate) {
-            const remaining = workDaysBetween(today, deadline.endDate);
-            if (remaining < 0) {
-              return { icon: "🚨", label: stg.name, sub: `已超過 15 工作天 · 逾期 ${Math.abs(remaining)} 天`, color: "#e05b5b" };
-            }
-          }
-        }
-        return { icon: stg.icon, label: stg.name, sub: "尚未開始", color: "#666" };
-      }
-    }
-    // 全部都定稿了
-    return { icon: "✅", label: "提案完成", sub: "等簽約", color: "#50c878" };
-  }
-
-  // ===== 已簽約 =====
-  if (p.stage === "已簽約") {
-    // 6 階段順序
-    const stages = [
-      { key: "configFinal", icon: "📐", name: "配置圖定稿" },
-      { key: "render3d",    icon: "🎨", name: "3D 圖" },
-      { key: "plan",        icon: "📋", name: "平面系統圖" },
-      { key: "elevation",   icon: "📐", name: "立面圖" },
-      { key: "tile",        icon: "🟫", name: "磁磚挑選" },
-      { key: "board",       icon: "🎨", name: "板材選定" },
-    ];
-    const items = p.progressItems || [];
-    for (const stg of stages) {
-      const item = items.find(it => it.key === stg.key);
-      if (!item || !item.finalized) {
-        const records = item?.records || [];
-        const lastRec = records[records.length - 1];
-        if (lastRec) {
-          if (lastRec.status === "pending") {
-            return { icon: stg.icon, label: stg.name, sub: `第 ${records.length} 次 · 待覆核`, color: "#f0a850" };
-          }
-          if (lastRec.status === "rejected") {
-            return { icon: stg.icon, label: stg.name, sub: `第 ${records.length} 次 · 退件中`, color: "#e05b5b" };
-          }
-          return { icon: stg.icon, label: stg.name, sub: `進行中（${records.length} 次紀錄）`, color: "#5b8af0" };
-        }
-        return { icon: stg.icon, label: stg.name, sub: "尚未開始", color: "#666" };
-      }
-    }
-    // 全部定稿
-    return { icon: "✅", label: "圖面全定稿", sub: "等工程約", color: "#50c878" };
-  }
-
-  // ===== 施工中 =====
-  if (p.stage === "施工中") {
-    const cp = p.constructionProgress || {};
-    const allItems = [];
-    for (const cat of CONSTRUCTION_CATEGORIES) {
-      const data = cp[cat.key];
-      if (!data?.items) continue;
-      for (const it of data.items) {
-        allItems.push({ ...it, _catLabel: cat.label });
-      }
-    }
-    if (allItems.length === 0) {
-      return { icon: "🏗️", label: "施工中", sub: "尚未排定工項", color: "#666" };
-    }
-    // 找進行中的工項（有開始日，沒結束日 或 結束日 > today）
-    const inProgress = allItems.filter(it => it.startDate && (!it.endDate || it.endDate >= today));
-    if (inProgress.length > 0) {
-      const next = inProgress[0];
-      return { icon: "🏗️", label: next._catLabel, sub: `${next.name || "工項"} 進行中`, color: "#5b8af0" };
-    }
-    // 全部都已過期日 = 工程結束等待轉移
-    return { icon: "✅", label: "施工完成", sub: "等待轉移完工", color: "#50c878" };
-  }
-
-  return { icon: "📋", label: p.stage || "?", sub: "", color: "#666" };
 }
 
 function calcWorkDays(startStr, endStr) {
@@ -9753,8 +9618,8 @@ export default function App() {
                 <div style={{ fontSize: 11, color: "#444", textAlign: "center", padding: "12px" }}>目前沒有負責的案件</div>
               ) : (
                 myResponsible.map(p => {
-                  // v68.8：顯示目前進度
-                  const summary = getProjectProgressSummary(p);
+                  // v70.29：改顯示未讀留言(取代舊 progressItems 進度小字)
+                  const unread = getUnreadCommentsCount(p, currentUser);
                   return (
                     <div key={p.id} onClick={() => { setShowPersonalModal(false); openDetail(p); }}
                       style={{ background: "rgba(91,138,240,0.06)", border: "1px solid rgba(91,138,240,0.2)", borderRadius: 8, padding: "8px 12px", marginBottom: 6, cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
@@ -9762,11 +9627,9 @@ export default function App() {
                         <span style={{ fontSize: 9, color: STAGE_COLORS[p.stage] || "#888", background: `${STAGE_COLORS[p.stage] || "#888"}15`, border: `1px solid ${STAGE_COLORS[p.stage] || "#888"}30`, borderRadius: 4, padding: "1px 5px", flexShrink: 0 }}>{p.stage}</span>
                         <div style={{ flex: 1, minWidth: 0 }}>
                           <div style={{ fontSize: 12, color: "#e8e4dc", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", marginBottom: 2 }}>{p.name}</div>
-                          {summary && (
-                            <div style={{ fontSize: 10, color: summary.color, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                              {summary.icon} {summary.label}
-                              {summary.sub && <span style={{ color: "#666" }}> · </span>}
-                              {summary.sub && <span>{summary.sub}</span>}
+                          {unread > 0 && (
+                            <div style={{ fontSize: 10, color: "#ff8a8a", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                              ● {unread} 則新留言
                             </div>
                           )}
                         </div>
@@ -9830,8 +9693,8 @@ export default function App() {
                   if (p.projectManager === myName) myRoles.push("專案");
                   if (p.assistant === myName) myRoles.push("助理");
                   if (p.siteManager === myName) myRoles.push("工務");
-                  // v68.8：顯示目前進度
-                  const summary = getProjectProgressSummary(p);
+                  // v70.29：改顯示未讀留言(取代舊 progressItems 進度小字)
+                  const unread = getUnreadCommentsCount(p, currentUser);
                   return (
                     <div key={p.id} onClick={() => { setShowPersonalModal(false); openDetail(p); }}
                       style={{ background: "rgba(240,168,80,0.06)", border: "1px solid rgba(240,168,80,0.2)", borderRadius: 8, padding: "8px 12px", marginBottom: 6, cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -9844,11 +9707,9 @@ export default function App() {
                         <div style={{ fontSize: 10, color: "#f0a850", marginBottom: 2 }}>
                           擔任 {myRoles.join(" + ")}
                         </div>
-                        {summary && (
-                          <div style={{ fontSize: 10, color: summary.color, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                            {summary.icon} {summary.label}
-                            {summary.sub && <span style={{ color: "#666" }}> · </span>}
-                            {summary.sub && <span>{summary.sub}</span>}
+                        {unread > 0 && (
+                          <div style={{ fontSize: 10, color: "#ff8a8a", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                            ● {unread} 則新留言
                           </div>
                         )}
                       </div>
