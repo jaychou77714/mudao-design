@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v70.31";
+const APP_VERSION = "v70.32";
 const APP_RELEASE_DATE = "2026-05-07";
 // deploy-trigger 20260609-021222: 重連正式 project 觸發部署
 
@@ -2946,262 +2946,6 @@ function MiniWorkDayCalc() {
 }
 // v65：設計師專業助理 AI（取代對罵 AI）
 // 模型：gemini-2.5-flash，每天 250 次免費
-function AskAIBox({ currentUser }) {
-  const todayKey = new Date().toISOString().split("T")[0];
-  const storageKey = `mudao_ask_${todayKey}`;
-  const [open, setOpen] = useState(false);
-  // 從 localStorage 讀今日對話
-  const [messages, setMessages] = useState(() => {
-    try {
-      const raw = localStorage.getItem(storageKey);
-      return raw ? JSON.parse(raw) : [];
-    } catch { return []; }
-  });
-  const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [activeCategory, setActiveCategory] = useState(""); // "工法" | "法規" | "報價" | "材料" | ""
-  const scrollRef = useRef(null);
-
-  // 儲存到 localStorage
-  useEffect(() => {
-    try {
-      localStorage.setItem(storageKey, JSON.stringify(messages));
-    } catch {}
-  }, [messages, storageKey]);
-
-  // 自動滾到底
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [messages, loading]);
-
-  // 送出訊息
-  const sendMessage = async (overrideText) => {
-    const text = (overrideText !== undefined ? overrideText : input).trim();
-    if (!text || loading) return;
-    const newMessages = [...messages, { role: "user", content: text }];
-    setMessages(newMessages);
-    setInput("");
-    setLoading(true);
-    setError("");
-    try {
-      const res = await fetch("/api/ask", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: newMessages, category: activeCategory }),
-      });
-      if (!res.ok) {
-        const errData = await res.json().catch(() => ({}));
-        throw new Error(errData.error || "AI 暫時罷工，請稍後再試");
-      }
-      const data = await res.json();
-      if (data.error) throw new Error(data.error);
-      setMessages(prev => [...prev, { role: "assistant", content: data.reply }]);
-    } catch (err) {
-      setError(err.message || "連線失敗");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // 清空對話
-  const clearChat = () => {
-    if (!window.confirm("確定要清空今日對話？")) return;
-    setMessages([]);
-    setError("");
-    setActiveCategory("");
-    try { localStorage.removeItem(storageKey); } catch {}
-  };
-
-  const QUICK_BTNS = [
-    { key: "工法", emoji: "💡", label: "工法", placeholder: "問工法（例：水泥粉光要養護幾天）" },
-    { key: "法規", emoji: "📏", label: "法規", placeholder: "問法規（例：浴室抽風機必須裝嗎）" },
-    { key: "報價", emoji: "💰", label: "報價", placeholder: "問報價（例：30 坪老屋全屋裝潢預估）" },
-    { key: "材料", emoji: "🛠️", label: "材料", placeholder: "問材料（例：F1 vs F3 木板差別）" },
-  ];
-
-  // 收起狀態
-  if (!open) {
-    return (
-      <div onClick={() => setOpen(true)}
-        style={{
-          background: "linear-gradient(135deg, rgba(226,201,126,0.45), rgba(200,168,112,0.35))",
-          backdropFilter: "blur(8px)",
-          border: "1px solid rgba(226,201,126,0.55)",
-          color: "#0c0c0e",
-          padding: "20px 18px",
-          marginBottom: 16,
-          cursor: "pointer",
-          position: "relative",
-          overflow: "hidden",
-          transition: "all 0.2s",
-          borderRadius: 14,
-        }}
-        onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(226,201,126,0.3)"; }}
-        onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
-        {/* 角落裝飾 */}
-        <div style={{ position: "absolute", bottom: -25, right: -15, width: 100, height: 100, borderRadius: "50%", background: "rgba(200,168,112,0.4)" }} />
-        <div style={{ position: "absolute", top: 16, right: 16, fontSize: 18, opacity: 0.4 }}>✦</div>
-        <div style={{ position: "relative" }}>
-          <div style={{ fontSize: 9, fontWeight: 700, letterSpacing: 4, marginBottom: 6, color: "#5a3520" }}>
-            ASK ANYTHING · INTERIOR DESIGN Q&amp;A
-          </div>
-          <div style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.2, marginBottom: 6, color: "#0c0c0e" }}>
-            🎓 室內設計專業問答 AI
-          </div>
-          <div style={{ fontSize: 11, lineHeight: 1.6, color: "#5a3520", marginBottom: 4 }}>
-            問工法 · 問法規 · 問報價 · 問材料
-          </div>
-          <div style={{ fontSize: 10, color: "#3a2010", fontStyle: "italic" }}>
-            20 年資歷的台灣設計師，什麼都能問
-          </div>
-          <div style={{ fontSize: 9, color: "#3a2010", marginTop: 10, fontWeight: 700, letterSpacing: 1 }}>
-            {messages.length > 0 ? `${messages.length} 則訊息 · 點開繼續 →` : "點此開啟 →"}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // 展開狀態
-  const activeBtn = QUICK_BTNS.find(b => b.key === activeCategory);
-  const placeholder = activeBtn ? activeBtn.placeholder : "問任何設計、工地、客戶相關問題...";
-
-  return (
-    <div style={{
-      background: "rgba(91,138,240,0.08)",
-      border: "1px solid rgba(91,138,240,0.3)",
-      borderRadius: 14,
-      padding: "14px 14px 12px",
-      marginBottom: 16,
-    }}>
-      {/* 標題列 */}
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
-        <div>
-          <div style={{ fontSize: 11, color: "#5b8af0", fontWeight: 700, letterSpacing: 1 }}>
-            🎓 室內設計專業問答 AI
-          </div>
-          <div style={{ fontSize: 13, fontWeight: 700, color: "#f0ead8", marginTop: 2 }}>
-            木島室內設計專屬
-          </div>
-        </div>
-        <div style={{ display: "flex", gap: 4 }}>
-          <button onClick={clearChat} title="清空對話"
-            style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 6, padding: "4px 8px", color: "#888", fontSize: 11, cursor: "pointer" }}>
-            🗑️
-          </button>
-          <button onClick={() => setOpen(false)} title="收起"
-            style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 6, padding: "4px 8px", color: "#888", fontSize: 11, cursor: "pointer" }}>
-            ✕
-          </button>
-        </div>
-      </div>
-
-      {/* 快捷按鈕 */}
-      <div style={{ display: "flex", gap: 5, marginBottom: 10, flexWrap: "wrap" }}>
-        {QUICK_BTNS.map(b => (
-          <button key={b.key}
-            onClick={() => setActiveCategory(activeCategory === b.key ? "" : b.key)}
-            style={{
-              flex: "1 1 auto",
-              minWidth: 70,
-              background: activeCategory === b.key ? "rgba(91,138,240,0.25)" : "rgba(255,255,255,0.04)",
-              border: `1px solid ${activeCategory === b.key ? "rgba(91,138,240,0.6)" : "rgba(255,255,255,0.08)"}`,
-              borderRadius: 8, padding: "6px 8px",
-              color: activeCategory === b.key ? "#5b8af0" : "#888",
-              fontSize: 11, cursor: "pointer",
-              fontWeight: activeCategory === b.key ? 700 : 500,
-            }}>
-            {b.emoji} {b.label}
-          </button>
-        ))}
-      </div>
-
-      {/* 對話視窗 */}
-      <div ref={scrollRef} style={{
-        background: "rgba(0,0,0,0.3)",
-        border: "1px solid rgba(255,255,255,0.05)",
-        borderRadius: 10,
-        padding: 10,
-        maxHeight: 400,
-        minHeight: 180,
-        overflowY: "auto",
-        marginBottom: 8,
-      }}>
-        {messages.length === 0 && !loading && (
-          <div style={{ fontSize: 12, color: "#444", textAlign: "center", padding: 24, lineHeight: 1.8 }}>
-            點上方分類聚焦，或直接發問<br/>
-            <span style={{ fontSize: 10, color: "#333" }}>例：「磁磚收邊條什麼時候用」、「客戶說太貴怎辦」</span>
-          </div>
-        )}
-        {messages.map((msg, i) => (
-          <div key={i} style={{ marginBottom: 8, display: "flex", justifyContent: msg.role === "user" ? "flex-end" : "flex-start" }}>
-            <div style={{
-              maxWidth: "82%",
-              background: msg.role === "user" ? "rgba(91,138,240,0.18)" : "rgba(80,200,120,0.12)",
-              border: `1px solid ${msg.role === "user" ? "rgba(91,138,240,0.35)" : "rgba(80,200,120,0.3)"}`,
-              borderRadius: 10,
-              padding: "7px 10px",
-              fontSize: 13,
-              lineHeight: 1.6,
-              color: msg.role === "user" ? "#a8c4ff" : "#d4f0d4",
-              whiteSpace: "pre-wrap",
-              wordBreak: "break-word",
-            }}>
-              {msg.content}
-            </div>
-          </div>
-        ))}
-        {loading && (
-          <div style={{ display: "flex", justifyContent: "flex-start", marginBottom: 8 }}>
-            <div style={{ background: "rgba(80,200,120,0.12)", border: "1px solid rgba(80,200,120,0.3)", borderRadius: 10, padding: "7px 10px", fontSize: 12, color: "#888" }}>
-              助理思考中... 💭
-            </div>
-          </div>
-        )}
-        {error && (
-          <div style={{ fontSize: 11, color: "#e05b5b", textAlign: "center", padding: 8 }}>
-            ⚠️ {error}
-          </div>
-        )}
-      </div>
-
-      {/* 輸入區 */}
-      <div style={{ display: "flex", gap: 6 }}>
-        <input value={input}
-          onChange={e => setInput(e.target.value)}
-          onKeyDown={e => { if (e.key === "Enter") sendMessage(); }}
-          placeholder={placeholder}
-          disabled={loading}
-          style={{
-            flex: 1, background: "rgba(0,0,0,0.25)",
-            border: "1px solid rgba(91,138,240,0.4)",
-            borderRadius: 8, padding: "8px 12px",
-            color: "#f0ead8", fontSize: 13, outline: "none",
-          }} />
-        <button onClick={() => sendMessage()} disabled={!input.trim() || loading}
-          style={{
-            background: input.trim() && !loading ? "#5b8af0" : "rgba(255,255,255,0.05)",
-            border: "none",
-            borderRadius: 8,
-            padding: "0 14px",
-            color: input.trim() && !loading ? "#0c0c0e" : "#666",
-            fontSize: 14, fontWeight: 700,
-            cursor: input.trim() && !loading ? "pointer" : "not-allowed",
-            minWidth: 50,
-          }}>
-          {loading ? "..." : "▷"}
-        </button>
-      </div>
-
-      <div style={{ fontSize: 10, color: "#444", textAlign: "center", marginTop: 8 }}>
-        ⚠️ 對話保留至今日結束。每天免費 250 次。AI 回答僅供參考。
-      </div>
-    </div>
-  );
-}
 
 function FancyAvatar({ user, isDevUser, size = 46 }) {
   const [imgError, setImgError] = useState(false);
@@ -3245,7 +2989,7 @@ function FancyAvatar({ user, isDevUser, size = 46 }) {
       flexShrink: 0,
       background: "rgba(0,0,0,0.2)",
     }}>
-      <img src={imageUrl} alt={user.name || ""}
+      <img src={imageUrl} alt={user.name || ""} loading="lazy" decoding="async"
         onError={() => setImgError(true)}
         style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
     </div>
@@ -5966,12 +5710,6 @@ export default function App() {
                 }}>公司團隊</div>
               </div>
             </div>
-
-            {/* —— AI 助理 / ASSISTANT Section */}
-            <div style={{ fontSize: 9, color: "#666", letterSpacing: 4, marginBottom: 12, marginTop: 4, fontWeight: 600 }}>—— AI 助理 / ASSISTANT</div>
-
-            {/* 室內設計專業問答 AI */}
-            <AskAIBox currentUser={currentUser} />
 
           </div>
         )}
