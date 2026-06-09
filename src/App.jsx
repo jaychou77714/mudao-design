@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v70.40";
+const APP_VERSION = "v70.41";
 const APP_RELEASE_DATE = "2026-05-07";
 // deploy-trigger 20260609-021222: 重連正式 project 觸發部署
 
@@ -1084,21 +1084,27 @@ function migrateContractPipeline(p) {
 
 // 工項分類（v69：15 大類，含新增「收尾」，保留所有舊 key 相容舊資料）
 const CONSTRUCTION_CATEGORIES = [
-  { key: "保護拆除", label: "保護+拆除",   emoji: "🛡️" },
-  { key: "水電",     label: "水電工程",    emoji: "⚡" },
-  { key: "水電燈具", label: "水電(燈具)",  emoji: "💡" },
-  { key: "空調",     label: "空調工程",    emoji: "❄️" },
-  { key: "金屬玻璃", label: "金屬+鋁窗",   emoji: "🔩" },
-  { key: "泥作防水", label: "泥作+防水",   emoji: "🧱" },
-  { key: "衛浴",     label: "衛浴設備",    emoji: "🚿" },
-  { key: "磁磚",     label: "磁磚工程",    emoji: "🔲" },
-  { key: "木作",     label: "木作工程",    emoji: "🪵" },
-  { key: "櫃體",     label: "系統櫃工程",  emoji: "📦" },
-  { key: "廚具",     label: "廚具工程",    emoji: "🍳" },
-  { key: "地板",     label: "地板工程",    emoji: "🟫" },
-  { key: "油漆",     label: "油漆工程",    emoji: "🎨" },
-  { key: "細清",     label: "粗清+細清",   emoji: "🧹" },
-  { key: "收尾",     label: "收尾",       emoji: "🏁" },
+  { key: "保護拆除", label: "保護、拆除",      emoji: "🛡️" },
+  { key: "隔間",     label: "隔間工程",        emoji: "🚧" },
+  { key: "水電",     label: "水電工程",        emoji: "⚡" },
+  { key: "空調",     label: "空調、除濕、全熱", emoji: "❄️" },
+  { key: "水電燈具", label: "水電(燈具)",      emoji: "💡" },
+  { key: "衛浴",     label: "衛浴設備",        emoji: "🚿" },
+  { key: "泥作防水", label: "泥作、防水",      emoji: "🧱" },
+  { key: "磁磚",     label: "磁磚材料",        emoji: "🔲" },
+  { key: "木作",     label: "木作工程",        emoji: "🪵" },
+  { key: "門組",     label: "門組工程",        emoji: "🚪" },
+  { key: "櫃體",     label: "櫃體工程",        emoji: "📦" },
+  { key: "廚具",     label: "廚具工程",        emoji: "🍳" },
+  { key: "地板",     label: "地板工程",        emoji: "🟫" },
+  { key: "金屬玻璃", label: "金屬、鋁窗",      emoji: "🔩" },
+  { key: "油漆",     label: "粉刷工程",        emoji: "🎨" },
+  { key: "玻璃",     label: "玻璃工程",        emoji: "🪟" },
+  { key: "石材",     label: "石材工程",        emoji: "🪨" },
+  { key: "家飾",     label: "家飾工程",        emoji: "🖼️" },
+  { key: "傢俱傢電", label: "傢俱、傢電",      emoji: "🛋️" },
+  { key: "細清",     label: "清潔、其他",      emoji: "🧹" },
+  { key: "收尾",     label: "收尾",           emoji: "🏁" },
 ];
 
 // 取得工程總金額（從報價單，含工程管理費）
@@ -2084,10 +2090,38 @@ function getDailyAlert(projects) {
 }
 
 const WORK_ITEMS = [
-  "保護、拆除工程","水電工程","水電工程（燈具）","衛浴設備",
-  "廚具工程","泥作、防水工程","磁磚工程","木作工程","櫃體工程",
-  "地板工程","金屬、玻璃、鋁窗工程","油漆工程","家飾工程","細清","工程管理費",
+  "保護、拆除工程","隔間工程","水電工程","空調、除濕機、全熱","水電工程(燈具)",
+  "衛浴設備","泥作、防水工項","磁磚材料","木作工程","門組工程","櫃體工程","廚具工程",
+  "地板工程","金屬、鋁窗工程","粉刷工程","玻璃工程","石材工程","家飾工程",
+  "傢俱、傢電工程","清潔、其他工程","工程管理費",
 ];
+// v70.41：工項改名搬移對照（舊名→新名），確保現有案件報價/請款/追加減/額外/吸收資料不丟
+const WORK_ITEM_RENAMES = {
+  "泥作、防水工程": "泥作、防水工項",
+  "磁磚工程": "磁磚材料",
+  "油漆工程": "粉刷工程",
+  "細清": "清潔、其他工程",
+  "金屬、玻璃、鋁窗工程": "金屬、鋁窗工程",
+  "水電工程（燈具）": "水電工程(燈具)",
+};
+function migrateWorkItemObj(obj) {
+  if (!obj || typeof obj !== "object") return obj;
+  const out = { ...obj };
+  for (const [oldK, newK] of Object.entries(WORK_ITEM_RENAMES)) {
+    if (oldK in out && !(newK in out)) { out[newK] = out[oldK]; delete out[oldK]; }
+  }
+  return out;
+}
+function migrateWorkItems(p) {
+  const np = { ...p };
+  if (np.quote) np.quote = migrateWorkItemObj(np.quote);
+  if (np.billing) np.billing = migrateWorkItemObj(np.billing);
+  const fixCat = (arr) => Array.isArray(arr) ? arr.map(r => (r && WORK_ITEM_RENAMES[r.category]) ? { ...r, category: WORK_ITEM_RENAMES[r.category] } : r) : arr;
+  np.changeOrders = fixCat(np.changeOrders);
+  np.extraItems = fixCat(np.extraItems);
+  np.absorbedCosts = fixCat(np.absorbedCosts);
+  return np;
+}
 const DEFAULT_QUOTE = () => WORK_ITEMS.reduce((a, k) => ({ ...a, [k]: { price: "", cost: "" } }), {});
 const DEFAULT_BILLING = () => WORK_ITEMS.reduce((a, k) => ({ ...a, [k]: "" }), {});
 const DEFAULT_DEFECTS = ["木作修補","油漆補色","磁磚填縫","五金調整","衛浴漏水確認","燈具更換","地板修補","門片調整"];
@@ -4024,7 +4058,7 @@ export default function App() {
         console.log(`[v43] 自動清除 ${arr.length - cleaned.length} 筆舊版假資料`);
       }
       // v40：本地讀取時自動遷移 proposalPipeline
-      return cleaned.map(migrateProposalPipeline).map(migrateContractPipeline).map(migrateConstruction).map(migrateV56Progress).map(migrateChangeOrders).map(migrateV68FinalizedAt).map(migrateV684FinalizedAt).map(migrateV697Reservation);
+      return cleaned.map(migrateProposalPipeline).map(migrateContractPipeline).map(migrateConstruction).map(migrateV56Progress).map(migrateChangeOrders).map(migrateV68FinalizedAt).map(migrateV684FinalizedAt).map(migrateV697Reservation).map(migrateWorkItems);
     } catch { return SAMPLE; }
   });
   const [memos, setMemos] = useState(() => {
@@ -4486,7 +4520,7 @@ export default function App() {
       const cloudProjectsRaw = await cloudLoadProjects(effectiveUser, allUsers, devMode);
       // v40：自動遷移 proposalPipeline 結構
       // v43：過濾掉雲端可能殘留的舊版假資料
-      const cloudProjects = cloudProjectsRaw.filter(p => !isLegacyFake(p)).map(migrateProposalPipeline).map(migrateContractPipeline).map(migrateConstruction).map(migrateV56Progress).map(migrateChangeOrders).map(migrateV68FinalizedAt).map(migrateV684FinalizedAt).map(migrateV697Reservation);
+      const cloudProjects = cloudProjectsRaw.filter(p => !isLegacyFake(p)).map(migrateProposalPipeline).map(migrateContractPipeline).map(migrateConstruction).map(migrateV56Progress).map(migrateChangeOrders).map(migrateV68FinalizedAt).map(migrateV684FinalizedAt).map(migrateV697Reservation).map(migrateWorkItems);
       console.log("雲端同步：取得", cloudProjects.length, "筆案件");
 
       // v70.8：分流 — stage="垃圾場" 進 trashProjects，其他進 projects
@@ -4777,7 +4811,7 @@ export default function App() {
         const cloudProjectsRaw = await cloudLoadProjects(effectiveUser, users || [], devMode);
         // v40：自動遷移 proposalPipeline 結構
         // v43：過濾掉雲端可能殘留的舊版假資料
-        const cloudProjects = cloudProjectsRaw.filter(p => !isLegacyFake(p)).map(migrateProposalPipeline).map(migrateContractPipeline).map(migrateConstruction).map(migrateV56Progress).map(migrateChangeOrders).map(migrateV68FinalizedAt).map(migrateV684FinalizedAt).map(migrateV697Reservation);
+        const cloudProjects = cloudProjectsRaw.filter(p => !isLegacyFake(p)).map(migrateProposalPipeline).map(migrateContractPipeline).map(migrateConstruction).map(migrateV56Progress).map(migrateChangeOrders).map(migrateV68FinalizedAt).map(migrateV684FinalizedAt).map(migrateV697Reservation).map(migrateWorkItems);
         console.log("登入後雲端案件：", cloudProjects.length, "筆");
 
         // v70.8：分流 — stage="垃圾場" 進 trashProjects，其他進 projects
@@ -7220,7 +7254,7 @@ export default function App() {
                   return (
                     <div key={item} style={{ display: "grid", gridTemplateColumns: "92px 1fr 1fr 1fr 56px", gap: 4, padding: "6px 0", borderBottom: "1px solid rgba(255,255,255,0.07)", alignItems: "center" }}>
                       <div>
-                        <div style={{ fontSize: 12, color: "#ccc" }}>{item}</div>
+                        <div style={{ fontSize: 12, color: item === "空調、除濕機、全熱" ? "#e05b5b" : "#ccc", fontWeight: item === "空調、除濕機、全熱" ? 700 : 400 }}>{item}</div>
                         {co ? <div style={{ fontSize: 9, color: num(co) >= 0 ? "#5b8af0" : "#e05b5b" }}>{num(co) >= 0 ? "+" : ""}{fmtMoney(num(co))}</div> : null}
                       </div>
                       {/* 報價 input */}
@@ -7592,7 +7626,7 @@ export default function App() {
                   if (!billing && !quote.price) return null;
                   return (
                     <div key={item} style={{ display: "grid", gridTemplateColumns: "1fr 100px", gap: 4, padding: "7px 0", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
-                      <div style={{ fontSize: 12, color: "#ccc" }}>{item}</div>
+                      <div style={{ fontSize: 12, color: item === "空調、除濕機、全熱" ? "#e05b5b" : "#ccc", fontWeight: item === "空調、除濕機、全熱" ? 700 : 400 }}>{item}</div>
                       <div style={{ fontSize: 12, color: billing ? "#e05b5b" : "#333", textAlign: "right" }}>{billing ? fmtMoney(num(billing)) : "—"}</div>
                     </div>
                   );
@@ -8634,7 +8668,7 @@ export default function App() {
               </div>
               {WORK_ITEMS.map(item => (
                 <div key={item} style={{ display: "grid", gridTemplateColumns: "1fr 72px 72px 72px", gap: 4, marginBottom: 8, alignItems: "center" }}>
-                  <div style={{ fontSize: 11, color: "#aaa" }}>{item}</div>
+                  <div style={{ fontSize: 11, color: item === "空調、除濕機、全熱" ? "#e05b5b" : "#aaa", fontWeight: item === "空調、除濕機、全熱" ? 700 : 400 }}>{item}</div>
                   <input value={(form.quote[item] || {}).price || ""} onChange={e => setQuote(item, "price", e.target.value)} placeholder="0" type="number"
                     style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8, padding: "6px 6px", color: "#50c878", fontSize: 12, outline: "none", textAlign: "right" }} />
                   <input value={(form.quote[item] || {}).cost || ""} onChange={e => setQuote(item, "cost", e.target.value)} placeholder="0" type="number"
