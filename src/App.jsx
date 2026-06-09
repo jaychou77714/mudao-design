@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v70.36";
+const APP_VERSION = "v70.37";
 const APP_RELEASE_DATE = "2026-05-07";
 // deploy-trigger 20260609-021222: 重連正式 project 觸發部署
 
@@ -3943,6 +3943,19 @@ export default function App() {
   const [editingNameValue, setEditingNameValue] = useState("");
   // v68 問題 4：留言板 Modal 開關
   const [commentsModalOpen, setCommentsModalOpen] = useState(false);
+  // v70.37：個人備忘錄 / 個人記帳區 獨立 Modal 開關
+  const [showMemoModal, setShowMemoModal] = useState(false);
+  const [showAccountingModal, setShowAccountingModal] = useState(false);
+  // v70.37：個人記帳區資料（純 localStorage，個人裝置不上雲）
+  const [accountingRecords, setAccountingRecords] = useState(() => {
+    try {
+      const s = localStorage.getItem(`mudao_accounting_${currentUser?.email || "anonymous"}`);
+      return s ? JSON.parse(s) : [];
+    } catch { return []; }
+  });
+  const [newAcctAmount, setNewAcctAmount] = useState("");
+  const [newAcctNote, setNewAcctNote] = useState("");
+  const [newAcctType, setNewAcctType] = useState("expense");
 
   // v37：天氣（預設台北，Open-Meteo 免費 API 不需 key）
   const [weather, setWeather] = useState(null); // { temp, code, isDay, city }
@@ -4052,6 +4065,21 @@ export default function App() {
       const s = localStorage.getItem(`mudao_personal_memos_${currentUser.email}`);
       setPersonalMemos(s ? JSON.parse(s) : []);
     } catch { setPersonalMemos([]); }
+    // eslint-disable-next-line
+  }, [currentUser?.email]);
+  // v70.37：個人記帳區存到 localStorage（個人裝置，不上雲端）
+  useEffect(() => {
+    if (!currentUser?.email) return;
+    try {
+      localStorage.setItem(`mudao_accounting_${currentUser.email}`, JSON.stringify(accountingRecords));
+    } catch {}
+  }, [accountingRecords, currentUser?.email]);
+  useEffect(() => {
+    if (!currentUser?.email) return;
+    try {
+      const s = localStorage.getItem(`mudao_accounting_${currentUser.email}`);
+      setAccountingRecords(s ? JSON.parse(s) : []);
+    } catch { setAccountingRecords([]); }
     // eslint-disable-next-line
   }, [currentUser?.email]);
 
@@ -5343,6 +5371,24 @@ export default function App() {
           );
         })()}
 
+        {/* v70.37：個人三方塊（個人中心 / 個人備忘錄 / 個人記帳區）— 點擊各彈出 Modal */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 16 }}>
+          {[
+            { key: "center", icon: "👤", name: "個人中心", sub: "工作中心", color: "#c084f5", onClick: () => setShowPersonalModal(true) },
+            { key: "memo", icon: "📝", name: "個人備忘錄", sub: `${personalMemos.reduce((s, m) => s + (m.items || []).filter(it => !it.done).length, 0)} 項待辦`, color: "#f0a850", onClick: () => setShowMemoModal(true) },
+            { key: "acct", icon: "💰", name: "個人記帳區", sub: `${accountingRecords.length} 筆`, color: "#50c878", onClick: () => setShowAccountingModal(true) },
+          ].map(b => (
+            <div key={b.key} onClick={b.onClick}
+              style={{ position: "relative", cursor: "pointer", borderRadius: 12, padding: "14px 8px", textAlign: "center", background: "#201c16", border: "1px solid rgba(200,168,112,0.15)", transition: "transform 0.18s, border-color 0.18s", display: "flex", flexDirection: "column", alignItems: "center", gap: 5 }}
+              onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.borderColor = `${b.color}66`; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.borderColor = "rgba(200,168,112,0.15)"; }}>
+              <div style={{ fontSize: 22, lineHeight: 1 }}>{b.icon}</div>
+              <div style={{ fontSize: 12, fontWeight: 600, color: "#f0e8d8", whiteSpace: "nowrap" }}>{b.name}</div>
+              <div style={{ fontSize: 10, color: b.color, fontWeight: 600 }}>{b.sub}</div>
+            </div>
+          ))}
+        </div>
+
         {/* v70.1：工作日曆只剩「下次連假倒數」一條（5 月工作天進度條 / 2026 連假進度 / 沒補班歡呼 已刪除；交圖倒數 / 月度國假 已位移到「夜深了」banner 內） */}
         {(() => {
           const holiday = getNextLongHoliday(3);
@@ -5585,21 +5631,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* 第四排：個人中心（全寬暖紫塊） */}
-            <div onClick={() => setShowPersonalModal(true)}
-              style={{
-                position: "relative", overflow: "hidden", padding: "14px 16px", marginBottom: 16, cursor: "pointer",
-                borderRadius: 12, color: "#f0ead8",
-                background: "linear-gradient(135deg, rgba(160,128,104,1) 0%, rgba(120,90,70,1) 100%)",
-                border: "1px solid rgba(160,128,104,0.5)",
-                display: "flex", justifyContent: "space-between", alignItems: "center",
-                transition: "transform 0.18s, box-shadow 0.18s",
-              }}
-              onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 20px rgba(160,128,104,0.3)"; }}
-              onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}>
-              <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: 2, color: "#e0d0c0" }}>06 / 個人中心 · PERSONAL</div>
-              <div style={{ fontFamily: "'Anton', sans-serif", fontSize: 30, lineHeight: 1, color: "#e0d0c0" }}>{personalMemos.filter(m => !m.done).length}</div>
-            </div>
+            {/* v70.37：原「06/個人中心」全寬塊已移除，改由頂部三方塊取代 */}
 
             {/* —— 工具 / TOOLS Section */}
             <div style={{ fontSize: 9, color: "#666", letterSpacing: 4, marginBottom: 12, marginTop: 4, fontWeight: 600 }}>—— 工具 / TOOLS</div>
@@ -9191,6 +9223,104 @@ export default function App() {
               })()}
         </Modal>
       )}
+
+      {/* v70.37：個人備忘錄 MODAL（從個人中心抽出，獨立入口） */}
+      {showMemoModal && (() => {
+        const sortedMemos = [...personalMemos].sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+        const addItem = () => {
+          const text = newMemoText.trim();
+          if (!text) return;
+          const today = new Date().toISOString().split("T")[0];
+          const idx = personalMemos.findIndex(m => m.date === today);
+          if (idx >= 0) setPersonalMemos(prev => prev.map((m, i) => i === idx ? { ...m, items: [...(m.items || []), { id: Date.now(), text, done: false }] } : m));
+          else setPersonalMemos(prev => [...prev, { id: Date.now(), date: today, items: [{ id: Date.now() + 1, text, done: false }] }]);
+          setNewMemoText("");
+        };
+        const toggleItem = (mId, iId) => setPersonalMemos(prev => prev.map(m => m.id !== mId ? m : { ...m, items: m.items.map(it => it.id === iId ? { ...it, done: !it.done } : it) }));
+        const delItem = (mId, iId) => setPersonalMemos(prev => prev.map(m => m.id !== mId ? m : { ...m, items: m.items.filter(it => it.id !== iId) }).filter(m => (m.items || []).length > 0));
+        return (
+          <Modal onClose={() => setShowMemoModal(false)} title="📝 個人備忘錄">
+            <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
+              <input value={newMemoText} onChange={e => setNewMemoText(e.target.value)} onKeyDown={e => { if (e.key === "Enter") addItem(); }} placeholder="新增待辦事項…"
+                style={{ flex: 1, padding: "10px 12px", borderRadius: 8, border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.04)", color: "#e8e4dc", fontSize: 13, outline: "none" }} />
+              <button onClick={addItem} style={{ padding: "10px 18px", borderRadius: 8, border: "none", background: "#f0a850", color: "#1a1714", fontSize: 13, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap" }}>新增</button>
+            </div>
+            {sortedMemos.length === 0 && <div style={{ textAlign: "center", color: "#666", padding: "40px 0", fontSize: 13 }}>還沒有備忘事項</div>}
+            {sortedMemos.map(m => (
+              <div key={m.id} style={{ marginBottom: 16 }}>
+                <div style={{ fontSize: 11, color: "#888", marginBottom: 7, fontWeight: 600, letterSpacing: 1 }}>{m.date}</div>
+                {(m.items || []).map(it => (
+                  <div key={it.id} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 12px", marginBottom: 6, background: "rgba(255,255,255,0.03)", borderRadius: 8 }}>
+                    <span onClick={() => toggleItem(m.id, it.id)} style={{ cursor: "pointer", fontSize: 16, flexShrink: 0 }}>{it.done ? "✅" : "⬜"}</span>
+                    <span style={{ flex: 1, fontSize: 13, color: it.done ? "#666" : "#e8e4dc", textDecoration: it.done ? "line-through" : "none", wordBreak: "break-word" }}>{it.text}</span>
+                    <span onClick={() => delItem(m.id, it.id)} style={{ cursor: "pointer", color: "#e05b5b", fontSize: 14, flexShrink: 0 }}>✕</span>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </Modal>
+        );
+      })()}
+
+      {/* v70.37：個人記帳區 MODAL（基本收支記錄，純 localStorage） */}
+      {showAccountingModal && (() => {
+        const now = new Date();
+        const thisMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+        const monthRecords = accountingRecords.filter(r => (r.date || "").startsWith(thisMonth));
+        const income = monthRecords.filter(r => r.type === "income").reduce((s, r) => s + Number(r.amount || 0), 0);
+        const expense = monthRecords.filter(r => r.type === "expense").reduce((s, r) => s + Number(r.amount || 0), 0);
+        const balance = income - expense;
+        const sorted = [...accountingRecords].sort((a, b) => (b.date || "").localeCompare(a.date || "") || b.id - a.id);
+        const fmt = n => Number(n).toLocaleString("en-US");
+        const addRecord = () => {
+          const amt = Number(newAcctAmount);
+          if (!amt || amt <= 0) return;
+          const today = new Date().toISOString().split("T")[0];
+          setAccountingRecords(prev => [...prev, { id: Date.now(), type: newAcctType, amount: amt, note: newAcctNote.trim(), date: today }]);
+          setNewAcctAmount(""); setNewAcctNote("");
+        };
+        const delRecord = (id) => setAccountingRecords(prev => prev.filter(r => r.id !== id));
+        return (
+          <Modal onClose={() => setShowAccountingModal(false)} title="💰 個人記帳區">
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 16 }}>
+              <div style={{ background: "rgba(80,200,120,0.1)", border: "1px solid rgba(80,200,120,0.25)", borderRadius: 10, padding: "10px 8px", textAlign: "center" }}>
+                <div style={{ fontSize: 10, color: "#888", marginBottom: 3 }}>本月收入</div>
+                <div style={{ fontSize: 16, fontWeight: 700, color: "#50c878" }}>{fmt(income)}</div>
+              </div>
+              <div style={{ background: "rgba(224,91,91,0.1)", border: "1px solid rgba(224,91,91,0.25)", borderRadius: 10, padding: "10px 8px", textAlign: "center" }}>
+                <div style={{ fontSize: 10, color: "#888", marginBottom: 3 }}>本月支出</div>
+                <div style={{ fontSize: 16, fontWeight: 700, color: "#e05b5b" }}>{fmt(expense)}</div>
+              </div>
+              <div style={{ background: "rgba(240,168,80,0.1)", border: "1px solid rgba(240,168,80,0.25)", borderRadius: 10, padding: "10px 8px", textAlign: "center" }}>
+                <div style={{ fontSize: 10, color: "#888", marginBottom: 3 }}>本月結餘</div>
+                <div style={{ fontSize: 16, fontWeight: 700, color: balance >= 0 ? "#f0a850" : "#e05b5b" }}>{fmt(balance)}</div>
+              </div>
+            </div>
+            <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 10, padding: 12, marginBottom: 16 }}>
+              <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
+                <button onClick={() => setNewAcctType("expense")} style={{ flex: 1, padding: "8px", borderRadius: 8, border: "none", cursor: "pointer", fontSize: 13, fontWeight: 700, background: newAcctType === "expense" ? "#e05b5b" : "rgba(255,255,255,0.05)", color: newAcctType === "expense" ? "#fff" : "#888" }}>支出</button>
+                <button onClick={() => setNewAcctType("income")} style={{ flex: 1, padding: "8px", borderRadius: 8, border: "none", cursor: "pointer", fontSize: 13, fontWeight: 700, background: newAcctType === "income" ? "#50c878" : "rgba(255,255,255,0.05)", color: newAcctType === "income" ? "#fff" : "#888" }}>收入</button>
+              </div>
+              <div style={{ display: "flex", gap: 8 }}>
+                <input value={newAcctAmount} onChange={e => setNewAcctAmount(e.target.value.replace(/[^0-9]/g, ""))} inputMode="numeric" placeholder="金額"
+                  style={{ width: 84, padding: "10px 12px", borderRadius: 8, border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.04)", color: "#e8e4dc", fontSize: 13, outline: "none" }} />
+                <input value={newAcctNote} onChange={e => setNewAcctNote(e.target.value)} onKeyDown={e => { if (e.key === "Enter") addRecord(); }} placeholder="備註（例：材料費、車馬費）"
+                  style={{ flex: 1, padding: "10px 12px", borderRadius: 8, border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.04)", color: "#e8e4dc", fontSize: 13, outline: "none" }} />
+                <button onClick={addRecord} style={{ padding: "10px 14px", borderRadius: 8, border: "none", background: "#f0a850", color: "#1a1714", fontSize: 13, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap" }}>記一筆</button>
+              </div>
+            </div>
+            {sorted.length === 0 && <div style={{ textAlign: "center", color: "#666", padding: "40px 0", fontSize: 13 }}>還沒有記帳紀錄</div>}
+            {sorted.map(r => (
+              <div key={r.id} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", marginBottom: 6, background: "rgba(255,255,255,0.03)", borderRadius: 8 }}>
+                <span style={{ fontSize: 11, color: "#777", flexShrink: 0, width: 56 }}>{(r.date || "").slice(5)}</span>
+                <span style={{ flex: 1, fontSize: 13, color: "#e8e4dc", wordBreak: "break-word" }}>{r.note || (r.type === "income" ? "收入" : "支出")}</span>
+                <span style={{ fontSize: 14, fontWeight: 700, color: r.type === "income" ? "#50c878" : "#e05b5b", flexShrink: 0 }}>{r.type === "income" ? "+" : "-"}{fmt(Number(r.amount || 0))}</span>
+                <span onClick={() => delRecord(r.id)} style={{ cursor: "pointer", color: "#e05b5b", fontSize: 14, flexShrink: 0 }}>✕</span>
+              </div>
+            ))}
+          </Modal>
+        );
+      })()}
 
       {/* 👤 個人中心 MODAL（v55） */}
       {showPersonalModal && (() => {
