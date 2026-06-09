@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v70.33";
+const APP_VERSION = "v70.34";
 const APP_RELEASE_DATE = "2026-05-07";
 // deploy-trigger 20260609-021222: 重連正式 project 觸發部署
 
@@ -3215,29 +3215,29 @@ function ProjectCard({ p, onClick, allUsers = [], onWaitingToggle = null, hasNew
         onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.borderColor = isWaiting ? "rgba(240,168,80,0.4)" : "rgba(200,168,112,0.12)"; }}>
         {isWaiting && (
           <div style={{ background: "rgba(240,168,80,0.1)", borderBottom: "1px solid rgba(240,168,80,0.25)", padding: "7px 20px", fontSize: 11, fontWeight: 600, color: "#e0a860", letterSpacing: 1 }}>
-            \u23f3 {waitingLabel}
+            ⏳ {waitingLabel}
           </div>
         )}
         <div style={{ padding: "16px 20px 14px" }}>
           <div style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ fontSize: 22, fontWeight: 600, color: "#f0e8d8", lineHeight: 1.2, letterSpacing: -0.3, marginBottom: 5, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                {p.projectType === "repair" && <span style={{ marginRight: 6 }} title="\u4fee\u7e55\u6848">\ud83d\udd27</span>}
-                {p.name || "(\u672a\u547d\u540d)"}
+                {p.projectType === "repair" && <span style={{ marginRight: 6 }} title="修繕案">🔧</span>}
+                {p.name || "(未命名)"}
               </div>
               <div style={{ fontSize: 13, color: "#9a8f7e", fontStyle: "italic", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                {[p.client, p.address, dateLabel].filter(Boolean).join(" \u00b7 ") || "\u5ba2\u6236\u8cc7\u6599\u5f85\u88dc"}
+                {[p.client, p.address, dateLabel].filter(Boolean).join(" · ") || "客戶資料待補"}
               </div>
             </div>
             <div style={{ flexShrink: 0, textAlign: "right", paddingTop: 2 }}>
-              <div style={{ fontSize: 10, color: "#6f675b", letterSpacing: 2, marginBottom: 3 }}>{(isProposal || isContract) ? "\u9810\u7b97" : "\u5831\u50f9"}</div>
+              <div style={{ fontSize: 10, color: "#6f675b", letterSpacing: 2, marginBottom: 3 }}>{(isProposal || isContract) ? "預算" : "報價"}</div>
               {rightNum > 0 ? (
                 <div style={{ whiteSpace: "nowrap" }}>
                   <span style={{ fontSize: 21, fontWeight: 600, color: "#ece3d2", letterSpacing: 0.3 }}>{rightNum}</span>
-                  <span style={{ fontSize: 12, color: "#6f675b", marginLeft: 3 }}>\u842c</span>
+                  <span style={{ fontSize: 12, color: "#6f675b", marginLeft: 3 }}>萬</span>
                 </div>
               ) : (
-                <div style={{ fontSize: 20, color: "#5a5248", fontWeight: 300 }}>\u2014</div>
+                <div style={{ fontSize: 20, color: "#5a5248", fontWeight: 300 }}>—</div>
               )}
             </div>
           </div>
@@ -3248,19 +3248,19 @@ function ProjectCard({ p, onClick, allUsers = [], onWaitingToggle = null, hasNew
           )}
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center", marginTop: 14 }}>
             <span style={{ fontSize: 10, fontWeight: 700, color: stageColor, background: `${stageColor}22`, border: `1px solid ${stageColor}66`, borderRadius: 6, padding: "3px 10px", letterSpacing: 0.5, whiteSpace: "nowrap" }}>{stage}</span>
-            {p.designer && <span style={roleTag}>\u8a2d\u8a08 \u00b7 {p.designer}</span>}
-            {p.projectManager && <span style={roleTag}>\u5c08\u6848 \u00b7 {p.projectManager}</span>}
-            {p.assistant && <span style={roleTag}>\u52a9\u7406 \u00b7 {p.assistant}</span>}
-            {p.siteManager && <span style={roleTag}>\u5de5\u52d9 \u00b7 {p.siteManager}</span>}
-            {!hasAnyRole && <span style={{ fontSize: 10, color: "#888", background: "rgba(255,255,255,0.04)", border: "1px dashed rgba(255,255,255,0.2)", borderRadius: 6, padding: "3px 10px", fontWeight: 600, fontStyle: "italic" }}>\u26a0 \u5c1a\u672a\u6307\u6d3e\u8ca0\u8cac\u4eba</span>}
-            {isConstruction && <span style={{ fontSize: 10, color: "#aaa", marginLeft: "auto", fontWeight: 700, whiteSpace: "nowrap" }}>{Math.round(progressPct)}%{daysWorked > 0 ? ` \u00b7 \u5df2\u65bd\u5de5 ${daysWorked} \u5929` : ""}</span>}
-            {isComplete && <span style={{ fontSize: 11, color: netProfitPct >= 20 ? "#50c878" : netProfitPct >= 10 ? "#f0a850" : "#e05b5b", marginLeft: "auto", fontWeight: 700, whiteSpace: "nowrap" }}>{netProfitPct >= 0 ? "\u2713" : "\u2717"} \u6de8\u5229 {Math.round(netProfitPct)}%</span>}
+            {p.designer && <span style={roleTag}>設計 · {p.designer}</span>}
+            {p.projectManager && <span style={roleTag}>專案 · {p.projectManager}</span>}
+            {p.assistant && <span style={roleTag}>助理 · {p.assistant}</span>}
+            {p.siteManager && <span style={roleTag}>工務 · {p.siteManager}</span>}
+            {!hasAnyRole && <span style={{ fontSize: 10, color: "#888", background: "rgba(255,255,255,0.04)", border: "1px dashed rgba(255,255,255,0.2)", borderRadius: 6, padding: "3px 10px", fontWeight: 600, fontStyle: "italic" }}>⚠ 尚未指派負責人</span>}
+            {isConstruction && <span style={{ fontSize: 10, color: "#aaa", marginLeft: "auto", fontWeight: 700, whiteSpace: "nowrap" }}>{Math.round(progressPct)}%{daysWorked > 0 ? ` · 已施工 ${daysWorked} 天` : ""}</span>}
+            {isComplete && <span style={{ fontSize: 11, color: netProfitPct >= 20 ? "#50c878" : netProfitPct >= 10 ? "#f0a850" : "#e05b5b", marginLeft: "auto", fontWeight: 700, whiteSpace: "nowrap" }}>{netProfitPct >= 0 ? "✓" : "✗"} 淨利 {Math.round(netProfitPct)}%</span>}
           </div>
         </div>
         {(isProposal || isContract) && onWaitingToggle && (
           <div onClick={(e) => { e.stopPropagation(); onWaitingToggle(p); }}
             style={{ borderTop: `1px solid ${isWaiting ? "rgba(240,168,80,0.25)" : "rgba(255,255,255,0.05)"}`, padding: "9px 16px", textAlign: "center", fontSize: 11, color: isWaiting ? "#e0a860" : "#6f675b", fontWeight: 600, cursor: "pointer", background: isWaiting ? "rgba(240,168,80,0.06)" : "transparent" }}>
-            {isWaiting ? `\u2713 \u53d6\u6d88${isContract ? "\u7c3d\u7d04\u7b49\u5f85" : "\u7b49\u5f85\u5ba2\u6236\u78ba\u8a8d"}` : `\u25cb \u6a19\u8a18\u70ba${isContract ? "\u7b49\u5f85\u5ba2\u6236\u7c3d\u5de5\u7a0b\u7d04" : "\u7b49\u5f85\u5ba2\u6236\u78ba\u8a8d"}`}
+            {isWaiting ? `✓ 取消${isContract ? "簽約等待" : "等待客戶確認"}` : `○ 標記為${isContract ? "等待客戶簽工程約" : "等待客戶確認"}`}
           </div>
         )}
       </div>
