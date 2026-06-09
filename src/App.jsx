@@ -8584,7 +8584,6 @@ export default function App() {
                   fontWeight: detailSection === s ? 600 : 400,
                 }}>{
                   s === "info" ? "📋 基本" :
-                  s === "進度" ? "📐 進度" :
                   s === "留言板" ? "💬 留言板" :
                   s === "提案後狀態" ? "📝 提案後" :
                   s === "需求" ? "👤 需求" :
@@ -9255,73 +9254,6 @@ export default function App() {
                     🗑️ 沒接到，移至垃圾場
                   </button>
                 </Field>
-              </div>
-            )}
-
-            {/* 已簽約：設計進度 */}
-            {detailSection === "設計進度" && (
-              <div>
-                <DetailRow label="簽約日期" value={p.contractDate} highlight />
-                <DetailRow label="坪數" value={p.indoorArea ? `${p.indoorArea} 坪` : ""} />
-                <DetailRow label="預算" value={p.budget ? fmtChinese(num(p.budget)) : ""} />
-
-                {/* 開會記錄 */}
-                {(p.signedMeetingDates || []).filter(m => m.start).length > 0 && (
-                  <div style={{ marginBottom: 10 }}>
-                    <span style={{ fontSize: 11, color: "#555", display: "block", marginBottom: 4 }}>開會記錄</span>
-                    {(p.signedMeetingDates || []).filter(m => m.start).map((m, i) => (
-                      <div key={m.id} style={{ fontSize: 12, color: "#ccc", marginBottom: 3 }}>
-                        #{i + 1} {m.start}{m.end ? ` → ${m.end}` : ""}
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {p.layoutDoneDate && <DetailRow label="配置圖完成" value={p.layoutDoneDate} />}
-                {p.layoutFinalDate && <DetailRow label="配置圖定稿" value={p.layoutFinalDate ? (p.contractDate ? p.layoutFinalDate + "（" + calcWorkDays(p.contractDate, p.layoutFinalDate) + " 工作天）" : p.layoutFinalDate) : ""} />}
-                {p.render3dDoneDate && <DetailRow label="3D完成" value={p.render3dDoneDate} />}
-                {p.render3dFinalDate && <DetailRow label="3D定稿" value={p.render3dFinalDate ? (p.contractDate ? p.render3dFinalDate + "（" + calcWorkDays(p.contractDate, p.render3dFinalDate) + " 工作天）" : p.render3dFinalDate) : ""} />}
-                {p.planDrawingDate && <DetailRow label="平面系統圖" value={p.planDrawingDate ? (p.layoutFinalDate ? p.planDrawingDate + "（" + calcWorkDays(p.layoutFinalDate, p.planDrawingDate) + " 工作天）" : p.planDrawingDate) : ""} />}
-                {p.elevationDrawingDate && <DetailRow label="立面施工圖" value={p.elevationDrawingDate ? (p.render3dFinalDate ? p.elevationDrawingDate + "（" + calcWorkDays(p.render3dFinalDate, p.elevationDrawingDate) + " 工作天）" : p.elevationDrawingDate) : ""} />}
-                <DetailRow label="報價單完成" value={p.signedQuoteReady} />
-                <DetailRow label="建材選取" value={p.materialSelected} />
-
-                {/* 自動進度狀態：最近一次開會後10工作天 */}
-                {(() => {
-                  const lastMeeting = (p.signedMeetingDates || []).filter(m => m.start).slice(-1)[0];
-                  if (!lastMeeting) return null;
-                  const result = getRemainingWorkDays(lastMeeting.start, 10);
-                  if (!result) return null;
-                  const { deadline, remaining } = result;
-                  const allDone = p.layoutFinalDate && p.render3dFinalDate && p.planDrawingDate;
-                  if (allDone) {
-                    return (
-                      <div style={{ marginTop: 14, padding: "12px", background: "rgba(80,200,120,0.1)", border: "1px solid rgba(80,200,120,0.3)", borderRadius: 12 }}>
-                        <div style={{ fontSize: 12, color: "#50c878", fontWeight: 600 }}>✅ 設計進度已完成！繼續保持！</div>
-                      </div>
-                    );
-                  }
-                  if (remaining <= 0) return (
-                    <div style={{ marginTop: 14, padding: "12px", background: "rgba(224,91,91,0.15)", border: "1px solid rgba(224,91,91,0.4)", borderRadius: 12 }}>
-                      <div style={{ fontSize: 12, color: "#e05b5b", fontWeight: 700 }}>🚨 已超過開會後10工作天！客戶在等你！</div>
-                    </div>
-                  );
-                  if (remaining <= 3) return (
-                    <div style={{ marginTop: 14, padding: "12px", background: "rgba(240,100,80,0.15)", border: "1px solid rgba(240,100,80,0.3)", borderRadius: 12 }}>
-                      <div style={{ fontSize: 12, color: "#f06450", fontWeight: 700 }}>⚠️ 距交件極限剩 {remaining} 天！快點！</div>
-                    </div>
-                  );
-                  if (remaining <= 6) return (
-                    <div style={{ marginTop: 14, padding: "12px", background: "rgba(240,168,80,0.1)", border: "1px solid rgba(240,168,80,0.3)", borderRadius: 12 }}>
-                      <div style={{ fontSize: 12, color: "#f0a850", fontWeight: 600 }}>📋 距交件極限剩 {remaining} 工作天，極限日：{deadline}</div>
-                    </div>
-                  );
-                  return (
-                    <div style={{ marginTop: 14, padding: "12px", background: "rgba(91,138,240,0.1)", border: "1px solid rgba(91,138,240,0.2)", borderRadius: 12 }}>
-                      <div style={{ fontSize: 12, color: "#5b8af0" }}>🟢 進度正常，剩 {remaining} 工作天，極限日：{deadline}</div>
-                    </div>
-                  );
-                })()}
               </div>
             )}
 
