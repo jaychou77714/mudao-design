@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v70.26.1";
+const APP_VERSION = "v70.27";
 const APP_RELEASE_DATE = "2026-05-07";
 // deploy-trigger 20260609-021222: 重連正式 project 觸發部署
 
@@ -124,23 +124,40 @@ async function cloudSaveProject(project, ownerEmail) {
     window.__mudaoPendingWrites__++;
   }
   try {
-    // 1. 查雲端目前這筆案件的 updated_at（純記錄用，不阻擋）
+    // 1. 查雲端目前這筆案件的 updated_at + data（v70.27：撈 data 以取得雲端版的最後編輯者）
     const existing = await sbFetch(
-      `projects?owner_email=eq.${encodeURIComponent(ownerEmail)}&project_id=eq.${encodeURIComponent(project.id)}&select=updated_at`
+      `projects?owner_email=eq.${encodeURIComponent(ownerEmail)}&project_id=eq.${encodeURIComponent(project.id)}&select=data,updated_at`
     );
-    const cloudUpdatedAt = Array.isArray(existing) && existing.length > 0 ? existing[0].updated_at : null;
+    const cloudRow = Array.isArray(existing) && existing.length > 0 ? existing[0] : null;
+    const cloudUpdatedAt = cloudRow ? cloudRow.updated_at : null;
     const localBase = project._lastSyncedAt || null;
 
-    // 2. 衝突偵測（只記 log，不阻擋寫入）
+    // 2. 衝突偵測（v70.27：不阻擋寫入，但偵測到「別人」改過 → 廣播事件讓 App 彈通知 toast）
     if (cloudUpdatedAt && localBase && cloudUpdatedAt !== localBase) {
-      console.warn("[v69.4] 偵測到衝突（已靜默處理，本地版本將覆蓋雲端）", { project: project.name, cloudUpdatedAt, localBase });
+      let cloudEditor = "";
+      try { cloudEditor = (JSON.parse(cloudRow.data) || {})._lastEditedBy || ""; } catch {}
+      const myName = (typeof window !== "undefined" && window.__mudaoCurrentEditor__) || "";
+      // 若雲端最後編輯者就是自己（多半是自己連續存檔造成的 timestamp 差），不視為衝突、不通知
+      if (cloudEditor && cloudEditor === myName) {
+        console.warn("[v70.27] timestamp 不一致但編輯者為本人，視為自己的連續存檔，略過通知", { project: project.name });
+      } else {
+        console.warn("[v70.27] 偵測到衝突（本地版本將覆蓋雲端，已通知使用者）", { project: project.name, cloudUpdatedAt, localBase, cloudEditor });
+        if (typeof window !== "undefined") {
+          window.dispatchEvent(new CustomEvent("mudao-sync-conflict", {
+            detail: { projectName: project.name, editorName: cloudEditor }
+          }));
+        }
+      }
     } else if (cloudUpdatedAt && !localBase) {
-      console.warn("[v69.4] 本地無同步基準但雲端已存在（已靜默處理）", { project: project.name, cloudUpdatedAt });
+      console.warn("[v70.27] 本地無同步基準但雲端已存在（已靜默處理）", { project: project.name, cloudUpdatedAt });
     }
 
     // 3. 通過檢查 → 實際 upsert
     const newTimestamp = new Date().toISOString();
-    const { _lastSyncedAt, ...cleanProject } = project; // _lastSyncedAt 不存進雲端 data 欄位
+    const { _lastSyncedAt, ...rest } = project; // _lastSyncedAt 不存進雲端 data 欄位
+    // v70.27：記錄最後編輯者（存進 data，供他人偵測衝突時顯示「是誰改的」）
+    const editorName = (typeof window !== "undefined" && window.__mudaoCurrentEditor__) || "";
+    const cleanProject = { ...rest, _lastEditedBy: editorName, _lastEditedAt: newTimestamp };
     const payload = {
       owner_email: ownerEmail,
       project_id: project.id,
@@ -6505,18 +6522,33 @@ export default function App() {
   const [modal, setModal] = useState(null); // null | "detail" | "new" | "edit" | "memo_new" | "memo_edit"
   const [activeProject, setActiveProject] = useState(null);
 
-  // v69.4：拿掉 mudao-sync-conflict 監聽（不再跳警告 + reload），只保留 sync-success
+  // v70.27：同步衝突通知用 toast
+  const [conflictToast, setConflictToast] = useState(null);
+
+  // v69.4 → v70.27：sync-success 更新 baseline；新增 sync-conflict 彈通知 toast
   useEffect(() => {
     const onSyncSuccess = (e) => {
       const { projectId, newTimestamp } = e.detail || {};
       if (!projectId || !newTimestamp) return;
       setProjects(prev => prev.map(p => p.id === projectId ? { ...p, _lastSyncedAt: newTimestamp } : p));
     };
+    const onSyncConflict = (e) => {
+      const d = e.detail || {};
+      setConflictToast({ projectName: d.projectName || "這筆案件", editorName: d.editorName || "" });
+      setTimeout(() => setConflictToast(null), 6000);
+    };
     window.addEventListener("mudao-sync-success", onSyncSuccess);
+    window.addEventListener("mudao-sync-conflict", onSyncConflict);
     return () => {
       window.removeEventListener("mudao-sync-success", onSyncSuccess);
+      window.removeEventListener("mudao-sync-conflict", onSyncConflict);
     };
   }, []);
+
+  // v70.27：把目前使用者名字暴露給 module-level cloudSaveProject（記錄最後編輯者用）
+  useEffect(() => {
+    if (typeof window !== "undefined") window.__mudaoCurrentEditor__ = currentUser?.name || "";
+  }, [currentUser?.name]);
   const [activeMemo, setActiveMemo] = useState(null);
 
   // detail section
@@ -11862,6 +11894,30 @@ export default function App() {
           <span>雲端有更新！點擊同步</span>
           <span onClick={(e) => { e.stopPropagation(); setShowCloudToast(false); }}
             style={{ marginLeft: 6, opacity: 0.7, cursor: "pointer", fontSize: 14 }}
+            title="關閉">✕</span>
+        </div>
+      )}
+
+      {conflictToast && (
+        <div onClick={() => setConflictToast(null)}
+          style={{
+            position: "fixed", top: 70, left: "50%",
+            background: "linear-gradient(135deg, rgba(240,168,80,0.97), rgba(216,120,60,0.97))",
+            color: "#fff",
+            padding: "12px 18px", borderRadius: 12,
+            fontSize: 13, fontWeight: 700,
+            boxShadow: "0 4px 24px rgba(240,168,80,0.55), 0 0 0 1px rgba(255,255,255,0.15)",
+            cursor: "pointer", zIndex: 10001,
+            animation: "cloudSlideDown 0.35s ease-out",
+            display: "flex", alignItems: "center", gap: 10, maxWidth: "92vw",
+            backdropFilter: "blur(10px)",
+          }}>
+          <span style={{ fontSize: 16, flexShrink: 0 }}>⚠️</span>
+          <span style={{ lineHeight: 1.45 }}>
+            {conflictToast.editorName ? `${conflictToast.editorName} 剛也改過` : "有人剛也改過"}「{conflictToast.projectName}」，已存上你的版本
+          </span>
+          <span onClick={(e) => { e.stopPropagation(); setConflictToast(null); }}
+            style={{ marginLeft: 4, opacity: 0.7, cursor: "pointer", fontSize: 14, flexShrink: 0 }}
             title="關閉">✕</span>
         </div>
       )}
