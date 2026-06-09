@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v70.37";
+const APP_VERSION = "v70.38";
 const APP_RELEASE_DATE = "2026-05-07";
 // deploy-trigger 20260609-021222: 重連正式 project 觸發部署
 
@@ -3956,6 +3956,7 @@ export default function App() {
   const [newAcctAmount, setNewAcctAmount] = useState("");
   const [newAcctNote, setNewAcctNote] = useState("");
   const [newAcctType, setNewAcctType] = useState("expense");
+  const [newAcctProject, setNewAcctProject] = useState("");
 
   // v37：天氣（預設台北，Open-Meteo 免費 API 不需 key）
   const [weather, setWeather] = useState(null); // { temp, code, isDay, city }
@@ -5350,23 +5351,7 @@ export default function App() {
 
               {/* v70.6：本月+下月國假已搬到第一行天氣下方 */}
 
-              {/* v70.1 第五行：提案交圖倒數（從工作日曆位移過來）*/}
-              {upcomingProposals.length > 0 && (
-                <div style={{ paddingTop: 6, marginTop: 6, borderTop: "1px solid rgba(255,255,255,0.05)" }}>
-                  <div style={{ fontSize: 10, color: "#666", marginBottom: 5, fontWeight: 600 }}>🎨 提案交圖倒數</div>
-                  {upcomingProposals.map(({ p, remaining }) => {
-                    const color = remaining <= 0 ? "#e05b5b" : remaining <= 3 ? "#f06450" : remaining <= 7 ? "#f0a850" : "#888";
-                    const label = remaining <= 0 ? "已逾期" : `剩 ${remaining} 天`;
-                    return (
-                      <div key={p.id} className="btn" onClick={() => openDetail(p)}
-                        style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "5px 8px", marginBottom: 3, background: `${color}10`, borderRadius: 6, cursor: "pointer" }}>
-                        <span style={{ fontSize: 11, color: "#ccc", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{p.name}</span>
-                        <span style={{ fontSize: 10, color, fontWeight: 700, flexShrink: 0, marginLeft: 8 }}>{label}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
+              {/* v70.38：提案交圖倒數已移除，位置改放頂部個人三方塊 */}
             </div>
           );
         })()}
@@ -5376,7 +5361,7 @@ export default function App() {
           {[
             { key: "center", icon: "👤", name: "個人中心", sub: "工作中心", color: "#c084f5", onClick: () => setShowPersonalModal(true) },
             { key: "memo", icon: "📝", name: "個人備忘錄", sub: `${personalMemos.reduce((s, m) => s + (m.items || []).filter(it => !it.done).length, 0)} 項待辦`, color: "#f0a850", onClick: () => setShowMemoModal(true) },
-            { key: "acct", icon: "💰", name: "個人記帳區", sub: `${accountingRecords.length} 筆`, color: "#50c878", onClick: () => setShowAccountingModal(true) },
+            { key: "acct", icon: "💰", name: "個人記帳區", sub: (() => { const pend = accountingRecords.filter(r => r.status !== "收回").reduce((s, r) => s + Number(r.amount || 0), 0); return pend > 0 ? `待收回 ${pend.toLocaleString("en-US")}` : "無待收回"; })(), color: "#50c878", onClick: () => setShowAccountingModal(true) },
           ].map(b => (
             <div key={b.key} onClick={b.onClick}
               style={{ position: "relative", cursor: "pointer", borderRadius: 12, padding: "14px 8px", textAlign: "center", background: "#201c16", border: "1px solid rgba(200,168,112,0.15)", transition: "transform 0.18s, border-color 0.18s", display: "flex", flexDirection: "column", alignItems: "center", gap: 5 }}
@@ -9262,62 +9247,68 @@ export default function App() {
         );
       })()}
 
-      {/* v70.37：個人記帳區 MODAL（基本收支記錄，純 localStorage） */}
+      {/* v70.38：個人記帳區 MODAL（代墊款追蹤，純 localStorage） */}
       {showAccountingModal && (() => {
-        const now = new Date();
-        const thisMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
-        const monthRecords = accountingRecords.filter(r => (r.date || "").startsWith(thisMonth));
-        const income = monthRecords.filter(r => r.type === "income").reduce((s, r) => s + Number(r.amount || 0), 0);
-        const expense = monthRecords.filter(r => r.type === "expense").reduce((s, r) => s + Number(r.amount || 0), 0);
-        const balance = income - expense;
-        const sorted = [...accountingRecords].sort((a, b) => (b.date || "").localeCompare(a.date || "") || b.id - a.id);
+        const pending = accountingRecords.filter(r => r.status !== "收回");
+        const settled = accountingRecords.filter(r => r.status === "收回");
+        const pendingTotal = pending.reduce((s, r) => s + Number(r.amount || 0), 0);
+        const settledTotal = settled.reduce((s, r) => s + Number(r.amount || 0), 0);
         const fmt = n => Number(n).toLocaleString("en-US");
+        const projOptions = [...allVisibleProjects].sort((a, b) => (b.id || 0) - (a.id || 0));
         const addRecord = () => {
           const amt = Number(newAcctAmount);
           if (!amt || amt <= 0) return;
           const today = new Date().toISOString().split("T")[0];
-          setAccountingRecords(prev => [...prev, { id: Date.now(), type: newAcctType, amount: amt, note: newAcctNote.trim(), date: today }]);
-          setNewAcctAmount(""); setNewAcctNote("");
+          setAccountingRecords(prev => [...prev, { id: Date.now(), amount: amt, note: newAcctNote.trim(), projectName: newAcctProject, date: today, status: "pending" }]);
+          setNewAcctAmount(""); setNewAcctNote(""); setNewAcctProject("");
         };
+        const toggleStatus = (id) => setAccountingRecords(prev => prev.map(r => r.id === id ? { ...r, status: r.status === "收回" ? "pending" : "收回" } : r));
         const delRecord = (id) => setAccountingRecords(prev => prev.filter(r => r.id !== id));
+        const renderRow = (r, done) => (
+          <div key={r.id} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", marginBottom: 6, background: "rgba(255,255,255,0.03)", borderRadius: 8, opacity: done ? 0.5 : 1 }}>
+            <span onClick={() => toggleStatus(r.id)} title={done ? "點此改回待收回" : "點此標記已收回"}
+              style={{ cursor: "pointer", flexShrink: 0, width: 18, height: 18, borderRadius: 4, border: `1.5px solid ${done ? "#50c878" : "rgba(255,255,255,0.3)"}`, background: done ? "#50c878" : "transparent", color: "#1a1714", fontSize: 12, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center" }}>{done ? "✓" : ""}</span>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 13, color: "#e8e4dc", wordBreak: "break-word", textDecoration: done ? "line-through" : "none" }}>{r.note || "（未填說明）"}</div>
+              <div style={{ fontSize: 10, color: "#777", marginTop: 2 }}>{(r.date || "").slice(5)}{r.projectName ? ` · ${r.projectName}` : ""}</div>
+            </div>
+            <span style={{ fontSize: 15, fontWeight: 700, color: done ? "#777" : "#f0a850", flexShrink: 0 }}>{fmt(Number(r.amount || 0))}</span>
+            <span onClick={() => delRecord(r.id)} style={{ cursor: "pointer", color: "#e05b5b", fontSize: 14, flexShrink: 0 }}>✕</span>
+          </div>
+        );
         return (
-          <Modal onClose={() => setShowAccountingModal(false)} title="💰 個人記帳區">
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 16 }}>
-              <div style={{ background: "rgba(80,200,120,0.1)", border: "1px solid rgba(80,200,120,0.25)", borderRadius: 10, padding: "10px 8px", textAlign: "center" }}>
-                <div style={{ fontSize: 10, color: "#888", marginBottom: 3 }}>本月收入</div>
-                <div style={{ fontSize: 16, fontWeight: 700, color: "#50c878" }}>{fmt(income)}</div>
+          <Modal onClose={() => setShowAccountingModal(false)} title="💰 個人記帳區 · 代墊款">
+            <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 8, marginBottom: 16 }}>
+              <div style={{ background: "rgba(240,168,80,0.1)", border: "1px solid rgba(240,168,80,0.3)", borderRadius: 10, padding: "12px 10px", textAlign: "center" }}>
+                <div style={{ fontSize: 10, color: "#888", marginBottom: 4 }}>待收回（公司還欠我）</div>
+                <div style={{ fontSize: 24, fontWeight: 800, color: "#f0a850" }}>{fmt(pendingTotal)}</div>
               </div>
-              <div style={{ background: "rgba(224,91,91,0.1)", border: "1px solid rgba(224,91,91,0.25)", borderRadius: 10, padding: "10px 8px", textAlign: "center" }}>
-                <div style={{ fontSize: 10, color: "#888", marginBottom: 3 }}>本月支出</div>
-                <div style={{ fontSize: 16, fontWeight: 700, color: "#e05b5b" }}>{fmt(expense)}</div>
-              </div>
-              <div style={{ background: "rgba(240,168,80,0.1)", border: "1px solid rgba(240,168,80,0.25)", borderRadius: 10, padding: "10px 8px", textAlign: "center" }}>
-                <div style={{ fontSize: 10, color: "#888", marginBottom: 3 }}>本月結餘</div>
-                <div style={{ fontSize: 16, fontWeight: 700, color: balance >= 0 ? "#f0a850" : "#e05b5b" }}>{fmt(balance)}</div>
+              <div style={{ background: "rgba(80,200,120,0.08)", border: "1px solid rgba(80,200,120,0.2)", borderRadius: 10, padding: "12px 10px", textAlign: "center" }}>
+                <div style={{ fontSize: 10, color: "#888", marginBottom: 4 }}>已收回</div>
+                <div style={{ fontSize: 18, fontWeight: 700, color: "#50c878" }}>{fmt(settledTotal)}</div>
               </div>
             </div>
             <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 10, padding: 12, marginBottom: 16 }}>
-              <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
-                <button onClick={() => setNewAcctType("expense")} style={{ flex: 1, padding: "8px", borderRadius: 8, border: "none", cursor: "pointer", fontSize: 13, fontWeight: 700, background: newAcctType === "expense" ? "#e05b5b" : "rgba(255,255,255,0.05)", color: newAcctType === "expense" ? "#fff" : "#888" }}>支出</button>
-                <button onClick={() => setNewAcctType("income")} style={{ flex: 1, padding: "8px", borderRadius: 8, border: "none", cursor: "pointer", fontSize: 13, fontWeight: 700, background: newAcctType === "income" ? "#50c878" : "rgba(255,255,255,0.05)", color: newAcctType === "income" ? "#fff" : "#888" }}>收入</button>
+              <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
+                <input value={newAcctAmount} onChange={e => setNewAcctAmount(e.target.value.replace(/[^0-9]/g, ""))} inputMode="numeric" placeholder="金額"
+                  style={{ width: 90, padding: "10px 12px", borderRadius: 8, border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.04)", color: "#e8e4dc", fontSize: 13, outline: "none" }} />
+                <input value={newAcctNote} onChange={e => setNewAcctNote(e.target.value)} placeholder="墊了什麼（例：材料訂金、樣品費）"
+                  style={{ flex: 1, padding: "10px 12px", borderRadius: 8, border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.04)", color: "#e8e4dc", fontSize: 13, outline: "none" }} />
               </div>
               <div style={{ display: "flex", gap: 8 }}>
-                <input value={newAcctAmount} onChange={e => setNewAcctAmount(e.target.value.replace(/[^0-9]/g, ""))} inputMode="numeric" placeholder="金額"
-                  style={{ width: 84, padding: "10px 12px", borderRadius: 8, border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.04)", color: "#e8e4dc", fontSize: 13, outline: "none" }} />
-                <input value={newAcctNote} onChange={e => setNewAcctNote(e.target.value)} onKeyDown={e => { if (e.key === "Enter") addRecord(); }} placeholder="備註（例：材料費、車馬費）"
-                  style={{ flex: 1, padding: "10px 12px", borderRadius: 8, border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.04)", color: "#e8e4dc", fontSize: 13, outline: "none" }} />
-                <button onClick={addRecord} style={{ padding: "10px 14px", borderRadius: 8, border: "none", background: "#f0a850", color: "#1a1714", fontSize: 13, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap" }}>記一筆</button>
+                <select value={newAcctProject} onChange={e => setNewAcctProject(e.target.value)}
+                  style={{ flex: 1, padding: "10px 12px", borderRadius: 8, border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.04)", color: newAcctProject ? "#e8e4dc" : "#777", fontSize: 13, outline: "none" }}>
+                  <option value="">關聯案件（可不選）</option>
+                  {projOptions.map(p => <option key={p.id} value={p.name} style={{ background: "#201c16" }}>{p.name}</option>)}
+                </select>
+                <button onClick={addRecord} style={{ padding: "10px 16px", borderRadius: 8, border: "none", background: "#f0a850", color: "#1a1714", fontSize: 13, fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap" }}>記一筆</button>
               </div>
             </div>
-            {sorted.length === 0 && <div style={{ textAlign: "center", color: "#666", padding: "40px 0", fontSize: 13 }}>還沒有記帳紀錄</div>}
-            {sorted.map(r => (
-              <div key={r.id} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", marginBottom: 6, background: "rgba(255,255,255,0.03)", borderRadius: 8 }}>
-                <span style={{ fontSize: 11, color: "#777", flexShrink: 0, width: 56 }}>{(r.date || "").slice(5)}</span>
-                <span style={{ flex: 1, fontSize: 13, color: "#e8e4dc", wordBreak: "break-word" }}>{r.note || (r.type === "income" ? "收入" : "支出")}</span>
-                <span style={{ fontSize: 14, fontWeight: 700, color: r.type === "income" ? "#50c878" : "#e05b5b", flexShrink: 0 }}>{r.type === "income" ? "+" : "-"}{fmt(Number(r.amount || 0))}</span>
-                <span onClick={() => delRecord(r.id)} style={{ cursor: "pointer", color: "#e05b5b", fontSize: 14, flexShrink: 0 }}>✕</span>
-              </div>
-            ))}
+            {accountingRecords.length === 0 && <div style={{ textAlign: "center", color: "#666", padding: "40px 0", fontSize: 13 }}>還沒有代墊紀錄。墊款後記一筆，收回時打勾即可</div>}
+            {pending.length > 0 && <div style={{ fontSize: 10, color: "#888", letterSpacing: 2, marginBottom: 8, fontWeight: 600 }}>待收回 {pending.length} 筆</div>}
+            {[...pending].sort((a, b) => (b.date || "").localeCompare(a.date || "")).map(r => renderRow(r, false))}
+            {settled.length > 0 && <div style={{ fontSize: 10, color: "#888", letterSpacing: 2, margin: "14px 0 8px", fontWeight: 600 }}>已收回 {settled.length} 筆</div>}
+            {[...settled].sort((a, b) => (b.date || "").localeCompare(a.date || "")).map(r => renderRow(r, true))}
           </Modal>
         );
       })()}
