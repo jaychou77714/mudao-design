@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v70.34";
+const APP_VERSION = "v70.35";
 const APP_RELEASE_DATE = "2026-05-07";
 // deploy-trigger 20260609-021222: 重連正式 project 觸發部署
 
@@ -3684,7 +3684,7 @@ function ProjectCommentsModal({ project, currentUser, onClose, onUpdate }) {
         }}>
         <div style={{ padding: "14px 16px", borderBottom: "1px solid rgba(255,255,255,0.08)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div>
-            <div style={{ fontSize: 11, color: "#c084f5", fontWeight: 700, letterSpacing: 1 }}>💬 案件留言板</div>
+            <div style={{ fontSize: 11, color: "#c084f5", fontWeight: 700, letterSpacing: 1 }}>💬 設計工程討論區</div>
             <div style={{ fontSize: 14, fontWeight: 700, color: "#f0ead8", marginTop: 2 }}>{project.caseName || project.address || "（無名稱）"}</div>
           </div>
           <button onClick={onClose}
@@ -6267,7 +6267,7 @@ export default function App() {
                   fontWeight: detailSection === s ? 600 : 400,
                 }}>{
                   s === "info" ? "📋 基本" :
-                  s === "留言板" ? "💬 留言板" :
+                  s === "留言板" ? "💬 設計工程討論區" :
                   s === "提案後狀態" ? "📝 提案後" :
                   s === "需求" ? "👤 需求" :
                   s === "客戶修改" ? "✏️ 客戶修改" :
