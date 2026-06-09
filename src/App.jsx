@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v70.38";
+const APP_VERSION = "v70.39";
 const APP_RELEASE_DATE = "2026-05-07";
 // deploy-trigger 20260609-021222: 重連正式 project 觸發部署
 
@@ -5526,7 +5526,7 @@ export default function App() {
                 style={{
                   position: "relative", overflow: "hidden", minHeight: 110, padding: "16px 14px", cursor: "pointer",
                   borderRadius: 12, color: "#f0ead8",
-                  backgroundImage: `linear-gradient(135deg, rgba(226,201,126,1) 0%, rgba(180,150,90,1) 100%)`,
+                  backgroundImage: `linear-gradient(135deg, rgba(226,201,126,0.16) 0%, rgba(180,150,90,0.07) 100%)`,
                   backgroundSize: "cover", backgroundPosition: "center",
                   border: `1px solid rgba(226,201,126,0.5)`,
                   transition: "transform 0.18s, box-shadow 0.18s",
@@ -5544,7 +5544,7 @@ export default function App() {
                 style={{
                   position: "relative", overflow: "hidden", minHeight: 110, padding: "14px 12px", cursor: "pointer",
                   borderRadius: 12, color: "#f0ead8",
-                  backgroundImage: `linear-gradient(135deg, rgba(200,168,112,1) 0%, rgba(160,128,80,1) 100%)`,
+                  backgroundImage: `linear-gradient(135deg, rgba(200,168,112,0.16) 0%, rgba(160,128,80,0.07) 100%)`,
                   backgroundSize: "cover", backgroundPosition: "center",
                   border: `1px solid rgba(200,168,112,0.5)`,
                   transition: "transform 0.18s, box-shadow 0.18s",
@@ -5563,7 +5563,7 @@ export default function App() {
               style={{
                 position: "relative", overflow: "hidden", padding: "16px 18px", marginBottom: 8, cursor: "pointer",
                 borderRadius: 12,
-                backgroundImage: `linear-gradient(135deg, rgba(200,89,59,1) 0%, rgba(150,60,40,1) 100%)`,
+                backgroundImage: `linear-gradient(135deg, rgba(200,89,59,0.18) 0%, rgba(150,60,40,0.07) 100%)`,
                 backgroundSize: "cover", backgroundPosition: "center",
                 border: `2px solid rgba(200,89,59,0.7)`,
                 display: "flex", alignItems: "center", justifyContent: "space-between",
@@ -5585,7 +5585,7 @@ export default function App() {
                 style={{
                   position: "relative", overflow: "hidden", minHeight: 110, padding: "14px 12px", cursor: "pointer",
                   borderRadius: 12, color: "#f0ead8",
-                  backgroundImage: `linear-gradient(135deg, rgba(50,50,50,1) 0%, rgba(30,30,30,1) 100%)`,
+                  backgroundImage: `linear-gradient(135deg, rgba(90,86,78,0.2) 0%, rgba(50,48,42,0.08) 100%)`,
                   backgroundSize: "cover", backgroundPosition: "center",
                   border: "1px solid rgba(255,255,255,0.1)",
                   transition: "transform 0.18s, box-shadow 0.18s",
@@ -5602,7 +5602,7 @@ export default function App() {
                 style={{
                   position: "relative", overflow: "hidden", minHeight: 110, padding: "14px 16px", cursor: "pointer",
                   borderRadius: 12,
-                  backgroundImage: `linear-gradient(135deg, rgba(15,15,15,1) 0%, rgba(5,5,5,1) 100%)`,
+                  backgroundImage: `linear-gradient(135deg, rgba(55,50,42,0.22) 0%, rgba(28,26,22,0.08) 100%)`,
                   backgroundSize: "cover", backgroundPosition: "center",
                   border: `2px solid #f0ead8`,
                   transition: "transform 0.18s, box-shadow 0.18s",
