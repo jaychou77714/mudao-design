@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v70.30";
+const APP_VERSION = "v70.31";
 const APP_RELEASE_DATE = "2026-05-07";
 // deploy-trigger 20260609-021222: 重連正式 project 觸發部署
 
@@ -5328,7 +5328,7 @@ export default function App() {
         }}
       />
     )}
-    <div style={{ minHeight: "100vh", background: "#000000", color: "#e8e4dc", fontFamily: "'Noto Sans TC',sans-serif", position: "relative", overflowX: "hidden" }}>
+    <div style={{ minHeight: "100vh", background: "#1a1714", color: "#e8e4dc", fontFamily: "'Noto Sans TC',sans-serif", position: "relative", overflowX: "hidden" }}>
       {/* v70.17：背景照片 + overlay 已拿掉，改成純黑底 */}
       {/* Content container - centered max width */}
       <div className="app-container" style={{ maxWidth: 480, margin: "0 auto", position: "relative", zIndex: 2, minHeight: "100vh", display: "flex", flexDirection: "column", overflowX: "hidden", width: "100%" }}>
@@ -5739,7 +5739,7 @@ export default function App() {
         {allTabs.map(t => {
           const color = t === "home" ? "#e8e4dc" : t === "垃圾場" ? "#e05b5b" : t === "公告" ? "#f0d050" : STAGE_COLORS[t];
           const active = tab === t;
-          const iconColor = active ? color : "#3a3a3e";
+          const iconColor = active ? color : "#9a8f7e";
           const icons = {
             home: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={iconColor} strokeWidth="1.8" strokeLinecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>,
             "公告": <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={iconColor} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3z"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>,
@@ -5760,7 +5760,7 @@ export default function App() {
                 }
               }} style={{
               flex: 1, padding: "8px 2px 10px", fontSize: 10, fontWeight: active ? 700 : 400,
-              color: active ? color : "#3a3a3e", background: "none", border: "none",
+              color: active ? color : "#9a8f7e", background: "none", border: "none",
               borderBottom: active ? `2px solid ${color}` : "2px solid transparent",
               display: "flex", flexDirection: "column", alignItems: "center", gap: 3,
             }}>
