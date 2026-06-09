@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v70.39";
+const APP_VERSION = "v70.40";
 const APP_RELEASE_DATE = "2026-05-07";
 // deploy-trigger 20260609-021222: 重連正式 project 觸發部署
 
