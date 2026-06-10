@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v70.42";
+const APP_VERSION = "v71.0";
 const APP_RELEASE_DATE = "2026-05-07";
 // deploy-trigger 20260609-021222: 重連正式 project 觸發部署
 
@@ -241,6 +241,25 @@ async function cloudLoadProjects(currentUser, allUsers, devMode = true) {
 
     // v68.9：把 row.updated_at 寫進 project._lastSyncedAt 作為樂觀鎖 baseline
     const projects = Array.from(seen.values()).map(x => ({ ...x.project, _lastSyncedAt: x.updatedAt }));
+    // v71：讀請款網站細項(billing_items)，算每案同步疊加層 _billingSync（不污染原 quote/billing）
+    try {
+      const bills = await sbFetch("billing_items?select=project_id,category,name,quote,billing");
+      const byProj = {};
+      for (const b of (bills || [])) (byProj[b.project_id] = byProj[b.project_id] || []).push(b);
+      projects.forEach(p => {
+        const rows = byProj[p.id]; if (!rows || !rows.length) return;
+        const syncQuote = {}, syncBilling = {}, byCat = {};
+        rows.forEach(r => (byCat[r.category] = byCat[r.category] || []).push(r));
+        Object.entries(byCat).forEach(([cat, list]) => {
+          const totalRow = list.find(x => x.name === "__CATEGORY_TOTAL__");
+          const itemsArr = list.filter(x => x.name !== "__CATEGORY_TOTAL__");
+          if (totalRow && num(totalRow.quote) > 0) syncQuote[cat] = num(totalRow.quote);
+          const sumB = itemsArr.reduce((s, x) => s + num(x.billing), 0);
+          if (sumB > 0) syncBilling[cat] = sumB;
+        });
+        p._billingSync = { quote: syncQuote, billing: syncBilling };
+      });
+    } catch (e) { console.error("請款同步讀取失敗:", e); }
     return projects.filter(p => canSeeProject(currentUser, p, devMode));
   } catch (e) { console.error("雲端載入失敗:", e); return []; }
 }
@@ -2777,14 +2796,29 @@ function migrateChangeOrders(p) {
   return { ...p, changeOrders: arr };
 }
 
+// v71：把請款網站(billing_items)同步值疊上原始 quote/billing，不污染原資料
+function effectiveQuoteBilling(p) {
+  const sync = p._billingSync;
+  const quote = { ...(p.quote || {}) };
+  const billing = { ...(p.billing || {}) };
+  if (sync) {
+    for (const [cat, price] of Object.entries(sync.quote || {})) {
+      if (!num(quote[cat]?.price)) quote[cat] = { ...(quote[cat] || {}), price };
+    }
+    for (const [cat, amt] of Object.entries(sync.billing || {})) billing[cat] = amt;
+  }
+  return { quote, billing };
+}
+
 function calcProfit(p) {
-  const basePrice = Object.values(p.quote || {}).reduce((s, v) => s + num(v.price), 0);
-  const totalCost = Object.values(p.quote || {}).reduce((s, v) => s + num(v.cost), 0);
+  const { quote: _EQ, billing: _EB } = effectiveQuoteBilling(p);
+  const basePrice = Object.values(_EQ).reduce((s, v) => s + num(v.price), 0);
+  const totalCost = Object.values(_EQ).reduce((s, v) => s + num(v.cost), 0);
   // v63：changeOrders 改為陣列結構 [{id, content, amount, category}]
   const coArr = Array.isArray(p.changeOrders) ? p.changeOrders : [];
   const totalChangeOrders = coArr.reduce((s, c) => s + num(c.amount), 0);
   const totalPrice = basePrice + totalChangeOrders;
-  const totalBilling = Object.values(p.billing || {}).reduce((s, v) => s + num(v), 0);
+  const totalBilling = Object.values(_EB).reduce((s, v) => s + num(v), 0);
 
   const collectedExtra = (p.extraItems || []).filter(e => e.collected);
   const extraRevenue = collectedExtra.reduce((s, e) => s + num(e.price), 0);
