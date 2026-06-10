@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v71.0";
+const APP_VERSION = "v71.1";
 const APP_RELEASE_DATE = "2026-05-07";
 // deploy-trigger 20260609-021222: 重連正式 project 觸發部署
 
@@ -7235,10 +7235,11 @@ export default function App() {
                 cloudSaveProject(updated, updated.ownerEmail || currentUser.email);
               };
               const saveAndSync = () => cloudSaveProject(p, p.ownerEmail || currentUser.email); // v70.25：保留作為 backup,但 update/add/delete 已內部 cloudSave,onBlur 不再呼叫
+              const _effAll = effectiveQuoteBilling(p);
               const pendingCount = WORK_ITEMS.filter(item => {
                 if (skippedItems.includes(item)) return false;
-                const q = (p.quote || {})[item] || {};
-                const billing = (p.billing || {})[item] || "";
+                const q = (_effAll.quote || {})[item] || {};
+                const billing = (_effAll.billing || {})[item] || "";
                 return !q.price && !q.cost && !billing;
               }).length;
 
@@ -7266,11 +7267,14 @@ export default function App() {
                 {/* 工項列表（v58：全部工項都列，可填數字 + 無施作切換）*/}
                 {WORK_ITEMS.map(item => {
                   const isSkipped = skippedItems.includes(item);
-                  const q = (p.quote || {})[item] || { price: "", cost: "" };
+                  const _eff = effectiveQuoteBilling(p);
+                  const _syncB = (p._billingSync && p._billingSync.billing) || {};
+                  const q = (_eff.quote || {})[item] || { price: "", cost: "" };
                   // v63：changeOrders 改為陣列結構，從 category 過濾並加總
                   const coArr = Array.isArray(p.changeOrders) ? p.changeOrders : [];
                   const co = coArr.filter(c => c.category === item).reduce((s, c) => s + num(c.amount), 0);
-                  const billing = (p.billing || {})[item] || "";
+                  const billing = (_eff.billing || {})[item] || "";
+                  const billingLocked = _syncB[item] != null; // 請款系統細項已接管，唯讀
 
                   if (isSkipped) {
                     return (
@@ -7304,8 +7308,8 @@ export default function App() {
                       {/* 廠商請款 input */}
                       <input type="text" inputMode="numeric"
                         value={billing} onChange={e => updateBilling(item, e.target.value.replace(/[^\d]/g, ""))}
-                        placeholder="—"
-                        style={{ width: "100%", background: billing ? "rgba(224,91,91,0.1)" : "rgba(0,0,0,0.15)", border: "1px solid rgba(224,91,91,0.2)", borderRadius: 6, padding: "4px 6px", color: "#e05b5b", fontSize: 12, textAlign: "right", outline: "none" }} />
+                        placeholder="—" disabled={billingLocked} title={billingLocked ? "由請款系統細項自動加總，請至請款系統修改" : ""}
+                        style={{ width: "100%", background: billingLocked ? "rgba(91,138,240,0.12)" : (billing ? "rgba(224,91,91,0.1)" : "rgba(0,0,0,0.15)"), border: billingLocked ? "1px solid rgba(91,138,240,0.45)" : "1px solid rgba(224,91,91,0.2)", borderRadius: 6, padding: "4px 6px", color: billingLocked ? "#5b8af0" : "#e05b5b", fontSize: 12, textAlign: "right", outline: "none" }} />
                       {/* 無施作 button */}
                       <button onClick={() => markSkipped(item)}
                         title="標為無施作"
@@ -7655,8 +7659,9 @@ export default function App() {
                   <div style={{ fontSize: 10, color: "#e05b5b", textAlign: "right" }}>請款金額</div>
                 </div>
                 {WORK_ITEMS.map(item => {
-                  const billing = (p.billing || {})[item] || "";
-                  const quote = (p.quote || {})[item] || { price: "" };
+                  const _eff = effectiveQuoteBilling(p);
+                  const billing = (_eff.billing || {})[item] || "";
+                  const quote = (_eff.quote || {})[item] || { price: "" };
                   if (!billing && !quote.price) return null;
                   return (
                     <div key={item} style={{ display: "grid", gridTemplateColumns: "1fr 100px", gap: 4, padding: "7px 0", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
