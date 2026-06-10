@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v71.3";
+const APP_VERSION = "v71.4";
 const APP_RELEASE_DATE = "2026-05-07";
 // deploy-trigger 20260609-021222: 重連正式 project 觸發部署
 
@@ -218,9 +218,17 @@ async function cloudLoadProjects(currentUser, allUsers, devMode = true) {
     // 之所以會有重複，是因為以前 cloudSaveProject 用 currentUser.email 而非 ownerEmail
     // 導致不同人操作同一案件會建立副本（owner_email 不同但 project_id 相同）
     const seen = new Map(); // project.id → { project, rowOwnerEmail, updatedAt }
+    const commentsByPid = new Map(); // v71.4：pid → 所有副本的留言聯集（避免去重丟掉含留言的副本）
     for (const item of rows) {
       const pid = item.project?.id;
       if (!pid) continue;
+      // v71.4：累積該案所有副本的留言（union by comment.id）—— 不管最後留哪一筆，別人留在副本的言都看得到
+      const cs = item.project?.comments;
+      if (Array.isArray(cs) && cs.length) {
+        const acc = commentsByPid.get(pid) || new Map();
+        for (const c of cs) if (c && c.id != null && !acc.has(c.id)) acc.set(c.id, c);
+        commentsByPid.set(pid, acc);
+      }
       const existing = seen.get(pid);
       if (!existing) {
         seen.set(pid, item);
@@ -240,7 +248,15 @@ async function cloudLoadProjects(currentUser, allUsers, devMode = true) {
     }
 
     // v68.9：把 row.updated_at 寫進 project._lastSyncedAt 作為樂觀鎖 baseline
-    const projects = Array.from(seen.values()).map(x => ({ ...x.project, _lastSyncedAt: x.updatedAt }));
+    // v71.4：用聯集後的留言覆蓋代表筆 comments（同事留在副本的留言也能顯示與算未讀）
+    const projects = Array.from(seen.values()).map(x => {
+      const proj = { ...x.project, _lastSyncedAt: x.updatedAt };
+      const merged = commentsByPid.get(x.project.id);
+      if (merged && merged.size) {
+        proj.comments = Array.from(merged.values()).sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+      }
+      return proj;
+    });
     // v71：讀請款網站細項(billing_items)，算每案同步疊加層 _billingSync（不污染原 quote/billing）
     try {
       const bills = await sbFetch("billing_items?select=project_id,category,name,quote,cost,billing");
@@ -6144,9 +6160,10 @@ export default function App() {
               {/* v47：施工中頂部兩個大按鈕（工程款收款進度 + 工務備忘錄） */}
               {p.stage === "施工中" && (
                 <>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
+                  <div style={{ marginBottom: 14 }}>
                     <button onClick={() => setConstructionPanel(constructionPanel === "payments" ? null : "payments")}
                       style={{
+                        width: "100%",
                         background: constructionPanel === "payments" ? "rgba(80,200,120,0.22)" : "rgba(80,200,120,0.1)",
                         border: `1px solid ${constructionPanel === "payments" ? "rgba(80,200,120,0.6)" : "rgba(80,200,120,0.3)"}`,
                         borderRadius: 12, padding: "14px 12px",
@@ -6156,18 +6173,6 @@ export default function App() {
                       <div style={{ fontSize: 22, marginBottom: 4 }}>💰</div>
                       <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 2 }}>工程款收款進度</div>
                       <div style={{ fontSize: 10, opacity: 0.8 }}>4 期收款追蹤</div>
-                    </button>
-                    <button onClick={() => setConstructionPanel(constructionPanel === "memo" ? null : "memo")}
-                      style={{
-                        background: constructionPanel === "memo" ? "rgba(91,138,240,0.22)" : "rgba(91,138,240,0.1)",
-                        border: `1px solid ${constructionPanel === "memo" ? "rgba(91,138,240,0.6)" : "rgba(91,138,240,0.3)"}`,
-                        borderRadius: 12, padding: "14px 12px",
-                        color: "#5b8af0", cursor: "pointer", textAlign: "center",
-                        transition: "all 0.18s",
-                      }}>
-                      <div style={{ fontSize: 22, marginBottom: 4 }}>📋</div>
-                      <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 2 }}>工務備忘錄</div>
-                      <div style={{ fontSize: 10, opacity: 0.8 }}>開工/完工日 + 備忘</div>
                     </button>
                   </div>
 
