@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v71.2";
+const APP_VERSION = "v71.3";
 const APP_RELEASE_DATE = "2026-05-07";
 // deploy-trigger 20260609-021222: 重連正式 project 觸發部署
 
@@ -243,7 +243,7 @@ async function cloudLoadProjects(currentUser, allUsers, devMode = true) {
     const projects = Array.from(seen.values()).map(x => ({ ...x.project, _lastSyncedAt: x.updatedAt }));
     // v71：讀請款網站細項(billing_items)，算每案同步疊加層 _billingSync（不污染原 quote/billing）
     try {
-      const bills = await sbFetch("billing_items?select=project_id,category,name,quote,billing");
+      const bills = await sbFetch("billing_items?select=project_id,category,name,quote,cost,billing");
       const byProj = {};
       for (const b of (bills || [])) (byProj[b.project_id] = byProj[b.project_id] || []).push(b);
       projects.forEach(p => {
@@ -254,8 +254,10 @@ async function cloudLoadProjects(currentUser, allUsers, devMode = true) {
           const totalRow = list.find(x => x.name === "__CATEGORY_TOTAL__");
           const itemsArr = list.filter(x => x.name !== "__CATEGORY_TOTAL__");
           const sumQ = itemsArr.reduce((s, x) => s + num(x.quote), 0); // 細項報價加總
-          if (sumQ > 0) syncQuote[cat] = sumQ;
-          else if (totalRow && num(totalRow.quote) > 0) syncQuote[cat] = num(totalRow.quote);
+          const sumC = itemsArr.reduce((s, x) => s + num(x.cost), 0); // 細項成本加總
+          const price = sumQ > 0 ? sumQ : (totalRow ? num(totalRow.quote) : 0);
+          const cost = sumC > 0 ? sumC : (totalRow ? num(totalRow.cost) : 0);
+          if (price > 0 || cost > 0) syncQuote[cat] = { price, cost };
           const sumB = itemsArr.reduce((s, x) => s + num(x.billing), 0);
           if (sumB > 0) syncBilling[cat] = sumB;
         });
@@ -2804,8 +2806,12 @@ function effectiveQuoteBilling(p) {
   const quote = { ...(p.quote || {}) };
   const billing = { ...(p.billing || {}) };
   if (sync) {
-    for (const [cat, price] of Object.entries(sync.quote || {})) {
-      if (!num(quote[cat]?.price)) quote[cat] = { ...(quote[cat] || {}), price };
+    for (const [cat, sq] of Object.entries(sync.quote || {})) {
+      const cur = quote[cat] || {};
+      const merged = { ...cur };
+      if (!num(cur.price) && num(sq.price)) merged.price = sq.price;
+      if (!num(cur.cost) && num(sq.cost)) merged.cost = sq.cost;
+      quote[cat] = merged;
     }
     for (const [cat, amt] of Object.entries(sync.billing || {})) billing[cat] = amt;
   }
