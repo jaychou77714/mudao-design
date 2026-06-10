@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v71.1";
+const APP_VERSION = "v71.2";
 const APP_RELEASE_DATE = "2026-05-07";
 // deploy-trigger 20260609-021222: 重連正式 project 觸發部署
 
@@ -253,7 +253,9 @@ async function cloudLoadProjects(currentUser, allUsers, devMode = true) {
         Object.entries(byCat).forEach(([cat, list]) => {
           const totalRow = list.find(x => x.name === "__CATEGORY_TOTAL__");
           const itemsArr = list.filter(x => x.name !== "__CATEGORY_TOTAL__");
-          if (totalRow && num(totalRow.quote) > 0) syncQuote[cat] = num(totalRow.quote);
+          const sumQ = itemsArr.reduce((s, x) => s + num(x.quote), 0); // 細項報價加總
+          if (sumQ > 0) syncQuote[cat] = sumQ;
+          else if (totalRow && num(totalRow.quote) > 0) syncQuote[cat] = num(totalRow.quote);
           const sumB = itemsArr.reduce((s, x) => s + num(x.billing), 0);
           if (sumB > 0) syncBilling[cat] = sumB;
         });
