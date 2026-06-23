@@ -6,7 +6,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DEVELOPER_EMAIL = "storyhomedesign@gmail.com";
 
 // v68.8：App 版本資訊
-const APP_VERSION = "v71.4";
+const APP_VERSION = "v71.5";
 const APP_RELEASE_DATE = "2026-05-07";
 // deploy-trigger 20260609-021222: 重連正式 project 觸發部署
 
@@ -3215,7 +3215,7 @@ function Modal({ children, onClose, title }) {
     </div>
   );
 }
-function ProjectCard({ p, onClick, allUsers = [], onWaitingToggle = null, hasNewComment = false }) {
+function ProjectCard({ p, onClick, allUsers = [], onWaitingToggle = null, hasNewComment = false, onTransfer = null }) {
   // v70.19：提案中 / 已簽約 / 施工中 / 完工 全套 D 方案
   if (["提案中", "已簽約", "施工中", "完工"].includes(p.stage)) {
     const stage = p.stage;
@@ -3414,6 +3414,12 @@ function ProjectCard({ p, onClick, allUsers = [], onWaitingToggle = null, hasNew
             <div style={{ fontSize: 12, color: "#555" }}>{p.client && `${p.client} · `}{p.address}</div>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
+            {onTransfer && (
+              <button onClick={(e) => { e.stopPropagation(); onTransfer(p); }} title="轉讓案件給其他人"
+                style={{ background: "rgba(120,140,200,0.15)", border: "1px solid rgba(120,140,200,0.4)", borderRadius: 5, padding: "3px 8px", fontSize: 11, color: "#9db0e0", cursor: "pointer", whiteSpace: "nowrap", fontWeight: 600 }}>
+                ⇄ 轉讓
+              </button>
+            )}
             {hasNewComment && (
               <span style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 11, color: "#ff8a8a", background: "rgba(224,91,91,0.15)", border: "1px solid rgba(224,91,91,0.35)", borderRadius: 4, padding: "2px 7px", whiteSpace: "nowrap" }}>
                 <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#e05b5b" }} />有新留言
@@ -4642,6 +4648,18 @@ export default function App() {
   }
 
   // v34/v45：切換等待狀態（提案中=waitingClient，已簽約=waitingContract）
+  const [transferProject, setTransferProject] = useState(null);
+  // v71.5：轉讓案件（換負責設計師）
+  async function doTransfer(p, newDesigner) {
+    if (!newDesigner || newDesigner === p.designer) { setTransferProject(null); return; }
+    const updated = { ...p, designer: newDesigner };
+    setProjects(prev => prev.map(x => x.id === p.id ? updated : x));
+    setTransferProject(null);
+    cloudSaveProject(updated, updated.ownerEmail || currentUser.email).then(ok => {
+      setCloudMsg(ok ? `✓ 已轉讓給 ${newDesigner}` : "⚠️ 轉讓同步失敗，請重試");
+    });
+  }
+
   async function toggleWaitingClient(p) {
     let updated;
     if (p.stage === "已簽約") {
@@ -5144,6 +5162,31 @@ export default function App() {
   return (
     <ErrorBoundary>
     <VersionChecker />
+    {/* v71.5：轉讓案件 Modal */}
+    {transferProject && (
+      <div onClick={() => setTransferProject(null)} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.55)", display: "flex", alignItems: "center", justifyContent: "center", padding: 16, zIndex: 300 }}>
+        <div onClick={e => e.stopPropagation()} style={{ background: "#252830", borderRadius: 16, width: "100%", maxWidth: 380, maxHeight: "80vh", overflow: "auto", padding: 20, border: "1px solid rgba(255,255,255,0.1)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
+            <div style={{ fontSize: 16, fontWeight: 700, color: "#f0ead8" }}>⇄ 轉讓案件</div>
+            <button onClick={() => setTransferProject(null)} style={{ background: "transparent", border: "none", fontSize: 20, color: "#888", cursor: "pointer" }}>✕</button>
+          </div>
+          <div style={{ fontSize: 13, color: "#aaa", marginBottom: 4 }}>{getProjectDisplayName(transferProject)}</div>
+          <div style={{ fontSize: 12, color: "#777", marginBottom: 14 }}>目前負責：{transferProject.designer || "未指派"}　→　選擇新負責設計師：</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            {allUsers.filter(u => u.name && u.name !== transferProject.designer).map(u => (
+              <button key={u.email || u.name} onClick={() => doTransfer(transferProject, u.name)}
+                style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", borderRadius: 10, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "#f0ead8", fontSize: 14, cursor: "pointer", textAlign: "left" }}>
+                <span style={{ width: 9, height: 9, borderRadius: "50%", background: ROLE_COLORS[u.role] || "#888", flexShrink: 0 }} />
+                <span style={{ flex: 1 }}>{u.name}</span>
+              </button>
+            ))}
+            {allUsers.filter(u => u.name && u.name !== transferProject.designer).length === 0 && (
+              <div style={{ fontSize: 12, color: "#777", textAlign: "center", padding: 16 }}>沒有其他可轉讓的人員</div>
+            )}
+          </div>
+        </div>
+      </div>
+    )}
     {/* v68 問題 4：留言板 Modal */}
     {commentsModalOpen && activeProject && (
       <ProjectCommentsModal
@@ -5842,7 +5885,7 @@ export default function App() {
                           {/* v52：桌機版 2 欄 grid（手機自動退化為單欄） */}
                           <div className="desktop-grid-projects">
                             {designerProjects.map(p => (
-                              <ProjectCard key={p.id} p={p} onClick={() => openDetail(p)} allUsers={allUsers} onWaitingToggle={toggleWaitingClient} hasNewComment={getUnreadCommentsCount(p, currentUser) > 0} />
+                              <ProjectCard key={p.id} p={p} onClick={() => openDetail(p)} allUsers={allUsers} onWaitingToggle={toggleWaitingClient} hasNewComment={getUnreadCommentsCount(p, currentUser) > 0} onTransfer={setTransferProject} />
                             ))}
                           </div>
                         </div>
